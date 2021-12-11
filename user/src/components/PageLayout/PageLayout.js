@@ -3,7 +3,8 @@ import "./PageLayout.style.scss";
 
 import { Layout, Breadcrumb  } from "antd";
 import Sidebar from "../Sidebar/Sidebar";
-const { Header, Content, Footer } = Layout;
+import Header from "../Header/Header";
+const { Content, Footer } = Layout;
 
 const PageLayout = () => {
   return (
@@ -11,7 +12,7 @@ const PageLayout = () => {
       <Layout style={{ minHeight: "100vh"}}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">
-          <Header className="site-layout-background" style={{ padding: 0 }} />
+          <Header/>
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
