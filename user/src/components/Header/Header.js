@@ -11,24 +11,19 @@ const { Search } = Input;
 const CustomHeader = () => {
   return (
     <div>
-      <Header className="site-layout-background" style={{ height: 70 }}>
+      <Header className="site-layout-background">
         <Space direction="horizontal">
           <Search placeholder="Search Ideas" size="large" enterButton />
         </Space>
 
         <Avatar
-          icon={<UserOutlined style={{ color: "var(--white)" }} />}
-          style={{
-            float: "right",
-            marginTop: "11px",
-            backgroundColor: "var(--primary-color)",
-          }}
+          icon={<UserOutlined className="profileIcon" />}
+          className="profilePicture"
           size={45}
         />
         <Badge size="default" count={5} className="notificationIcon">
           <FontAwesomeIcon
             icon={faBell}
-            stye={{ fontSize: "700px", float: "right" }}
           />
         </Badge>
       </Header>
