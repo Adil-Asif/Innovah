@@ -1,0 +1,17 @@
+.footerLayout {
+  padding: 15px 0px 0px 0px;
+  color: var(--white);
+  background-color: var(--dark-theme-color);
+  width: 130%;
+  height: 8vh;
+  font-size: 16px;
+  text-align: center;
+  margin-left: -30%;
+  .logo {
+    float: left;
+    margin-left: 13%;
+    img{
+        width: 120px;
+    }
+  }
+}

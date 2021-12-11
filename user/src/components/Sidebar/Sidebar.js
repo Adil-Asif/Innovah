@@ -21,8 +21,8 @@ const Sidebar = () => {
  
 
   return (
-    <div>
-      <Sider style={{ height: "100vh" }}>
+    <div   className="siderLayout">
+      <Sider className="siderLayout">
         <div>
           <img alt="LOGO" src={Logo} className="Logo" />
         </div>

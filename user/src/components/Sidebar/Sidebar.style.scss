@@ -1,5 +1,9 @@
+.siderLayout{
+  height: 94vh;
+}
+
 .Logo {
-  margin: 16px 16px 45px 16px !important;
+  margin: 15px 16px 55px 23px !important;
   width: 130px;
 }
 .ant-layout {
@@ -32,8 +36,8 @@
       .ant-menu-item {
         margin-bottom: 0px;
         .ant-menu-item-icon {
-          font-size: 13px;
-          margin-left: -28px;
+          font-size: 10px;
+          margin-left: -32px;
           padding: 3px;
           color: var(--white);
         }
