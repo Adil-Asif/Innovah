@@ -5,8 +5,17 @@
     --primary-color: #5C7AEA;
     --layout-background: #f2f2f2;
     --white: #fff;
+    --black: #000000;
+    --gray: #808080;
     --dark-theme-color: #001529;
+    --placeholoder-color:#AAAAAA;
+    --textbox-border: #d9d9d9;
+    --textbox-shadow: #719ECE;
+    
+    
     /* Fonts */
     --font-family-logo:  'M PLUS Rounded 1c', sans-serif;
-    --font-family-sidebar: 'Source Sans 3', sans-serif;
+    --font-family-sidebar-sourcesans: 'Source Sans 3', sans-serif;
+    --font-family-placeholder: 'PT Sans', sans-serif;
+    --font-family-roboto: 'Roboto', sans-serif;
 }
