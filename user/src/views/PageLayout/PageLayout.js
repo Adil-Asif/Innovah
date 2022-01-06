@@ -2,9 +2,9 @@ import React from "react";
 import "./PageLayout.style.scss";
 
 import { Layout  } from "antd";
-import Sidebar from "../Sidebar/Sidebar";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 const { Content } = Layout;
 
 const PageLayout = () => {
