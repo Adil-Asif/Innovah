@@ -1,13 +1,14 @@
 
 .site-layout-background{
   height: 70px;
+  background-color: var(--white);
 }
 
 .ant-input-group-wrapper {
   transform: translate(300px, 15px);
 
   .ant-input {
-    border: 2px solid #d9d9d9;
+    border: 2px solid var(--textbox-border);
     border-radius: 8px 0px 0px 8px;
     
   }
