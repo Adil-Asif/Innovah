@@ -16,13 +16,13 @@ const HomePage = () => {
     setPassword(passwordValue);
     console.log(passwordInput);
   };
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
+  // const onFinish = (values) => {
+  //   console.log("Success:", values);
+  // };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  // const onFinishFailed = (errorInfo) => {
+  //   console.log("Failed:", errorInfo);
+  // };
   return (
     <div>
       <Button type="primary" onClick={() => setIsModalVisible(true)}>
@@ -46,18 +46,18 @@ const HomePage = () => {
           initialValues={{
             remember: true,
           }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
+          // onFinish={onFinish}
+          // onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item
             name="emailInput"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Please input your username!",
+            //   },
+            // ]}
           >
             <Input
               type="email"
@@ -70,12 +70,12 @@ const HomePage = () => {
           <Form.Item
             label="Password"
             name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Please input your password!",
+            //   },
+            // ]}
           >
             <Input
               type="password"

@@ -1,11 +1,12 @@
 import React from "react";
 import "./RewardPage.style.scss";
-
+import PageTitle from "../../components/PageTitle/PageTitle";
 import { Layout } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import RewardItem from "../../components/RewardItem/RewardItem";
+import RewardImage from "../../assests/Images/Rewards.svg";
 const { Content } = Layout;
 
 const RewardPage = () => {
@@ -16,6 +17,20 @@ const RewardPage = () => {
         <Layout className="site-layout" data-theme="dark">
           <Header />
           <Content style={{ margin: "0 16px" }}>
+            <div className="titleSection">
+              <div>
+                <div className="pageTitle">
+                   <PageTitle title="Reward Shop"  /> 
+                </div>
+                <div className="innovahPoints">
+                  Your IP Points: <span className="points">1150</span>
+                </div>
+              </div>
+                <img
+                  src={RewardImage}
+                  alt="Reward Shop"
+                />
+            </div>
             <div className="rewardItemContainer">
               <div className="rewardItem">
                 <RewardItem

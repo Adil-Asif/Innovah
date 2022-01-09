@@ -1,23 +1,7 @@
-#title{
+.title{
     
-    width: 90%;
-    background-color: var(--white);
-    border-radius: 8px;
-    margin:3%;
-    border-color: var(--textbox-border);
-    
-    // margin-top:7%;
-    // margin-left: 7%;
-    height: 16vh;
-    #heading1{
-        padding-top: 20px;
-        //margin: 0px 0px 5px;
-        margin-left: 20px;
-        font-size:20px;
-        text-align: center;
-        margin-bottom: 48px;
-        border-bottom: 2px solid grey;
-        width: fit-content;
-    }
-    display:flex;    
+    font-size:30px;
+    font-family: var(--font-family-title);
+    border-bottom: 2px solid var(--textbox-border);
+    width: fit-content;   
 }
