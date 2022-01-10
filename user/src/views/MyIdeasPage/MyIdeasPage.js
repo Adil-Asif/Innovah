@@ -5,7 +5,7 @@ import { Layout, Row, Col} from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import MyIdeas from "../../assests/Images/MyIdeas.svg";
+import MyIdea from "../../assests/Images/MyIdeas.svg";
 import IdeasItem from "../../components/IdeasItem/IdeasItem";
 const { Content } = Layout;
 
@@ -19,9 +19,9 @@ const MyIdeasPage = () => {
           <Content style={{ margin: "0 16px" }}>
             <div className="titleSection">
               <div className="pageTitle">
-                <PageTitle title="Global Ideas" />
+                <PageTitle title="My Ideas" />
               </div>
-              <img src={MyIdeas} alt="My Ideas" />
+              <img src={MyIdea} alt="My Ideas" />
             </div>
             <div>
               <div className="ideaItemsDashboard">
