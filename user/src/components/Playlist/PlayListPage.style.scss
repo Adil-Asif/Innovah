@@ -1,0 +1,100 @@
+.mainblock{
+width: 90%;
+    background-color: var(--white);
+    border-radius: 8px;
+    margin:3%;
+    // margin-top: 1%;
+    border-color: var(--textbox-border);
+    margin-top: -2%;
+    // margin-top:7%;
+    // margin-left: 7%;
+    height: 16vh;
+    .checkicon{
+        margin-top: 3%;
+        margin-left: 1%;
+        width:5vw;
+        height:5vh;
+        
+        color: var(--gray);
+        //background-color: yellow;
+        // border-radius: 100%;
+    }
+    .image{
+        margin-left: 4%;
+        width: 7vw;
+        height:11vh;
+        background-color: var(--gray) ;
+    }
+    .spanblock{
+        
+        margin-left: 3%;
+        font-size: 20px;
+        position:relative;
+        top:-10px;
+        .nesteddiv{
+            position: relative;
+            top:-5px;
+            margin-left: 11%;
+
+        }
+    }
+    .enrollbutton{
+        position: relative;
+        top:-60px;
+        margin-left: 85%;
+        background-color:green;
+    }
+}
+.checkedmainblock{
+    width: 90%;
+    background-color: var(--white);
+    border-radius: 8px;
+    margin:3%;
+    border-color: var(--textbox-border);
+    margin-top: -2.7%;
+    // margin-top:7%;
+    // margin-left: 7%;
+    height: 16vh;
+    .checkcircleicon{
+        margin-top: 3%;
+        margin-left: 1%;
+        width:5vw;
+        height:5vh;
+        
+        color: green;
+        //background-color: yellow;
+        // border-radius: 100%;
+    }
+    .image{
+        margin-left: 4%;
+        width: 7vw;
+        height:11vh;
+        background-color: var(--gray) ;
+    }
+    .spanblock{
+        
+        margin-left: 3%;
+        font-size: 20px;
+        position:relative;
+        top:-10px;
+        .nesteddiv{
+            position: relative;
+            top:-5px;
+            margin-left: 11%;
+
+        }
+    }
+    
+}
+.Videoslist{
+    background-color: var(--white);
+    width: 90%;
+    background-color: var(--white);
+    border-radius: 8px;
+    margin:3%;
+    border-color: var(--textbox-border);
+    margin-top: -2.7%;
+    // margin-top:7%;
+    // margin-left: 7%;
+    height: 21vh;
+}
