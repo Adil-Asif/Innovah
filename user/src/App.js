@@ -1,9 +1,9 @@
 // import PageLayout from "./components/PageLayout/PageLayout";
 // import HomePage from "./views/HomePage/HomePage";
-import GlobalIdeasPage from "./views/GlobalIdeasPage/GlobalIdeasPage";
+import PageLayout from "./views/PageLayout/PageLayout";
 
 function App() {
-  return <GlobalIdeasPage/>;
+  return <PageLayout/>;
 }
 
 export default App;
