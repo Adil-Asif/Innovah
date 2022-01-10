@@ -4,10 +4,11 @@ import { Modal, Button, Form } from "antd";
 import Input from "../../components/Input/Input";
 import SignUpHeader from "../../components/SignUpHeader/SignUpHeader";
 const HomePage = () => {
-  console.log("Hello world")
+ console.log("Hello world")
   return(
     <>
   <SignUpHeader/>
+
 
  <div className="tagLines">
 <h3>Digital Incubation Platform</h3>
