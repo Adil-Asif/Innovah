@@ -21,7 +21,7 @@ const GlobalIdeasPage = () => {
               <div className="pageTitle">
                 <PageTitle title="Global Ideas" />
               </div>
-              <img src={GlobalIdeas} alt="Reward Shop" />
+              <img src={GlobalIdeas} alt="Global Ideas" />
             </div>
             <div>
               <div className="ideaItemsDashboard">
@@ -52,7 +52,7 @@ const GlobalIdeasPage = () => {
                           views="200"
                           comments="5"
                           imageUrl={
-                            require("../../assests/Images/IdeasImage/ECommerce.jpg")
+                            require("../../assests/Images/IdeasImage/EduLane.jpg")
                               .default
                           }
                           global={true}
@@ -68,7 +68,7 @@ const GlobalIdeasPage = () => {
                           views="50"
                           comments="3"
                           imageUrl={
-                            require("../../assests/Images/IdeasImage/ECommerce.jpg")
+                            require("../../assests/Images/IdeasImage/Facet.jpg")
                               .default
                           }
                           global={true}
@@ -84,7 +84,7 @@ const GlobalIdeasPage = () => {
                           views="3000"
                           comments="20"
                           imageUrl={
-                            require("../../assests/Images/IdeasImage/ECommerce.jpg")
+                            require("../../assests/Images/IdeasImage/Stream.jpg")
                               .default
                           }
                           global={true}
