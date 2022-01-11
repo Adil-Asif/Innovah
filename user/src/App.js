@@ -1,12 +1,12 @@
 
 
 // import PageLayout from "./views/PageLayout/PageLayout";
-import HomePage from "./views/HomePage/HomePage";
+import LearningResourcesPage from "./views/LectureVideoPage/LectureVideoPage";
 
 
 function App() {
   return( <>
- <HomePage/>
+ <LearningResourcesPage/>
   </>
   )
 }
