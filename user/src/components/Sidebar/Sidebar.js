@@ -32,19 +32,7 @@ const Sidebar = (props) => {
           mode="inline"
           className="menu"
         >
-          <Menu.Item
-            className="antTitle"
-            key="1"
-            icon={
-              <img
-                alt="Dashboard Icon"
-                src={DashboardIcon}
-                className="customIcon dashboardIcon"
-              />
-            }
-          >
-            Dashboard
-          </Menu.Item>
+          
           <SubMenu
             key="sub1"
             className="antTitle"
@@ -151,6 +139,19 @@ const Sidebar = (props) => {
             }
           >
             Competitions
+          </Menu.Item>
+          <Menu.Item
+            className="antTitle"
+            key="1"
+            icon={
+              <img
+                alt="Reward Icon"
+                src={DashboardIcon}
+                className="customIcon dashboardIcon"
+              />
+            }
+          >
+            Rewards
           </Menu.Item>
         </Menu>
       </Sider>
