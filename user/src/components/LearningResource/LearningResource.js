@@ -31,7 +31,7 @@ const LearningResourcesTitle1 = (props) => {
         <></>
       ) : (
         <Button type="primary" shape="round">
-          Enroll Now <FontAwesomeIcon icon={faAngleDoubleRight} className="icon"/>
+          Enroll Now <FontAwesomeIcon icon={faAngleDoubleRight} className=""/>
         </Button>
       )}
     </div>
