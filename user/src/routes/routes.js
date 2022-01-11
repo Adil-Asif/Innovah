@@ -9,6 +9,8 @@ import WorkItems from "../views/ProjectManagement/WorkITems";
 import InventoryManagement from "../views/ProjectManagement/InventoryManagement";
 import AddIdeaPage from "../views/AddIdeaPage/AddIdeaPage";
 import ViewIdeasPage from "../views/ViewIdeasPage/ViewIdeasPage";
+import LearningResourcesPage from "../views/LearningResourcesPage/LearningResourcesPage";
+import ConnectionsPageView from "../views/ConnectionsPage/ConnectionsPageView";
 
 
 const Routers = () => {
@@ -24,6 +26,9 @@ const Routers = () => {
             <Route exact path="/ideas/myideas" element={<MyIdeasPage/>}/>
             <Route exact path="/ideas/globalideas" element={<GlobalIdeasPage/>}/>
             <Route exact path="/ideas" element={<ViewIdeasPage/>}/>   
+            <Route exact path="/learningresources" element={<LearningResourcesPage/>}/>   
+           
+            
         </Routes>
     )
 }

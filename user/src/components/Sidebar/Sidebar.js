@@ -33,7 +33,9 @@ const moveToGlobalIdeas=()=>{
   const navigatetoIdeaspage=()=>{
     navigate('/ideas')
   }
-
+const navigatetoLearningResources=()=>{
+navigate("/learningresources")
+}
   return (
     <div   className="siderLayout">
       <Sider className="siderLayout">
@@ -127,6 +129,7 @@ const moveToGlobalIdeas=()=>{
             </Menu.Item>
           </SubMenu>
           <Menu.Item
+          onClick={()=>{navigatetoLearningResources()}}
             key="8"
             className="extraMargin antTitle"
             icon={

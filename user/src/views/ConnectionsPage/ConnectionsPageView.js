@@ -8,7 +8,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import PageTitle from "../../components/PageTitle/PageTitle";
 
-import ConnectionsPage from "../../components/ConnectionsPage/ConnectionsPage";
+import ConnectionsPage from "./../../components/ConnectionsPage";
 const { Content } = Layout;
 // <PageTitle title="My Request" />
 const ConnectionsPageView = () => {
