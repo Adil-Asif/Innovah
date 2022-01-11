@@ -24,7 +24,10 @@ const AddRequestPage = () => {
               </div>
               <img src={AddRequest} alt="Add Request" />
             </div>
+            <div className="reqform">
+
             <AddRequestForm />
+            </div>
           </Content>
           <Footer />
         </Layout>

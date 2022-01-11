@@ -48,20 +48,9 @@ navigate("/learningresources")
           mode="inline"
           className="menu"
         >
-          <Menu.Item
-            className="antTitle"
-            key="1"
-            icon={
-              <img
-                alt="Dashboard Icon"
-                src={DashboardIcon}
-                className="customIcon dashboardIcon"
-              />
-            }
-          >
-            Dashboard
-          </Menu.Item>
-          <SubMenu onTitleClick={()=>{navigatetoIdeaspage()}}
+          
+          <SubMenu
+
             key="sub1"
             className="antTitle"
             icon={<img alt="Idea Icon" src={IdeaIcon} className="customIcon" />}
@@ -169,6 +158,19 @@ navigate("/learningresources")
             }
           >
             Competitions
+          </Menu.Item>
+          <Menu.Item
+            className="antTitle"
+            key="1"
+            icon={
+              <img
+                alt="Reward Icon"
+                src={DashboardIcon}
+                className="customIcon dashboardIcon"
+              />
+            }
+          >
+            Rewards
           </Menu.Item>
         </Menu>
       </Sider>
