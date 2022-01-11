@@ -1,3 +1,5 @@
+
+@import "../../style/Global.css";
 .ant-modal-content{
     border: 3.25px solid var(--primary-color);
     border-radius: 16px;
@@ -7,9 +9,73 @@
         text-align: center;
     }
     .ant-modal-body{
-
+text-align: left;
     }
     .ant-modal-footer{
 
     }
+}
+
+.tagLines{
+    margin-left: 127px;
+    margin-top: 40px;
+    Button{
+        background-color: white;
+        color: #5C7AEA;
+        height: 30px;
+        border: 1px solid #5C7AEA;
+       
+       .start-Today{
+ 
+        padding-top: -20px;   
+        
+       }
+    }
+}
+.innovah-tag{
+    margin-left: auto;
+    text-align: center;
+    .homepage-heading{
+        font-size: 40px;
+       
+        color: #5C7AEA;
+        font-weight: 400;
+        
+    }
+    .homepage-content{
+        width: 1273px;
+        height: 68px;
+   // display: flex;
+    justify-content: space-evenly;
+    }
+}
+.homepage-images{
+
+display: inline-block;
+margin-left: 50px;
+}
+#homeImages{
+ 
+}
+.image-text{
+color: #5C7AEA;
+text-align: center;
+}
+#team-image{
+    padding: 0px 30px;
+}
+#team-heading{
+    margin-left: 100px;
+}
+
+.fixing-footer{
+    
+    // border: 1px solid red;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-left: 400px;
+}
+#last-section{
+    padding-bottom: 200px;
 }

@@ -1,9 +1,14 @@
-// import PageLayout from "./components/PageLayout/PageLayout";
-// import HomePage from "./views/HomePage/HomePage";
-import MyIdeas from "./views/AddIdeaPage/AddIdeaPage";
+
+
+// import PageLayout from "./views/PageLayout/PageLayout";
+import HomePage from "./views/HomePage/HomePage";
+
 
 function App() {
-  return <MyIdeas/>;
+  return( <>
+ <HomePage/>
+  </>
+  )
 }
 
 export default App;

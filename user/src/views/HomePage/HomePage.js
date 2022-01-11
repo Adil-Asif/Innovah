@@ -2,110 +2,94 @@ import React, { useState } from "react";
 import "./HomePage.style.scss";
 import { Modal, Button, Form } from "antd";
 import Input from "../../components/Input/Input";
-
+import SignUpHeader from "../../components/SignUpHeader/SignUpHeader";
+import CustomFooter from "../../components/Footer/Footer";
+import idea_pitch from "../../assests/Images/HomepageImages/light-bulb.png"
 const HomePage = () => {
-  const [isModalVisible, setIsModalVisible] = useState("");
-  const [emailInput, setEmail] = useState(false);
-  const [passwordInput, setPassword] = useState("");
+  console.log("Hello world")
+  return(
+    <>
+  <SignUpHeader/>
 
-  const handleEmailInput = (emailValue) => {
-    setEmail(emailValue);
-    console.log(emailInput);
-  };
-  const handlePasswordInput = (passwordValue) => {
-    setPassword(passwordValue);
-    console.log(passwordInput);
-  };
-  // const onFinish = (values) => {
-  //   console.log("Success:", values);
-  // };
+ <div className="tagLines">
+<h3>Digital Incubation Platform</h3>
+<h3>Innovation we want, Let creativity soar</h3>
+<Button > <span className="start-Today"> Start Today </span></Button>
+ </div>
+<div className="innovah-tag">
+<div className="homepage-heading">
+What is Innovah?
+</div>
+<div className="homepage-content">
+Innovah is a business incubator platform for people who want to convert innovative ideas into products. It is a place for <br/> enterprenues, innovators, freelancers, to work for a better future. 
+</div>
+</div>
 
-  // const onFinishFailed = (errorInfo) => {
-  //   console.log("Failed:", errorInfo);
-  // };
-  return (
-    <div>
-      <Button type="primary" onClick={() => setIsModalVisible(true)}>
-        Login
-      </Button>
-      <Modal
-        title="Sign in to Innovah"
-        centered
-        visible={isModalVisible}
-        onOk={() => setIsModalVisible(false)}
-        onCancel={() => setIsModalVisible(false)}
-      >
-        <Form
-          name="basic"
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          initialValues={{
-            remember: true,
-          }}
-          // onFinish={onFinish}
-          // onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-            name="emailInput"
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: "Please input your username!",
-            //   },
-            // ]}
-          >
-            <Input
-              type="email"
-              id="email"
-              label="Email Address"
-              parentCallback={handleEmailInput}
-            />
-          </Form.Item>
+<div className="innovah-tag">
+<div className="homepage-heading">
+What we offer
+</div>
+<div className="homepage-content" id="homeImages">
+  <div className="homepage-images">
+<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<br/>
+<span className="image-text"> Idea Pitch </span>
+</div>
+<div className="homepage-images">
+<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<br/>
+<span className="image-text"> Idea Pitch </span>
+</div>
+<div className="homepage-images">
+<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<br/>
+<span className="image-text"> Idea Pitch </span>
+</div>
+<div className="homepage-images">
+<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<br/>
+<span className="image-text"> Idea Pitch </span>
+</div>
+<div className="homepage-images">
+<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<br/>
+<span className="image-text"> Idea Pitch </span>
+</div>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: "Please input your password!",
-            //   },
-            // ]}
-          >
-            <Input
-              type="password"
-              id="password"
-              label="Password"
-              //pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])"
-              parentCallback={handlePasswordInput}
-            />
-          </Form.Item>
 
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
 
-        {/* <div>
-          <Input type="text" />
-          <input type="text" required />
-        </div> */}
-        {/* <p>some contents...</p>
-        <p>some contents...</p> */}
-      </Modal>
-    </div>
+<div id="last-section" className="innovah-tag">
+<div id="team-heading" className="homepage-heading">
+Meet our Team
+</div>
+<div className="homepage-content">
+
+<div id="team-image" className="homepage-images">
+<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<br/>
+<span className="image-text"> Idea Pitch </span>
+</div>
+<div id="team-image" className="homepage-images">
+<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<br/>
+<span className="image-text"> Idea Pitch </span>
+</div>
+
+<div id="team-image" className="homepage-images">
+<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<br/>
+<span className="image-text"> Idea Pitch </span>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div className="fixing-footer">
+<CustomFooter/>
+</div>
+  </>
   );
 };
 
