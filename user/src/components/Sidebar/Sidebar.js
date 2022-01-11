@@ -16,7 +16,7 @@ const { SubMenu } = Menu;
 
 
 
-const Sidebar = () => {
+const Sidebar = (props) => {
 
  
 
@@ -28,7 +28,7 @@ const Sidebar = () => {
         </div>
         <Menu
           theme="dark"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={[props.PageKey]}
           mode="inline"
           className="menu"
         >
