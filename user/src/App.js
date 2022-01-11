@@ -1,7 +1,7 @@
 
 
 // import PageLayout from "./views/PageLayout/PageLayout";
-import LearningResourcesPage from "./views/LearningResourcesPage/LearningResourcesPage";
+import LearningResourcesPage from "./views/LectureVideoPage/LectureVideoPage";
 
 
 function App() {
