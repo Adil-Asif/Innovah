@@ -159,20 +159,28 @@ border-radius: 8px;
     .specific-task-heading{
         display: flex;
         flex-wrap: wrap;
-        margin-left: 30px;
-    }
+        margin-left: 3px;
+       
+       width: 95%;
+        justify-content: space-around;
+    
+    
     .ID-task{
-        padding-left: 5px;
-        width: 15%;
+         padding-left: 5px;
+        width: 5%;
     }
     .task-name{
-        width: 30%
+        width: 10%;
+      
+        margin-left: 8px;
     }
     .type{
-        width:  15%
+        width:  10%;
+       
     }
     .assigned-to {
-        width: 20%;
+        width: 10%;
+        margin-left: 20px;
     }
     .added-by{
 width: 10%;
@@ -180,14 +188,41 @@ width: 10%;
     .status{
         width: 10%;
     }
-
+    }
     .specific-task-description{
         border-radius: 8px;
         margin: 15px 0px;
         padding-top:6px ;
-        height: 7%;
+        height: 10%;
+        width: 95%;
         background-color: #fff;
         display: flex;
         flex-wrap: wrap;
         margin-left: 30px;
+        justify-content: space-around;
+        
+    
+    .ID-task{
+        padding-left: 5px;
+       width: 5%;
+      
+   }
+   .task-name{
+       width: 10%;
+      
+   }
+   .type{
+       width:  10%;
+      
+   }
+   .assigned-to {
+       width: 10%;
+       margin-left: 10px;
+   }
+   .added-by{
+width: 10%;
+   }
+   .status{
+       width: 10%;
+   }
     }

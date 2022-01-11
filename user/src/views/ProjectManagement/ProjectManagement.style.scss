@@ -23,25 +23,31 @@
    
    justify-content: space-around;
    flex-wrap: wrap;
+  
   }
-
+.projects:hover{
+box-shadow: 2px 2px 10px gray;}
   .projects{
       margin: 5px;
     padding: 20px;
     background-color: #fff;
     border-radius: 16px;
+    cursor: pointer;
 width: 40%;
       img{
         height: 100px;
         width: 100px;
+        border-radius: 18px;
       }
 
       .name-description{
         display: inline-block;
-      
+        padding: 1px;
+      width: 50%;
         margin-left: 20px;
     }
     .project-name{
+      
         font-size: 20px;
       //   font-weight: 400;
     }
@@ -79,7 +85,7 @@ width: 40%;
       display: flex;
      
       width: 50%;
-      margin-left: 50%;
+      margin-left: 40%;
       height: 30%;
       justify-content: space-evenly;
   }
