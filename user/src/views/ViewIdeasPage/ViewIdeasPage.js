@@ -83,7 +83,7 @@ const ViewIdeasPage = () => {
                       name= "Adil Asif"
                       description = "Scope of idea needs to be re-defined"
                       imageUrl={
-                        require("../../assests/Images/Adil.jpg")
+                        require("../../assests/Images/HomepageImages/Adil.jpg")
                           .default
                       }
                     />

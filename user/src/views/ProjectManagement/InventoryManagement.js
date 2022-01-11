@@ -8,7 +8,7 @@ import Footer from "../../components/Footer/Footer";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import AI_image from "./../../assests/Images/ProjectManagement/AI_project.jpg"
 import { Modal, Button } from 'antd';
-import { Form, Input, Checkbox } from 'antd';
+import { Form, Input } from 'antd';
 const { Content } = Layout;
 
 const InventoryManagement = () => {
