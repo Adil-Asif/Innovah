@@ -1,6 +1,6 @@
 // import PageLayout from "./components/PageLayout/PageLayout";
 // import HomePage from "./views/HomePage/HomePage";
-import MyIdeas from "./views/ViewIdeasPage/ViewIdeasPage";
+import MyIdeas from "./views/AddIdeaPage/AddIdeaPage";
 
 function App() {
   return <MyIdeas/>;
