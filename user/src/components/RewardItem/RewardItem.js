@@ -18,7 +18,6 @@ const RewardItem = (props) => {
         <div>
           <Button
             type="primary"
-            onClick={() => this.enterLoading(0)}
             shape="round"
           >
             Claim
