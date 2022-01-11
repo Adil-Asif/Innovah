@@ -40,6 +40,8 @@
         font-weight: 400;
     }
     .tasks{
+    padding: 5px;
+    cursor: pointer;
       
         img{
             height: 40px;
@@ -83,6 +85,7 @@
     .member-heading{
     // display: block;
     width: 100%;
+    font-size: 20px;
     }
 
     .Services-list{
@@ -108,4 +111,13 @@
     .Service-heading{
     display: block;
     width: 100%;
+    }
+    .sidebar-heads{
+        font-size: 18px;
+    }
+    .tracking-heading{
+        font-size: 20px;
+    }
+    .Service-heading{
+        font-size: 20px;
     }

@@ -4,7 +4,14 @@ import { Modal, Button, Form } from "antd";
 import Input from "../../components/Input/Input";
 import SignUpHeader from "../../components/SignUpHeader/SignUpHeader";
 import CustomFooter from "../../components/Footer/Footer";
-import idea_pitch from "../../assests/Images/HomepageImages/light-bulb.png"
+import idea_pitch from "../../assests/Images/HomepageImages/light-bulb.png";
+import  community from "../../assests/Images/HomepageImages/teamwork.png";
+import  training from "../../assests/Images/HomepageImages/analysis.png";
+import  projectManagement from "../../assests/Images/HomepageImages/project-management.png";
+import  competitons from "../../assests/Images/HomepageImages/problem.png";
+import adil from "../../assests/Images/HomepageImages/Adil.jpg";
+import hasaan from "../../assests/Images/HomepageImages/hasaan.png";
+import rafay from "../../assests/Images/HomepageImages/rafay.png";
 const HomePage = () => {
   console.log("Hello world")
   return(
@@ -27,7 +34,7 @@ Innovah is a business incubator platform for people who want to convert innovati
 
 <div className="innovah-tag">
 <div className="homepage-heading">
-What we offer
+What we offer?
 </div>
 <div className="homepage-content" id="homeImages">
   <div className="homepage-images">
@@ -36,24 +43,24 @@ What we offer
 <span className="image-text"> Idea Pitch </span>
 </div>
 <div className="homepage-images">
-<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<img src={community} alt="idea-Pitch" height="100px" />
 <br/>
-<span className="image-text"> Idea Pitch </span>
+<span className="image-text"> Community</span>
 </div>
 <div className="homepage-images">
-<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<img src={training} alt="idea-Pitch" height="100px" />
 <br/>
-<span className="image-text"> Idea Pitch </span>
+<span className="image-text"> Training </span>
 </div>
 <div className="homepage-images">
-<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<img src={projectManagement} alt="idea-Pitch" height="100px" />
 <br/>
-<span className="image-text"> Idea Pitch </span>
+<span className="image-text"> Project Management </span>
 </div>
 <div className="homepage-images">
-<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<img src={competitons} alt="idea-Pitch" height="80px" width="40px" />
 <br/>
-<span className="image-text"> Idea Pitch </span>
+<span className="image-text"> Competitons </span>
 </div>
 
 
@@ -65,20 +72,20 @@ Meet our Team
 <div className="homepage-content">
 
 <div id="team-image" className="homepage-images">
-<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<img src={adil} alt="idea-Pitch" height="100px" />
 <br/>
-<span className="image-text"> Idea Pitch </span>
+<span className="image-text"> Adil Asif </span>
 </div>
 <div id="team-image" className="homepage-images">
-<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<img src={rafay} alt="idea-Pitch" height="100px" />
 <br/>
-<span className="image-text"> Idea Pitch </span>
+<span className="image-text"> Syed Abdurraffay </span>
 </div>
 
 <div id="team-image" className="homepage-images">
-<img src={idea_pitch} alt="idea-Pitch" height="100px" />
+<img src={hasaan} alt="idea-Pitch" height="100px" />
 <br/>
-<span className="image-text"> Idea Pitch </span>
+<span className="image-text"> Muhammad Hasaan </span>
 </div>
 
 </div>

@@ -7,9 +7,12 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import MyIdea from "../../assests/Images/MyIdeas.svg";
 import IdeasItem from "../../components/IdeasItem/IdeasItem";
+
 const { Content } = Layout;
 
 const MyIdeasPage = () => {
+
+  
   return (
     <div>
       <Layout style={{ minHeight: "100vh" }}>

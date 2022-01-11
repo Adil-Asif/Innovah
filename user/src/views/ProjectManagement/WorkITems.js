@@ -53,7 +53,7 @@ const WorkItems = () => {
                     <Header />
                     <Content style={{ margin: '0 16px' }}>
                         <div className="Project-heading">
-                            <PageTitle title="Work Items" />
+                            <PageTitle title="Tasks Status" />
                             <Button type="primary" danger >
                                 Delete
                             </Button>

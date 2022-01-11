@@ -9,7 +9,7 @@ import RequestIcon from "../../assests/Images/Icons/Request.png";
 import LearnigResourcesIcon from "../../assests/Images/Icons/LearningResources.png";
 import ProjectManagementIcon from "../../assests/Images/Icons/ProjectManagement.png";
 import CompetitionIcon from "../../assests/Images/Icons/Competition.png";
-
+import { useNavigate } from "react-router-dom";
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -17,9 +17,25 @@ const { SubMenu } = Menu;
 
 
 const Sidebar = (props) => {
-
- 
-
+  let navigate = useNavigate();
+const projectManagementpage =()=>{
+  navigate('/projectmanagement/')
+} 
+const moveToAddIdea = ()=>{
+  navigate('/ideas/addidea')
+}
+const moveToMyIdeas=()=>{
+navigate('/ideas/myideas')
+}
+const moveToGlobalIdeas=()=>{
+  navigate('/ideas/globalideas')
+  }
+  const navigatetoIdeaspage=()=>{
+    navigate('/ideas')
+  }
+const navigatetoLearningResources=()=>{
+navigate("/learningresources")
+}
   return (
     <div   className="siderLayout">
       <Sider className="siderLayout">
@@ -45,13 +61,13 @@ const Sidebar = (props) => {
           >
             Dashboard
           </Menu.Item>
-          <SubMenu
+          <SubMenu onTitleClick={()=>{navigatetoIdeaspage()}}
             key="sub1"
             className="antTitle"
             icon={<img alt="Idea Icon" src={IdeaIcon} className="customIcon" />}
             title="Ideas"
           >
-            <Menu.Item
+            <Menu.Item onClick={()=>{moveToAddIdea()}}
               key="2"
               icon={
                 <FontAwesomeIcon
@@ -63,12 +79,13 @@ const Sidebar = (props) => {
               Add Idea
             </Menu.Item>
             <Menu.Item
+            onClick={()=>{moveToMyIdeas()}}
               key="3"
               icon={<FontAwesomeIcon icon={faCircle} className="customIcon" />}
             >
               My Ideas
             </Menu.Item>
-            <Menu.Item
+            <Menu.Item onClick={()=>{moveToGlobalIdeas()}}
               key="4"
               icon={<FontAwesomeIcon icon={faCircle} className="customIcon" />}
             >
@@ -112,6 +129,7 @@ const Sidebar = (props) => {
             </Menu.Item>
           </SubMenu>
           <Menu.Item
+          onClick={()=>{navigatetoLearningResources()}}
             key="8"
             className="extraMargin antTitle"
             icon={
@@ -126,7 +144,7 @@ const Sidebar = (props) => {
             <br />
             Resources
           </Menu.Item>
-          <Menu.Item
+          <Menu.Item onClick={()=>{projectManagementpage()}}
             className="antTitle"
             key="9"
             icon={

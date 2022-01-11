@@ -35,7 +35,9 @@ text-align: left;
 .innovah-tag{
     margin-left: auto;
     text-align: center;
+    margin-top: 30px;
     .homepage-heading{
+       padding-bottom: 10px;
         font-size: 40px;
        
         color: #5C7AEA;
@@ -53,6 +55,10 @@ text-align: left;
 
 display: inline-block;
 margin-left: 50px;
+img{
+    height: 80px;
+    width: 80px;
+}
 }
 #homeImages{
  
@@ -78,4 +84,12 @@ text-align: center;
 }
 #last-section{
     padding-bottom: 200px;
+}
+#team-image{
+        img{
+            border-radius: 16px;
+
+            height: 150px;
+        width: 150px;
+    }
 }

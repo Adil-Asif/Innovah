@@ -6,10 +6,18 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import AI_image from "./../../assests/Images/ProjectManagement/AI_project.jpg"
+import AI_image from "./../../assests/Images/ProjectManagement/AI_project.jpg";
+import Stream from "./../../assests/Images/IdeasImage/Stream.jpg";
+
+
+import { useNavigate } from "react-router-dom";
 const { Content } = Layout;
 
 const ProjectManagement = () => {
+    const navigate = useNavigate()
+    const navigationToSpecificProject=()=>{
+        navigate('/projectmanagement/specificproject')
+    }
     return (
         <div>
             <Layout style={{ minHeight: "100vh" }}>
@@ -22,10 +30,10 @@ const ProjectManagement = () => {
 
                         </div>
                         <div className="your-projects">
-                            <div className="projects">
-                                <img src={AI_image} alt="" />
+                            <div onClick={()=>{navigationToSpecificProject()}} className="projects">
+                                <img src={Stream} alt="" />
                                 <div className="name-description">
-                                    <span className="project-name">  Name  </span> <br /> <div className="project-description"> Short Description</div>
+                                    <span className="project-name">  Stream.Io  </span> <br /> <div className="project-description"> Online Straming platform</div>
 
                                 </div>
                                 <div className="members-list">
