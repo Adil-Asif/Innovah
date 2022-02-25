@@ -11,12 +11,15 @@ import AddIdeaPage from "../views/AddIdeaPage/AddIdeaPage";
 import ViewIdeasPage from "../views/ViewIdeasPage/ViewIdeasPage";
 import LearningResourcesPage from "../views/LearningResourcesPage/LearningResourcesPage";
 import ConnectionsPageView from "../views/ConnectionsPage/ConnectionsPageView";
+import RewardPage from "../views/RewardPage/RewardPage";
+import ViewRequestsPage from "../views/ViewRequestsPage/ViewRequestsPage";
+import AddRequestPage from "../views/AddRequestPage/AddRequestPage";
 
 
 const Routers = () => {
     return (
         <Routes>
-            <Route exact path="/" element={<HomePage />} />
+            {/* <Route exact path="/" element={<HomePage />} />
             <Route exact path="/signup" element={<SignUp/>}/>
             <Route exact path="/projectmanagement"   element={<ProjectManagement/>} />
             <Route exact path="/projectmanagement/specificproject"   element={<SpecificProject/>} />
@@ -26,8 +29,9 @@ const Routers = () => {
             <Route exact path="/ideas/myideas" element={<MyIdeasPage/>}/>
             <Route exact path="/ideas/globalideas" element={<GlobalIdeasPage/>}/>
             <Route exact path="/ideas" element={<ViewIdeasPage/>}/>   
-            <Route exact path="/learningresources" element={<LearningResourcesPage/>}/>   
-           
+            <Route exact path="/learningresources" element={<LearningResourcesPage/>}/>    */}
+            <Route exact path="/rewards" element={<RewardPage/>}/>
+            <Route exact path="/post-request" element={<AddRequestPage/>}/>
             
         </Routes>
     )

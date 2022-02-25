@@ -1,5 +1,5 @@
 import React from "react";
-import "./AddRequest.style.scss";
+import "./AddRequest.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "antd";
