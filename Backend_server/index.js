@@ -16,7 +16,7 @@ app.use(jsonParser, bodyParser.urlencoded({ extended: false }))
 
 const port = process.env.PORT
 
-// this file will be used for basic routing whic means high level routes like 
+// this file will be used for basic routing which means high level routes like 
 //if we have Login pages all routes of Login will be like "/Login/Something/Something" so base route
 // which is of /Login will be defined here and then we will be going Login file in routes 
 //for further implementation 
