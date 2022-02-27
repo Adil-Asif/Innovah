@@ -1,5 +1,5 @@
 import React from "react";
-import "./Header.style.scss";
+import "./Header.scss";
 import { Layout, Input, Space, Avatar, Badge } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,8 +10,7 @@ const { Search } = Input;
 
 const CustomHeader = () => {
   return (
-    <div>
-      <Header className="site-layout-background">
+      <Header className="headerLayout">
         <Space direction="horizontal">
           <Search placeholder="Search Ideas" size="large" enterButton />
         </Space>
@@ -27,7 +26,6 @@ const CustomHeader = () => {
           />
         </Badge>
       </Header>
-    </div>
   );
 };
 

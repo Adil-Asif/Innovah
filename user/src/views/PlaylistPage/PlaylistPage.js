@@ -1,12 +1,11 @@
 import React from "react";
-import "../PageLayout/PageLayout.style.scss";
+import "./PlaylistPage.scss";
 
 import { Layout } from "antd";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import "./PlaylistPage.style.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Playlist from "../../assests/Images/Playlist.svg";
 import PlaylistItem from "../../components/Playlist/PlaylistItem";
@@ -14,7 +13,7 @@ const { Content } = Layout;
 
 const PLayListPage = () => {
   return (
-    <div>
+    <div className="playListPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">

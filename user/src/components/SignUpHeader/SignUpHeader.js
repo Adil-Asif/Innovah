@@ -1,5 +1,5 @@
 import React from "react";
-import "./Header.style.scss";
+import "./Header.scss";
 import { Layout, Input, Space, Avatar, Badge , Button} from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +11,7 @@ const { Search } = Input;
 
 const SignUpHeader = () => {
   return (
-    <div>
+    <div className="signUpHeader">
       <Header className="site-layout-background">
         <Space direction="horizontal">
             <img id="Logo_Image" src={Logo} alt="Logo of organisation" />

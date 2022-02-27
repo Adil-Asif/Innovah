@@ -1,5 +1,5 @@
 import React from "react";
-import "./RewardPage.style.scss";
+import "./RewardPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { Layout } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -11,7 +11,7 @@ const { Content } = Layout;
 
 const RewardPage = () => {
   return (
-    <div>
+    <div className="rewardPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">

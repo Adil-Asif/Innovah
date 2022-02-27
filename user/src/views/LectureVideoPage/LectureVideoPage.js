@@ -1,5 +1,5 @@
 import React from "react";
-import "./LectureVideoPage.style.scss";
+import "./LectureVideoPage.scss";
 
 import { Layout, Button } from "antd";
 
@@ -17,7 +17,7 @@ const { Content } = Layout;
 
 const LectureVideoPage = () => {
   return (
-    <div>
+  <div className="lectureVideoPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">

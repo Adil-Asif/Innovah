@@ -5,11 +5,11 @@ import {
   faCheck,
   faAngleDoubleRight,
 } from "@fortawesome/free-solid-svg-icons";
-import "./LearningResource.style.scss";
+import "./LearningResource.scss";
 import { Button } from "antd";
 const LearningResourcesTitle1 = (props) => {
   return (
-    <div className="mainblock">
+    <div className="learningResourceItemLayout">
       {props.iscompleted ? (
         <div className="incomplete">
           <FontAwesomeIcon icon={faCheckCircle} />

@@ -1,5 +1,5 @@
 import React from "react";
-import "../PageLayout/PageLayout.style.scss";
+// import "../PageLayout/PageLayout.style.scss";
 
 import { Layout } from "antd";
 

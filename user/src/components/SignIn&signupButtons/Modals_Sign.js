@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Modals_Sign.style.scss";
+import "./Modals_Sign.scss";
 import { Modal, Button, Form } from "antd";
 import Input from "../Input/Input";
 
@@ -27,9 +27,8 @@ const LoginModals = (props) => {
     console.log("Failed:", errorInfo);
   };
   return (
-    <div>
+    <div className="signInLayout">
 
-{/* <SignUpHeader/> */}
         <Button type="primary" onClick={() => setIsModalVisible(true)}>
         {props.title}
       </Button>

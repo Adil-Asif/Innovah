@@ -1,5 +1,5 @@
 import React from "react";
-import "./GlobalRequestsPage.style.scss";
+import "./GlobalRequestsPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { Layout, Row, Col } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -11,7 +11,7 @@ const { Content } = Layout;
 
 const GlobalRequestsPage = () => {
   return (
-    <div>
+    <div className="globalRequestsPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">
@@ -37,10 +37,7 @@ const GlobalRequestsPage = () => {
                           comments="5"
                           isapplicants={true}
                           applicants="2"
-                          imageUrl={
-                            require("../../assests/Images/IdeasImage/uiux.jpg")
-                              .default
-                          }
+                          imageUrl={require("../../assests/Images/IdeasImage/uiux.jpg")}
                           global={true}
                         />
                       </div>
@@ -55,10 +52,7 @@ const GlobalRequestsPage = () => {
                           comments="0"
                           isapplicants={true}
                           applicants="0"
-                          imageUrl={
-                            require("../../assests/Images/IdeasImage/mentor.png")
-                              .default
-                          }
+                          imageUrl={require("../../assests/Images/IdeasImage/mentor.png")}
                           global={true}
                         />
                       </div>
@@ -71,10 +65,7 @@ const GlobalRequestsPage = () => {
                           likes="0"
                           views="50"
                           comments="3"
-                          imageUrl={
-                            require("../../assests/Images/IdeasImage/react.jpg")
-                              .default
-                          }
+                          imageUrl={require("../../assests/Images/IdeasImage/react.jpg")}
                           global={true}
                         />
                       </div>
@@ -89,10 +80,7 @@ const GlobalRequestsPage = () => {
                           comments="20"
                           isapplicants={true}
                           applicants="10"
-                          imageUrl={
-                            require("../../assests/Images/IdeasImage/help.jpg")
-                              .default
-                          }
+                          imageUrl={require("../../assests/Images/IdeasImage/help.jpg")}
                           global={true}
                         />
                       </div>

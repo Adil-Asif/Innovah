@@ -1,20 +1,20 @@
 import React from "react";
-import styles from "./RewardItem.module.scss";
+import "./RewardItem.scss";
 import { Button } from "antd";
 
 const RewardItem = (props) => {
   return (
-    <div className={styles.RewardItem}>
-      <div className={styles.left}>
-        <div className={styles.listNumber}> {props.listNumber} </div>
-        <div className={styles.information}>
-          <div className={styles.title}>{props.title}</div>
-          <div className={styles.description}>{props.description}</div>
+    <div className="rewardItemLayout">
+      <div className="left">
+        <div className="listNumber"> {props.listNumber} </div>
+        <div className="information">
+          <div className="title">{props.title}</div>
+          <div className="description">{props.description}</div>
         </div>
       </div>
 
-      <div className={styles.right}>
-        <div className={styles.points}>{props.points} IP</div>
+      <div className="right">
+        <div className="points">{props.points} IP</div>
         <div>
           <Button
             type="primary"
