@@ -1,5 +1,5 @@
 import React from "react";
-import "./SpecificProject.style.scss";
+import "./SpecificProject.scss";
 
 import { Layout } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -21,7 +21,7 @@ const SpecificProject = () => {
         navigate('/projectmanagement/specificproject/Inventory')
     }
     return (
-        <div>
+        <div className="specificProjectPage">
             <Layout style={{ minHeight: "100vh" }}>
                 <Sidebar PageKey="9" />
                 <Layout className="site-layout" data-theme="dark">

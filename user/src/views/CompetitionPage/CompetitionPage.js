@@ -1,5 +1,5 @@
 import React from "react";
-import "./CompetitionPage.style.scss";
+import "./CompetitionPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { Layout, Button } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -13,7 +13,7 @@ const { Content } = Layout;
 
 const CompetitionPage = () => {
   return (
-    <div>
+    <div className="competitionPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">

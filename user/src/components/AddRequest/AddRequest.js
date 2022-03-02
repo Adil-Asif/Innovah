@@ -1,12 +1,12 @@
 import React from "react";
-import "./AddRequest.style.scss";
+import "./AddRequest.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "antd";
 
 const AddRequest = () => {
   return (
-    <div className="mainblock">
+    <div className="addRequestItem">
       <label className="ideatitlelabel">Idea Title</label>
       <input type="text" placeholder="Idea Title" className="ideatitle"></input>
       <br></br>

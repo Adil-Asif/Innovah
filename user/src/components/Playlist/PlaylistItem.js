@@ -5,12 +5,12 @@ import {
   faCheck,
   faAngleDoubleRight,
 } from "@fortawesome/free-solid-svg-icons";
-import "./PlaylistItem.style.scss";
+import "./PlaylistItem.scss";
 import { Button } from "antd";
 
 const PlaylistItem = (props) => {
   return (
-    <div className="mainblock">
+    <div className="playlistItem">
       {props.iscompleted ? (
         <div className="incomplete">
           <FontAwesomeIcon icon={faCheckCircle} />

@@ -1,10 +1,10 @@
 import React from "react";
-import "./RewardItem.style.scss";
+import "./RewardItem.scss";
 import { Button } from "antd";
 
 const RewardItem = (props) => {
   return (
-    <div className="RewardItem">
+    <div className="rewardItemLayout">
       <div className="left">
         <div className="listNumber"> {props.listNumber} </div>
         <div className="information">

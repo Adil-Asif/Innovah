@@ -1,5 +1,5 @@
 import React from "react";
-import "./ViewRequestsPage.style.scss";
+import "./ViewRequestsPage.scss";
 import { Layout, Row, Col, Empty } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
@@ -17,7 +17,7 @@ const { Content } = Layout;
 
 const ViewIdeasPage = () => {
   return (
-    <div>
+    <div className="viewRequestsPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">
@@ -29,10 +29,7 @@ const ViewIdeasPage = () => {
                   <RequestInfo
                     ideaName="Stream.io"
                     ideaAuthor="Adil Asif"
-                    imageUrl={
-                      require("../../assests/Images/IdeasImage/mentor.png")
-                        .default
-                    }
+                    imageUrl={require("../../assests/Images/IdeasImage/mentor.png")}
                   />
                 </Col>
                 <Col className="gutter-row rightSection" span={16}>
@@ -84,9 +81,7 @@ const ViewIdeasPage = () => {
                   <div className="title">Comments</div>
                   <div className="comments">
                     <Empty
-                      image={
-                        require("../../assests/Images/comments.svg").default
-                      }
+                      image={require("../../assests/Images/comments.svg").default}
                       imageStyle={{
                         height: 60,
                       }}

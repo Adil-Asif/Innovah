@@ -3,11 +3,11 @@ import { Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faPencil} from "@fortawesome/free-solid-svg-icons";
 
-import "./RequestInfo.style.scss";
+import "./RequestInfo.scss";
 
 const RequestInfo = (props) => {
   return (
-    <div className="RequestInfo">
+    <div className="requestInfoItemLayout">
       <img src={props.imageUrl} alt={props.ideaName} />
       <div className="description">
         Request Title: <span>{props.ideaName}</span>

@@ -1,5 +1,5 @@
 import React from "react";
-import "./ViewIdeasPage.style.scss";
+import "./ViewIdeasPage.scss";
 import { Layout, Row, Col } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
@@ -18,7 +18,7 @@ const { Content } = Layout;
 
 const ViewIdeasPage = () => {
   return (
-    <div>
+    <div className="viewIdeasPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">
@@ -32,10 +32,7 @@ const ViewIdeasPage = () => {
                     ideaAuthor="Adil Asif"
                     ideaStatus="Approved"
                     ideaVisibility="Private"
-                    imageUrl={
-                      require("../../assests/Images/IdeasImage/Stream.jpg")
-                        .default
-                    }
+                    imageUrl={require("../../assests/Images/IdeasImage/Stream.jpg")}
                   />
                 </Col>
                 <Col className="gutter-row rightSection" span={16}>
@@ -80,12 +77,9 @@ const ViewIdeasPage = () => {
                   <div className="title">Jury Remarks</div>
                   <div className="comments">
                     <Remarks
-                      name= "Adil Asif"
-                      description = "Scope of idea needs to be re-defined"
-                      imageUrl={
-                        require("../../assests/Images/HomepageImages/Adil.jpg")
-                          .default
-                      }
+                      name="Adil Asif"
+                      description="Scope of idea needs to be re-defined"
+                      imageUrl={require("../../assests/Images/HomepageImages/Adil.jpg")}
                     />
                   </div>
                 </Col>

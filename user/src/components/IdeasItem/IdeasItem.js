@@ -1,5 +1,5 @@
 import React from "react";
-import "./IdeasItem.style.scss";
+import "./IdeasItem.scss";
 import { Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,7 +10,7 @@ import {
 
 const IdeasItem = (props) => {
   return (
-    <div className="ideaItem">
+    <div className="ideaItemLayout">
       <img src={props.imageUrl} alt={props.ideaName} />
       <div className="information">
         <div className="title">{props.ideaName}</div>

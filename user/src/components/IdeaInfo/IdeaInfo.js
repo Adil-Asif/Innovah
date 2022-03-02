@@ -3,11 +3,11 @@ import { Button } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faPencil} from "@fortawesome/free-solid-svg-icons";
 
-import "./IdeaInfo.style.scss";
+import "./IdeaInfo.scss";
 
 const IdeaInfo = (props) => {
   return (
-    <div className="ideaInfo">
+    <div className="ideaInfoLayout">
       <img src={props.imageUrl} alt={props.ideaName} />
       <div className="description">
         Idea Name: <span>{props.ideaName}</span>
