@@ -26,6 +26,9 @@ const LoginModals = (props) => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  const postdata=()=>{
+    console.log("submitted data")
+  };
   return (
     <div className="signInLayout">
 
@@ -100,7 +103,7 @@ const LoginModals = (props) => {
               span: 16,
             }}
           >
-            <Button id="Submit_button" type="primary" htmlType="submit">
+            <Button id="Submit_button" type="primary" htmlType="submit" >
               Submit
             </Button>
           </Form.Item>
@@ -197,7 +200,7 @@ const LoginModals = (props) => {
               span: 16,
             }}
           >
-            <Button id="Submit_button" type="primary" htmlType="submit">
+            <Button id="Submit_button" type="primary" htmlType="submit" onSubmit={postdata}>
               Submit
             </Button>
           </Form.Item>

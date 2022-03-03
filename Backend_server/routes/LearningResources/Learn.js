@@ -3,5 +3,7 @@ const LearnController = require('../../controllers/LearningResources/LearnContro
 const router = express.Router()
 
 router.get('/',LearnController.getallitems)
+router.get('/playlist',LearnController.getplaylist)
+router.get('/playlist/video',LearnController.getvideo)
 module.exports=router
 // router.post()
