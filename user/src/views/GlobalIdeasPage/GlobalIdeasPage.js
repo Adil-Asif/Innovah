@@ -1,7 +1,7 @@
 import React from "react";
-import "./GlobalIdeasPage.style.scss";
+import "./GlobalIdeasPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import { Layout, Row, Col} from "antd";
+import { Layout, Row, Col } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -11,7 +11,7 @@ const { Content } = Layout;
 
 const GlobalIdeasPage = () => {
   return (
-    <div>
+    <div className="globalIdeasPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">
@@ -35,10 +35,7 @@ const GlobalIdeasPage = () => {
                           likes="900"
                           views="2000"
                           comments="500"
-                          imageUrl={
-                            require("../../assests/Images/IdeasImage/ECommerce.jpg")
-                              .default
-                          }
+                          imageUrl={require("../../assests/Images/IdeasImage/ECommerce.jpg")}
                           global={true}
                         />
                       </div>
@@ -51,10 +48,7 @@ const GlobalIdeasPage = () => {
                           likes="10"
                           views="200"
                           comments="5"
-                          imageUrl={
-                            require("../../assests/Images/IdeasImage/EduLane.jpg")
-                              .default
-                          }
+                          imageUrl={require("../../assests/Images/IdeasImage/EduLane.jpg")}
                           global={true}
                         />
                       </div>
@@ -67,26 +61,20 @@ const GlobalIdeasPage = () => {
                           likes="0"
                           views="50"
                           comments="3"
-                          imageUrl={
-                            require("../../assests/Images/IdeasImage/Facet.jpg")
-                              .default
-                          }
+                          imageUrl={require("../../assests/Images/IdeasImage/Facet.jpg")}
                           global={true}
                         />
                       </div>
                     </Col>
                     <Col className="gutter-row" span={8}>
-                      <div style={{paddingTop: "40px"}}>
+                      <div style={{ paddingTop: "40px" }}>
                         <IdeasItem
                           ideaName="Stream.io"
                           description="It is video streaming platform where content creators can upload their videos and monetize them. These videos will be available to watch all around the globe based on user watch history and preferences."
                           likes="100"
                           views="3000"
                           comments="20"
-                          imageUrl={
-                            require("../../assests/Images/IdeasImage/Stream.jpg")
-                              .default
-                          }
+                          imageUrl={require("../../assests/Images/IdeasImage/Stream.jpg")}
                           global={true}
                         />
                       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import "./AddRequestPage.style.scss";
+import "./AddRequestPage.scss";
 import { Layout } from "antd";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -12,7 +12,7 @@ const { Content } = Layout;
 
 const AddRequestPage = () => {
   return (
-    <div>
+    <div className="addRequestPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">

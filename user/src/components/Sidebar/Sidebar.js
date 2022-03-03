@@ -1,4 +1,4 @@
-import "./Sidebar.style.scss";
+import "./Sidebar.scss";
 import Logo from "../../assests/Images/Logo.png";
 import { Layout, Menu } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,168 +13,192 @@ import { useNavigate } from "react-router-dom";
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
-
-
-
 const Sidebar = (props) => {
   let navigate = useNavigate();
-const projectManagementpage =()=>{
-  navigate('/projectmanagement/')
-} 
-const moveToAddIdea = ()=>{
-  navigate('/ideas/addidea')
-}
-const moveToMyIdeas=()=>{
-navigate('/ideas/myideas')
-}
-const moveToGlobalIdeas=()=>{
-  navigate('/ideas/globalideas')
-  }
-  const navigatetoIdeaspage=()=>{
-    navigate('/ideas')
-  }
-const navigatetoLearningResources=()=>{
-navigate("/learningresources")
-}
-  return (
-    <div   className="siderLayout">
-      <Sider className="siderLayout">
-        <div>
-          <img alt="LOGO" src={Logo} className="Logo" />
-        </div>
-        <Menu
-          theme="dark"
-          defaultSelectedKeys={[props.PageKey]}
-          mode="inline"
-          className="menu"
-        >
-          
-          <SubMenu
+  const moveToAddIdea = () => {
+    navigate("/addidea");
+  };
+  const moveToMyIdeas = () => {
+    navigate("/myideas");
+  };
+  const moveToGlobalIdeas = () => {
+    navigate("/globalideas");
+  };
+  const moveToAddRequest = () => {
+    navigate("/addrequest");
+  };
+  const moveToGlobalRequests = () => {
+    navigate("/globalrequests");
+  };
+  const navigatetoLearningResources = () => {
+    navigate("/learningresources");
+  };
+  const projectManagementpage = () => {
+    navigate("/projectmanagement/");
+  };
+  const movetocompetitons = () => {
+    navigate("/competitons");
+  };
+  const moveToRewards = () => {
+    navigate("/rewards");
+  };
 
-            key="sub1"
-            className="antTitle"
-            icon={<img alt="Idea Icon" src={IdeaIcon} className="customIcon" />}
-            title="Ideas"
-          >
-            <Menu.Item onClick={()=>{moveToAddIdea()}}
-              key="2"
-              icon={
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  className="fontAwesomePlusIcon customIcon"
-                />
-              }
-            >
-              Add Idea
-            </Menu.Item>
-            <Menu.Item
-            onClick={()=>{moveToMyIdeas()}}
-              key="3"
-              icon={<FontAwesomeIcon icon={faCircle} className="customIcon" />}
-            >
-              My Ideas
-            </Menu.Item>
-            <Menu.Item onClick={()=>{moveToGlobalIdeas()}}
-              key="4"
-              icon={<FontAwesomeIcon icon={faCircle} className="customIcon" />}
-            >
-              All Ideas
-            </Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key="sub2"
-            className="antTitle"
-            icon={
-              <img
-                alt="Request Icon"
-                src={RequestIcon}
-                className="customIcon"
-              />
-            }
-            title="Requests"
-          >
-            <Menu.Item
-              key="5"
-              icon={
-                <FontAwesomeIcon
-                  icon={faPlus}
-                  className="fontAwesomePlusIcon customIcon"
-                />
-              }
-            >
-              Post Request
-            </Menu.Item>
-            <Menu.Item
-              key="6"
-              icon={<FontAwesomeIcon icon={faCircle} className="customIcon" />}
-            >
-              My Requests
-            </Menu.Item>
-            <Menu.Item
-              key="7"
-              icon={<FontAwesomeIcon icon={faCircle} className="customIcon" />}
-            >
-              All Requests
-            </Menu.Item>
-          </SubMenu>
+  return (
+    <Sider className="siderLayout">
+      <div>
+        <img alt="LOGO" src={Logo} className="Logo" />
+      </div>
+      <Menu
+        theme="dark"
+        defaultSelectedKeys={[props.PageKey]}
+        mode="inline"
+        className="menu"
+      >
+        <SubMenu
+          key="sub1"
+          className="antTitle"
+          icon={<img alt="Idea Icon" src={IdeaIcon} className="customIcon" />}
+          title="Ideas"
+        >
           <Menu.Item
-          onClick={()=>{navigatetoLearningResources()}}
-            key="8"
-            className="extraMargin antTitle"
+            onClick={() => {
+              moveToAddIdea();
+            }}
+            key="2"
             icon={
-              <img
-                alt="Learning Resources Icon"
-                src={LearnigResourcesIcon}
-                className="customIcon"
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="fontAwesomePlusIcon customIcon"
               />
             }
           >
-            Learning
-            <br />
-            Resources
-          </Menu.Item>
-          <Menu.Item onClick={()=>{projectManagementpage()}}
-            className="antTitle"
-            key="9"
-            icon={
-              <img
-                alt="Project Management Icon"
-                src={ProjectManagementIcon}
-                className="customIcon"
-              />
-            }
-          >
-            Project Management
+            Add Idea
           </Menu.Item>
           <Menu.Item
-            className="antTitle"
-            key="10"
-            icon={
-              <img
-                alt="Competition Icon"
-                src={CompetitionIcon}
-                className="customIcon"
-              />
-            }
+            onClick={() => {
+              moveToMyIdeas();
+            }}
+            key="3"
+            icon={<FontAwesomeIcon icon={faCircle} className="customIcon" />}
           >
-            Competitions
+            My Ideas
           </Menu.Item>
           <Menu.Item
-            className="antTitle"
-            key="1"
+            onClick={() => {
+              moveToGlobalIdeas();
+            }}
+            key="4"
+            icon={<FontAwesomeIcon icon={faCircle} className="customIcon" />}
+          >
+            All Ideas
+          </Menu.Item>
+        </SubMenu>
+        <SubMenu
+          key="sub2"
+          className="antTitle"
+          icon={
+            <img alt="Request Icon" src={RequestIcon} className="customIcon" />
+          }
+          title="Requests"
+        >
+          <Menu.Item
+            onClick={() => {
+              moveToAddRequest();
+            }}
+            key="5"
             icon={
-              <img
-                alt="Reward Icon"
-                src={DashboardIcon}
-                className="customIcon dashboardIcon"
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="fontAwesomePlusIcon customIcon"
               />
             }
           >
-            Rewards
+            Post Request
           </Menu.Item>
-        </Menu>
-      </Sider>
-    </div>
+          <Menu.Item
+            key="6"
+            icon={<FontAwesomeIcon icon={faCircle} className="customIcon" />}
+          >
+            My Requests
+          </Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              moveToGlobalRequests();
+            }}
+            key="7"
+            icon={<FontAwesomeIcon icon={faCircle} className="customIcon" />}
+          >
+            All Requests
+          </Menu.Item>
+        </SubMenu>
+        <Menu.Item
+          onClick={() => {
+            navigatetoLearningResources();
+          }}
+          key="8"
+          className="extraMargin antTitle"
+          icon={
+            <img
+              alt="Learning Resources Icon"
+              src={LearnigResourcesIcon}
+              className="customIcon"
+            />
+          }
+        >
+          Learning
+          <br />
+          Resources
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => {
+            projectManagementpage();
+          }}
+          className="antTitle"
+          key="9"
+          icon={
+            <img
+              alt="Project Management Icon"
+              src={ProjectManagementIcon}
+              className="customIcon"
+            />
+          }
+        >
+          Project Management
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => {
+            movetocompetitons();
+          }}
+          className="antTitle"
+          key="10"
+          icon={
+            <img
+              alt="Competition Icon"
+              src={CompetitionIcon}
+              className="customIcon"
+            />
+          }
+        >
+          Competitions
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => {
+            moveToRewards();
+          }}
+          className="antTitle"
+          key="1"
+          icon={
+            <img
+              alt="Reward Icon"
+              src={DashboardIcon}
+              className="customIcon dashboardIcon"
+            />
+          }
+        >
+          Rewards
+        </Menu.Item>
+      </Menu>
+    </Sider>
   );
 };
 

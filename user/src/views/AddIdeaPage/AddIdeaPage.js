@@ -1,5 +1,5 @@
 import React from "react";
-import "./AddIdeaPage.style.scss";
+import "./AddIdeaPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { Layout, Form, Input, Button, Select, Switch } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -13,7 +13,7 @@ const { Option } = Select;
 
 const AddIdeaPage = () => {
   return (
-    <div>
+    <div className="addIdeaPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">

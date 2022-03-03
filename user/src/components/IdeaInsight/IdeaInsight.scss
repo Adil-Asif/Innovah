@@ -1,0 +1,33 @@
+.ideaInsightLayout{
+    width: fit-content;
+    
+    .title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--primary-color);
+        font-size: 25px;
+        font-family: var(--font-family-title);
+        color: white;
+        text-transform: capitalize;
+        padding: 10px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        .icon{
+            margin-right: 5px;
+        }
+        
+    }
+    .description{
+        display: flex;
+        justify-content: center;
+        background-color: var(--white);
+        font-size: 20px;
+        font-family: var(--font-family-description);
+        color: var(--black);
+        text-align: justify;
+        padding: 10px 20px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+}

@@ -1,9 +1,9 @@
 import React from "react";
-import "./Remarks.style.scss"
+import "./Remarks.scss"
 import { Avatar } from 'antd';
 const Remarks = (props) => {
   return (
-    <div className="remarks">
+    <div className="remarksItemLayout">
       <div className="avatar">
       <Avatar shape="square" size={70} src={props.imageUrl} /> 
       </div>

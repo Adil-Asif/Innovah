@@ -1,5 +1,5 @@
 import React from "react";
-import "./Footer.style.scss";
+import  "./Footer.scss";
 import { Layout } from "antd";
 import FooterLogo from "../../assests/Images/FooterLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,15 +9,13 @@ const { Footer } = Layout;
 
 const CustomFooter = () => {
   return (
-    <div>
       <Footer className="footerLayout">
         <span className="logo">
-          <img src={FooterLogo} alt="Innovah" />{" "}
+          <img src={FooterLogo} alt="Innovah" />
           <FontAwesomeIcon icon={faRegistered} />
         </span>
         <FontAwesomeIcon icon={faCopyright} /> 2021 Created by Team Innovah
       </Footer>
-    </div>
   );
 };
 

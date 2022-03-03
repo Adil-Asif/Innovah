@@ -1,7 +1,7 @@
 import React from "react";
-import "./MyIdeasPage.style.scss";
+import "./MyIdeasPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import { Layout, Row, Col} from "antd";
+import { Layout, Row, Col } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -11,10 +11,8 @@ import IdeasItem from "../../components/IdeasItem/IdeasItem";
 const { Content } = Layout;
 
 const MyIdeasPage = () => {
-
-  
   return (
-    <div>
+    <div className="myIdeasPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">
@@ -31,17 +29,14 @@ const MyIdeasPage = () => {
                 <div className="ideaItems">
                   <Row gutter={32}>
                     <Col className="gutter-row" span={8}>
-                      <div style={{paddingTop: "40px"}}>
+                      <div style={{ paddingTop: "40px" }}>
                         <IdeasItem
                           ideaName="Stream.io"
                           description="It is video streaming platform where content creators can upload their videos and monetize them. These videos will be available to watch all around the globe based on user watch history and preferences."
                           likes="100"
                           views="3000"
                           comments="20"
-                          imageUrl={
-                            require("../../assests/Images/IdeasImage/Stream.jpg")
-                              .default
-                          }
+                          imageUrl={require("../../assests/Images/IdeasImage/Stream.jpg")}
                           global={false}
                         />
                       </div>
