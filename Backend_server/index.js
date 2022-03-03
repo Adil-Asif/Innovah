@@ -11,10 +11,15 @@ const bodyParser = require("body-parser")
 const loginSignupRoutes = require('./routes/Login/SignIn&Signout.js')
 const boardRoutes = require('./routes/ProjectManagement/Boards.js')
 const projectManagement = require('./routes/ProjectManagement/GeneralProjectManagement.js')
+const inventoryRoutes = require('./routes/ProjectManagement/Inventory')
 const databaseConnections = require('./models/database')
+var cors = require('cors')
+
+
 require('dotenv').config()
 var jsonParser = bodyParser.json()
 const app = express()
+app.use(cors())
 app.use(jsonParser, bodyParser.urlencoded({ extended: false }))
 
 const port = process.env.PORT
@@ -39,6 +44,8 @@ app.use('/Login', loginSignupRoutes)
 app.use('/generalproject',projectManagement)
 
 app.use('/projectboards',boardRoutes)
+app.use('/projectinventory',inventoryRoutes)
+
 
 app.listen(port, () => {
     console.log("Backend is up and running on port 5000")

@@ -48,17 +48,17 @@ const Routers = () => {
       <Route exact path="/projectmanagement" element={<ProjectManagement />} />
       <Route
         exact
-        path="/projectmanagement/specificproject"
+        path="/projectmanagement/:projectid"
         element={<SpecificProject />}
       />
       <Route
         exact
-        path="/projectmanagement/specificproject/workItems"
+        path="/projectmanagement/:projectid/workItems"
         element={<WorkItems />}
       />
       <Route
         exact
-        path="/projectmanagement/specificproject/Inventory"
+        path="/projectmanagement/:projectid/Inventory"
         element={<InventoryManagement />}
       />
       <Route exacr path="/competitons" element={<CompetitionPage />} />

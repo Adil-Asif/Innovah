@@ -6,6 +6,6 @@ const boardController = require('../../controllers/ProjectManagement/BoardsContr
 const router = express.Router()
 
 router.get('/getboard/:id', boardController.getAllIBoards)
-router.post('/addnewtask',boardController.addNewBoard)
+router.post('/:id/addnewtask',boardController.addNewBoard)
 
 module.exports=router
