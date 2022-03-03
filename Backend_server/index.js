@@ -7,20 +7,23 @@
 // The credintials for database and other sensitive information regarding to server should be stored
 // in .env file
 const express = require('express')
+const fileupload = require('express-fileupload')
 const bodyParser = require("body-parser")
 const LoginSignupRoutes = require('./routes/Login/SignIn&Signout.js')
+const LearnRoutes = require("./routes/LearningResources/Learn.js")
 require('dotenv').config()
 var jsonParser = bodyParser.json()
 const app = express()
 app.use(jsonParser, bodyParser.urlencoded({ extended: false }))
-
+app.use(fileupload())
 const port = process.env.PORT
 
-// this file will be used for basic routing whic means high level routes like 
+// this file will be used for basic routing which means high level routes like 
 //if we have Login pages all routes of Login will be like "/Login/Something/Something" so base route
 // which is of /Login will be defined here and then we will be going Login file in routes 
 //for further implementation 
 app.use('/Login', LoginSignupRoutes)
+app.use('/Learn',LearnRoutes)
 
 
 app.listen(port, () => {
