@@ -5,7 +5,8 @@ const express = require('express')
 const loginSignupController = require('../../controllers/Login/SignIn&SignoutController.js')
 const router = express.Router()
 
-router.get('/', loginSignupController.CheckCredentials)
+router.post('/signup', loginSignupController.enterdata)
+
 router.post('/signin',loginSignupController.CheckCredentials)
 
 module.exports=router
