@@ -2,6 +2,7 @@ const express = ("express")
 const mysql = require('mysql')
 const uuid = require('uuid')
 const validator = require('email-validator')
+const session = require('sessionstorage')
 var db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -32,6 +33,8 @@ exports.CheckCredentials = (req, res) => {
             else{
                 console.log(result)
                 if(result.length>0){
+                    var id = result[0].userid
+                    console.log(id)
                     var pass = req.body.password
                     let sql1 = "select * from user_details where password="+mysql.escape(pass);
                     db.query(sql1,(err,result)=>{
@@ -41,6 +44,7 @@ exports.CheckCredentials = (req, res) => {
                         else{
                             if(result.length>0){
                                 res.send("Welcome to our app")
+                                session.setItem("useridinfo",id)
                             }
                             else{
                                 res.send("The password is incorrect")
@@ -65,6 +69,8 @@ exports.CheckCredentials = (req, res) => {
             else{
                 console.log(result)
                 if(result.length>0){
+                    var id = result[0].userid
+                    console.log(id)
                     var pass = req.body.password
                     let sql1 = "select * from user_details where password="+mysql.escape(pass);
                     db.query(sql1,(err,result)=>{
@@ -74,6 +80,8 @@ exports.CheckCredentials = (req, res) => {
                         else{
                             if(result.length>0){
                                 res.send("Welcome to our app")
+                                session.setItem("useridinfo",id)
+                                // console.log(session.getItem("userinfo"))
                             }
                             else{
                                 res.send("The password is incorrect")

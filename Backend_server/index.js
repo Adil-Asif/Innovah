@@ -10,6 +10,7 @@ const express = require('express')
 const fileupload = require('express-fileupload')
 const bodyParser = require("body-parser")
 const LoginSignupRoutes = require('./routes/Login/SignIn&Signout.js')
+const LearnRoutes = require("./routes/LearningResources/Learn.js")
 require('dotenv').config()
 var jsonParser = bodyParser.json()
 const app = express()
@@ -22,6 +23,7 @@ const port = process.env.PORT
 // which is of /Login will be defined here and then we will be going Login file in routes 
 //for further implementation 
 app.use('/Login', LoginSignupRoutes)
+app.use('/Learn',LearnRoutes)
 
 
 app.listen(port, () => {
