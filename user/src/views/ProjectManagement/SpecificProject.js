@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import "./SpecificProject.scss";
 
-import { Layout } from "antd";
+import { Layout, Spin } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -9,32 +9,46 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 import AI_image from "./../../assests/Images/ProjectManagement/AI_project.jpg"
 import taskImage from"./../../assests/Images/ProjectManagement/Daco_219372.png";
 import Inventory from "./../../assests/Images/ProjectManagement/production.png"
-import { Navigate,useNavigate } from "react-router-dom";
+import { Navigate,useNavigate,useParams  } from "react-router-dom";
 const { Content } = Layout;
 
 const SpecificProject = () => {
+    const [projectDetails, setProjectDetails] = useState([{}])
+    let params = useParams();
     let navigate = useNavigate();
     const navigationToBoards=()=>{
-        navigate('/projectmanagement/specificproject/workItems')
+        navigate(`/projectmanagement/${params.projectid}/workItems`)
     }
     const navigationToInventory=()=>{
-        navigate('/projectmanagement/specificproject/Inventory')
+        navigate(`/projectmanagement/${params.projectid}/Inventory`)
     }
+    console.log(params.projectid)
+    const fetchProjectDetails =async()=>{
+        let response = await fetch(`http://localhost:5000/generalproject/1/${params.projectid}`)
+        setProjectDetails( await response.json())
+    }
+    useEffect(()=>{
+      fetchProjectDetails()
+        
+    },[])
+    console.log(projectDetails,"Project Detaisl")
     return (
         <div className="specificProjectPage">
             <Layout style={{ minHeight: "100vh" }}>
                 <Sidebar PageKey="9" />
                 <Layout className="site-layout" data-theme="dark">
                     <Header />
+                    { projectDetails!==[] ?
                     <Content style={{ margin: '0 16px' }}>
+                    
                         <div className="Project-heading">
-                            <PageTitle title="Stream.IO" />
+                            <PageTitle title={`${projectDetails[0].projecttitles}`} />
 
                         </div>
                         <div className="project-container">
                        <div className="project-description">
                            <span className="title-of-page">About This Project:</span> <br/>
-                           It is video streaming platform where content creators can upload their videos and monetize them. These videos will be available to watch all around the globe based on user watch history and preferences.
+                           {`${projectDetails[0].description}`}
                        </div>
                        <div className="project-tracking">
                            <div  className="project-status">
@@ -44,11 +58,11 @@ const SpecificProject = () => {
                               <span className="sidebar-heads"> Boards </span> <br/>
                                <div className="specific-task">
                                 <img src={taskImage}  alt=""/>
-                              <span className="specific-fields-side">  2 task  created </span>
+                              <span className="specific-fields-side">  {projectDetails[0].todotask} task  created </span>
                                 </div>
                                 <div className="specific-task">
                                 <img src={taskImage} alt=""/>
-                                <span className="specific-fields-side">  2 task  completed </span>
+                                <span className="specific-fields-side">  {projectDetails[0].completed} task  completed </span>
                                 </div>
                                 
                                </div>
@@ -56,11 +70,11 @@ const SpecificProject = () => {
                                <span className="sidebar-heads"> Inventory </span> <br/>
                                <div className="specific-task">
                                 <img src={Inventory} alt=""/>
-                                <span className="specific-fields-side">  2 Items Available </span>
+                                <span className="specific-fields-side">  {projectDetails[0].unutilized} Items Available </span>
                                 </div>
                                 <div className="specific-task">
                                 <img src={Inventory} alt=""/>
-                                <span className="specific-fields-side">  3 Items Consumed </span>                                </div>
+                                <span className="specific-fields-side">  {projectDetails[0].utilized} Items Consumed </span>                                </div>
                                </div>
 
                            </div> 
@@ -93,7 +107,9 @@ const SpecificProject = () => {
                            </div>
                        </div>
                        </div>
-                    </Content>
+                    </Content> : 
+                    <Spin size="large"/>
+                    } 
                     <Footer />
                 </Layout>
             </Layout>
