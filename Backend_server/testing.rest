@@ -1,0 +1,33 @@
+POST http://localhost:5000/Login/signup 
+Content-Type: application/json
+
+{
+        "username":"ha5an",
+        "city":"karachi",
+        "mobilenumber":"03343184497",
+        "country":"Pakistan",
+        "gender":"Male",
+        "industry":"CS",
+        "userrole":"user",
+        "picture":"https://pixabay.com/photos/sun-water-clouds-reflection-3713835/",
+        "resumelink":"https://www.bezkoder.com/node-js-express-file-upload/",
+        "email":"devil1020@gmail.com",
+        "password":"123456",
+        "fullname":"hassanmalik"
+}
+#####
+POST http://localhost:5000/Login/signin
+Content-Type: application/json
+
+{
+        "emailorname":"devil102030@gmail.com",
+        "password":"123456"
+}
+#########
+GET http://localhost:5000/Learn/
+
+#####
+GET http://localhost:5000/Learn/playlist
+
+#####
+GET http://localhost:5000/Learn/playlist/video
