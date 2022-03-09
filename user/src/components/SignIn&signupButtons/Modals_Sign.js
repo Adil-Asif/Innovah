@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Modals_Sign.scss";
-import { Modal, Button, Form,Checkbox,Input } from "antd";
+import { Modal, Button, Form,Checkbox,Input,Alert } from "antd";
+import axios from 'axios';
 // import Input from "../Input/Input";
 
 const LoginModals = (props) => {
@@ -11,14 +12,7 @@ const LoginModals = (props) => {
   const [passwordInput, setPassword] = useState("");
   const [typeOfLogin,setTypeOfLogin] = useState(props.typeOfLogin)
 
-  const handleEmailInput = (emailValue) => {
-    setEmail(emailValue);
-    console.log(emailInput);
-  };
-  const handlePasswordInput = (passwordValue) => {
-    setPassword(passwordValue);
-    console.log(passwordInput);
-  };
+  
   // const onFinish = (values) => {
   //   console.log("Success:", values);
   // };
@@ -29,15 +23,48 @@ const LoginModals = (props) => {
 
   const onFinish = (values) => {
     console.log('Success:', values);
-    setIsModalVisible(false);
+    const obj={
+      emailorname:values.email,
+      password:values.password
+    }
+    axios.post('http://localhost:5000/Login/signin',obj)
+    .then((result)=>{
+      console.log(result);
+    })
+    setIsModalVisible(false)
   };
 
   const onFinishFailed = (errorInfo) => {
+    setIsModalVisible(false)
+
     console.log('Failed:', errorInfo);
   };
-  const postdata=()=>{
-    console.log("submitted data")
+
+  const onFinishSignUp= (values) => {
+    setIsModalVisible(false)
+
+    if (values.password ===values.rePassword){
+console.log("sucess")
+    }
+    else{
+      onFinishFailed("Passwords donot match")
+    }
+    console.log('Success:', values);
+    const obj={
+      email:values.email,
+      password:values.password
+    }
+    axios.post('http://localhost:5000/Login/signup',obj)
+    .then((result)=>{
+      console.log(result);
+    })
   };
+  const onFinishSignUpFailed= (errorInfo) => {
+    console.log('Failed:', errorInfo);
+   
+  };
+
+
   return (
     <div className="signInLayout">
 
@@ -101,7 +128,7 @@ const LoginModals = (props) => {
               type="password"
               id="password"
               label="Password"
-              //pattern="(?=^.{8,}$)((?=.\d)|(?=.\W+))(?![.\n])(?=.[A-Z])(?=.[a-z])"
+              //pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])"
               parentCallback={handlePasswordInput}
             />
           </Form.Item>
@@ -133,12 +160,12 @@ const LoginModals = (props) => {
       autoComplete="off"
     >
       <Form.Item
-        label="Username"
-        name="username"
+        label="Email"
+        name="email"
         rules={[
           {
             required: true,
-            message: 'Please input your username!',
+            message: 'Please input your Email!',
           },
         ]}
       >
@@ -156,17 +183,6 @@ const LoginModals = (props) => {
         ]}
       >
         <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}
-      >
-        <Checkbox>Remember me</Checkbox>
       </Form.Item>
 
       <Form.Item
@@ -188,100 +204,52 @@ const LoginModals = (props) => {
         onOk={() => setIsModalVisible(false)}
         onCancel={() => setIsModalVisible(false)}
       >
-        <Form
-          name="basic"
-          labelCol={{
-            span: 7,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-         
-          label="Email:"
-            name="emailInput"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
-          >
-            <Input
-              type="email"
-              id="email"
-              label="Email Address"
-              parentCallback={handleEmailInput}
-            />
-          </Form.Item>
+       <Form
+      name="basic"
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
+      initialValues={{ remember: true }}
+      onFinish={onFinishSignUp}
+      onFinishFailed={onFinishSignUpFailed}
+      autoComplete="off"
+    >
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: 'Please input your Email!' }]}
+      >
+        <Input />
+      </Form.Item>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-          >
-            <Input
-              type="password"
-              id="password"
-              label="Password"
-              //pattern="(?=^.{8,}$)((?=.\d)|(?=.\W+))(?![.\n])(?=.[A-Z])(?=.[a-z])"
-              parentCallback={handlePasswordInput}
-            />
-          </Form.Item>
-          <Form.Item
-            label="Re-Enter Password"
-            name="Repassword"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-          >
-            <Input
-              type="password"
-              id="Repassword"
-              label="Re-Enter Password"
-              //pattern="(?=^.{8,}$)((?=.\d)|(?=.\W+))(?![.\n])(?=.[A-Z])(?=.[a-z])"
-              parentCallback={handlePasswordInput}
-            />
-          </Form.Item>
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
+      <Form.Item
+        label="Re-Enter Password"
+        name="rePassword"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
 
+     
 
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Button id="Submit_button" type="primary" htmlType="submit" onSubmit={postdata}>
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-
-        {/* <div>
-          <Input type="text" />
-          <input type="text" required />
-        </div> */}
-        {/* <p>some contents...</p>
-        <p>some contents...</p> */}
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+      
       </Modal> }
 
       
     </div>
   );
 };
+
 export default LoginModals;
