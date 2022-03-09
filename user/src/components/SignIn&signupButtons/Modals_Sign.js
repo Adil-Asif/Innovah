@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Modals_Sign.scss";
-import { Modal, Button, Form } from "antd";
-import Input from "../Input/Input";
+import { Modal, Button, Form,Checkbox,Input } from "antd";
+// import Input from "../Input/Input";
 
 const LoginModals = (props) => {
   console.log(props);
@@ -19,12 +19,21 @@ const LoginModals = (props) => {
     setPassword(passwordValue);
     console.log(passwordInput);
   };
+  // const onFinish = (values) => {
+  //   console.log("Success:", values);
+  // };
+
+  // const onFinishFailed = (errorInfo) => {
+  //   console.log("Failed:", errorInfo);
+  // };
+
   const onFinish = (values) => {
-    console.log("Success:", values);
+    console.log('Success:', values);
+    setIsModalVisible(false);
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    console.log('Failed:', errorInfo);
   };
   const postdata=()=>{
     console.log("submitted data")
@@ -44,7 +53,7 @@ const LoginModals = (props) => {
         onOk={() => setIsModalVisible(false)}
         onCancel={() => setIsModalVisible(false)}
       >
-        <Form
+        {/* <Form
           name="basic"
           labelCol={{
             span: 4,
@@ -92,7 +101,7 @@ const LoginModals = (props) => {
               type="password"
               id="password"
               label="Password"
-              //pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])"
+              //pattern="(?=^.{8,}$)((?=.\d)|(?=.\W+))(?![.\n])(?=.[A-Z])(?=.[a-z])"
               parentCallback={handlePasswordInput}
             />
           </Form.Item>
@@ -107,14 +116,71 @@ const LoginModals = (props) => {
               Submit
             </Button>
           </Form.Item>
-        </Form>
+        </Form> */}
+<Form
+      name="basic"
+      labelCol={{
+        span: 8,
+      }}
+      wrapperCol={{
+        span: 16,
+      }}
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      <Form.Item
+        label="Username"
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your username!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
 
-        {/* <div>
-          <Input type="text" />
-          <input type="text" required />
-        </div> */}
-        {/* <p>some contents...</p>
-        <p>some contents...</p> */}
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item
+        name="remember"
+        valuePropName="checked"
+        wrapperCol={{
+          offset: 8,
+          span: 16,
+        }}
+      >
+        <Checkbox>Remember me</Checkbox>
+      </Form.Item>
+
+      <Form.Item
+        wrapperCol={{
+          offset: 8,
+          span: 16,
+        }}
+      >
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+        
       </Modal> : <Modal
         title= {currentTitle}
         centered
@@ -139,7 +205,7 @@ const LoginModals = (props) => {
         >
           <Form.Item
          
-          label="Emai:"
+          label="Email:"
             name="emailInput"
             rules={[
               {
@@ -170,7 +236,7 @@ const LoginModals = (props) => {
               type="password"
               id="password"
               label="Password"
-              //pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])"
+              //pattern="(?=^.{8,}$)((?=.\d)|(?=.\W+))(?![.\n])(?=.[A-Z])(?=.[a-z])"
               parentCallback={handlePasswordInput}
             />
           </Form.Item>
@@ -188,7 +254,7 @@ const LoginModals = (props) => {
               type="password"
               id="Repassword"
               label="Re-Enter Password"
-              //pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])"
+              //pattern="(?=^.{8,}$)((?=.\d)|(?=.\W+))(?![.\n])(?=.[A-Z])(?=.[a-z])"
               parentCallback={handlePasswordInput}
             />
           </Form.Item>
@@ -218,5 +284,4 @@ const LoginModals = (props) => {
     </div>
   );
 };
-
 export default LoginModals;
