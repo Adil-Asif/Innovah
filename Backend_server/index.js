@@ -8,6 +8,7 @@
 // in .env file
 const express = require('express')
 const fileupload = require('express-fileupload')
+const cors=require('cors');
 const bodyParser = require("body-parser")
 const loginSignupRoutes = require('./routes/Login/SignIn&Signout.js')
 const boardRoutes = require('./routes/ProjectManagement/Boards.js')
@@ -21,7 +22,9 @@ const LearnRoutes = require("./routes/LearningResources/Learn.js")
 require('dotenv').config()
 var jsonParser = bodyParser.json()
 const app = express()
-app.use(cors())
+
+app.use(cors());
+
 app.use(jsonParser, bodyParser.urlencoded({ extended: false }))
 app.use(fileupload())
 const port = process.env.PORT

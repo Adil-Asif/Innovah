@@ -1,7 +1,7 @@
 import React from "react";
 import "./PlaylistPage.scss";
 
-import { Layout } from "antd";
+import { Layout,Spin } from "antd";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
@@ -9,9 +9,17 @@ import Footer from "../../components/Footer/Footer";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import Playlist from "../../assests/Images/Playlist.svg";
 import PlaylistItem from "../../components/Playlist/PlaylistItem";
+import axios from 'axios';
+import {useState,useEffect} from 'react';
 const { Content } = Layout;
 
 const PLayListPage = () => {
+  var [Response,setResponse]=useState(null);
+  useEffect(async ()=>{
+    var response =await axios.get('http://localhost:5000/Learn/playlist')
+    setResponse(await response)
+  },[]);
+  
   return (
     <div className="playListPage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -20,18 +28,18 @@ const PLayListPage = () => {
           <Header />
           <Content style={{ margin: "0 16px" }}>
             <div className="titleSection">
-              <div className="pageTitle">
-                <PageTitle title="Mastering Data Structures and Algorithms using C and C++" />
-              </div>
+              {Response?<div className="pageTitle">
+                <PageTitle title={Response.data.playlistname} />
+              </div>:<Spin/>}
               <img src={Playlist} alt="Playlist" />
             </div>
-            <div className="lectures">
+            {(Response)?<div className="lectures">
               <div className="lectureItem">
                 <PlaylistItem
-                  title="Introduction to Algorithms"
-                  description="Introduction to Algorithms. Introduction to course. Why we write Algorithm.Who writes Algorithm? When Algorithms are written? Differences between Algorithms and Programs"
+                  title={Response.data.title}
+                  description={Response.data.desc}
                   className="lectureItem"
-                  iscompleted={true}
+                  iscompleted={Response.data.status>0? true: false}
                 />
               </div>
               <hr />
@@ -41,7 +49,7 @@ const PLayListPage = () => {
                 className="lectureItem"
                 iscompleted={false}
               />
-            </div>
+            </div>:<Spin/>}
           </Content>
           <Footer />
         </Layout>
