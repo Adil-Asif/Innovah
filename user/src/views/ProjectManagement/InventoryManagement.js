@@ -1,19 +1,32 @@
 import React from "react";
 import "./InventoryManagement.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import AI_image from "./../../assests/Images/ProjectManagement/AI_project.jpg";
-import { Modal, Button } from "antd";
+import { Modal, Button, Spin } from "antd";
 import { Form, Input } from "antd";
+import { useParams } from 'react-router-dom'
 const { Content } = Layout;
 
 const InventoryManagement = () => {
   const [isModalVisible2, setIsModalVisible2] = useState(false);
+  let params = useParams()
+  console.log(params.projectid)
+  const [fetchInventoryITems, setFetchInventoryITems] = useState([])
+  const fetchInventory = async () => {
+    let response = await fetch(`http://localhost:5000/projectinventory/getinventory/${params.projectid}`)
+    setFetchInventoryITems(await response.json())
+  }
+  useEffect(() => {
+    fetchInventory()
 
+  }, [])
+
+  console.log(fetchInventoryITems)
   const showModal2 = () => {
     setIsModalVisible2(true);
   };
@@ -27,7 +40,31 @@ const InventoryManagement = () => {
   };
 
   const onFinish = (values) => {
-    console.log("Success:", values);
+    values.quantity = parseInt(values.quantity)
+    values.inventoryvalue = parseInt(values.inventoryvalue)
+    if((typeof(values.quantity)=='number') && (typeof(values.inventoryvalue)=='number') ){
+    fetch(`http://localhost:5000/projectinventory/${params.projectid}/addnewitem`, {
+     
+      // Adding method type
+      method: "POST",
+       
+      // Adding body or contents to send
+      body: JSON.stringify({
+         ...values,
+         projectid:params.projectid
+      }),
+       
+      // Adding headers to the request
+      headers: {
+          "Content-type": "application/json; charset=UTF-8"
+      }
+  })
+  setIsModalVisible2(false)
+      console.log("Success:", values);
+    
+}else{
+  onFinishFailed("Value of qunatity and value not in number")
+}
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -86,7 +123,7 @@ const InventoryManagement = () => {
                 </Form.Item>
                 <Form.Item
                   label="Qunatity Of Resource"
-                  name="Resource_Quantity"
+                  name="quantity"
                   rules={[
                     {
                       required: true,
@@ -98,7 +135,7 @@ const InventoryManagement = () => {
                 </Form.Item>
                 <Form.Item
                   label="Value of Resource"
-                  name="Resource Value"
+                  name="inventoryvalue"
                   rules={[
                     {
                       required: true,
@@ -110,12 +147,12 @@ const InventoryManagement = () => {
                 </Form.Item>
 
                 <Form.Item
-                  label="Unit of Resource"
-                  name="Resource_unit"
+                  label="Added By"
+                  name="addedby"
                   rules={[
                     {
                       required: true,
-                      message: "Please Enter Units of Resource!",
+                      message: "Please Enter the name of person who added it!",
                     },
                   ]}
                 >
@@ -123,7 +160,7 @@ const InventoryManagement = () => {
                 </Form.Item>
 
                 <Form.Item
-                  name={["Desc", "Description of Resource"]}
+                  name="itemdescription"
                   required
                   label="Description"
                 >
@@ -177,32 +214,16 @@ const InventoryManagement = () => {
               <div className="added-by"> Added by</div>
               <div className="status"> status</div>
             </div>
-            <div className="specific-task-description">
-              <div className="ID-task"> 1</div>
-              <div className="task-name"> Cash</div>
-              <div className="type"> 1</div>
-              <div className="assigned-to"> 2000000</div>
-              <div className="added-by"> hasaan</div>
-              <div className="status"> utilised</div>
-            </div>
-
-            <div className="specific-task-description">
-              <div className="ID-task"> 1</div>
-              <div className="task-name"> Cash</div>
-              <div className="type"> 1</div>
-              <div className="assigned-to"> 2000000</div>
-              <div className="added-by"> hasaan</div>
-              <div className="status"> utilised</div>
-            </div>
-
-            <div className="specific-task-description">
-              <div className="ID-task"> 1</div>
-              <div className="task-name"> Cash</div>
-              <div className="type"> 1</div>
-              <div className="assigned-to"> 2000000</div>
-              <div className="added-by"> hasaan</div>
-              <div className="status"> utilised</div>
-            </div>
+            {fetchInventoryITems ?
+              fetchInventoryITems.map((inventory) => (<div className="specific-task-description">
+                <div className="ID-task"> {inventory.inventoryid}</div>
+                <div className="task-name"> cash</div>
+                <div className="type"> {inventory.quantity}</div>
+                <div className="assigned-to"> {inventory.inventoryvalue}</div>
+                <div className="added-by"> {inventory.addedby}</div>
+                <div className="status"> {inventory.itemstatus}</div>
+              </div>)) : <Spin size="small"/>}
+           
           </Content>
           <Footer />
         </Layout>
