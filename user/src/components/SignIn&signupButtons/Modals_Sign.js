@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Modals_Sign.scss";
-import { Modal, Button, Form } from "antd";
-import Input from "../Input/Input";
+import { Modal, Button, Form,Checkbox,Input,Alert } from "antd";
+// import Input from "../Input/Input";
 
 const LoginModals = (props) => {
   console.log(props);
@@ -11,24 +11,43 @@ const LoginModals = (props) => {
   const [passwordInput, setPassword] = useState("");
   const [typeOfLogin,setTypeOfLogin] = useState(props.typeOfLogin)
 
-  const handleEmailInput = (emailValue) => {
-    setEmail(emailValue);
-    console.log(emailInput);
-  };
-  const handlePasswordInput = (passwordValue) => {
-    setPassword(passwordValue);
-    console.log(passwordInput);
-  };
+  
+  // const onFinish = (values) => {
+  //   console.log("Success:", values);
+  // };
+
+  // const onFinishFailed = (errorInfo) => {
+  //   console.log("Failed:", errorInfo);
+  // };
+
   const onFinish = (values) => {
-    console.log("Success:", values);
+    console.log('Success:', values);
+    setIsModalVisible(false)
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    setIsModalVisible(false)
+
+    console.log('Failed:', errorInfo);
   };
-  const postdata=()=>{
-    console.log("submitted data")
+
+  const onFinishSignUp= (values) => {
+    setIsModalVisible(false)
+
+    if (values.password ===values.rePassword){
+console.log("sucess")
+    }
+    else{
+      onFinishFailed("Passwords donot match")
+    }
+    console.log('Success:', values);
   };
+  const onFinishSignUpFailed= (errorInfo) => {
+    console.log('Failed:', errorInfo);
+   
+  };
+
+
   return (
     <div className="signInLayout">
 
@@ -44,7 +63,7 @@ const LoginModals = (props) => {
         onOk={() => setIsModalVisible(false)}
         onCancel={() => setIsModalVisible(false)}
       >
-        <Form
+        {/* <Form
           name="basic"
           labelCol={{
             span: 4,
@@ -107,14 +126,60 @@ const LoginModals = (props) => {
               Submit
             </Button>
           </Form.Item>
-        </Form>
+        </Form> */}
+<Form
+      name="basic"
+      labelCol={{
+        span: 8,
+      }}
+      wrapperCol={{
+        span: 16,
+      }}
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Email!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
 
-        {/* <div>
-          <Input type="text" />
-          <input type="text" required />
-        </div> */}
-        {/* <p>some contents...</p>
-        <p>some contents...</p> */}
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your password!',
+          },
+        ]}
+      >
+        <Input.Password />
+      </Form.Item>
+
+      <Form.Item
+        wrapperCol={{
+          offset: 8,
+          span: 16,
+        }}
+      >
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+        
       </Modal> : <Modal
         title= {currentTitle}
         centered
@@ -122,96 +187,47 @@ const LoginModals = (props) => {
         onOk={() => setIsModalVisible(false)}
         onCancel={() => setIsModalVisible(false)}
       >
-        <Form
-          name="basic"
-          labelCol={{
-            span: 7,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item
-         
-          label="Emai:"
-            name="emailInput"
-            rules={[
-              {
-                required: true,
-                message: "Please input your username!",
-              },
-            ]}
-          >
-            <Input
-              type="email"
-              id="email"
-              label="Email Address"
-              parentCallback={handleEmailInput}
-            />
-          </Form.Item>
+       <Form
+      name="basic"
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
+      initialValues={{ remember: true }}
+      onFinish={onFinishSignUp}
+      onFinishFailed={onFinishSignUpFailed}
+      autoComplete="off"
+    >
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: 'Please input your Email!' }]}
+      >
+        <Input />
+      </Form.Item>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-          >
-            <Input
-              type="password"
-              id="password"
-              label="Password"
-              //pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])"
-              parentCallback={handlePasswordInput}
-            />
-          </Form.Item>
-          <Form.Item
-            label="Re-Enter Password"
-            name="Repassword"
-            rules={[
-              {
-                required: true,
-                message: "Please input your password!",
-              },
-            ]}
-          >
-            <Input
-              type="password"
-              id="Repassword"
-              label="Re-Enter Password"
-              //pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z])"
-              parentCallback={handlePasswordInput}
-            />
-          </Form.Item>
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
+      <Form.Item
+        label="Re-Enter Password"
+        name="rePassword"
+        rules={[{ required: true, message: 'Please input your password!' }]}
+      >
+        <Input.Password />
+      </Form.Item>
 
+     
 
-          <Form.Item
-            wrapperCol={{
-              offset: 8,
-              span: 16,
-            }}
-          >
-            <Button id="Submit_button" type="primary" htmlType="submit" onSubmit={postdata}>
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-
-        {/* <div>
-          <Input type="text" />
-          <input type="text" required />
-        </div> */}
-        {/* <p>some contents...</p>
-        <p>some contents...</p> */}
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+      
       </Modal> }
 
       

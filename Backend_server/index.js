@@ -7,13 +7,16 @@
 // The credintials for database and other sensitive information regarding to server should be stored
 // in .env file
 const express = require('express')
+const databaseConnections = require('./models/database')
+
 const fileupload = require('express-fileupload')
 const bodyParser = require("body-parser")
 const loginSignupRoutes = require('./routes/Login/SignIn&Signout.js')
 const boardRoutes = require('./routes/ProjectManagement/Boards.js')
 const projectManagement = require('./routes/ProjectManagement/GeneralProjectManagement.js')
 const inventoryRoutes = require('./routes/ProjectManagement/Inventory')
-const databaseConnections = require('./models/database')
+
+const requestRoutes = require('./routes/Requests/requests')
 var cors = require('cors')
 
 
@@ -47,6 +50,8 @@ app.use('/generalproject',projectManagement)
 app.use('/projectboards',boardRoutes)
 app.use('/projectinventory',inventoryRoutes)
 app.use('/Learn',LearnRoutes)
+
+app.use('/requests',requestRoutes)
 
 
 

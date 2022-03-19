@@ -2,7 +2,7 @@ const model = require('../../models/database')
 
 exports.getAllIBoards = (req, res) => {
     projectID = req.params.id
-    let sql = "SELECT boardid,taskstatus,taskname,tasktype,assignedto,taskdescription	 FROM boards where projectid=" + (projectID);
+    let sql = "SELECT boardid,taskstatus,taskname,tasktype,assignedto,taskdescription FROM boards where projectid=" + (projectID);
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2));
@@ -18,11 +18,11 @@ exports.addNewBoard = async (req, res) => {
 
     let currentID
     console.log(req.body)
-    let sql = `select count(boardid)FROM fyp_database.boards`
+    let sql = `select count(boardid)FROM boards`
     await model.query(sql, (err, result) => {
         try {
-            console.log(result,result.length, "result");
-            if (result.length ===0) {
+             console.log(result);
+            if (result.length === 0) {
                 currentID = 1
             } else {
                 currentID = Object.values(JSON.parse(JSON.stringify(result)))
@@ -33,7 +33,7 @@ exports.addNewBoard = async (req, res) => {
                 console.log(currentID, "currentID 2")
             }
 
-            sql = `insert into fyp_database.boards(projectid,boardid,taskstatus,taskname,tasktype,assignedto,taskdescription) values ('${req.body.projectid}','${currentID}','todo','${req.body.taskname}','${req.body.tasktype}','${req.body.assignedto}','${req.body.taskdescription}');`
+            sql = `insert into boards(projectid,boardid,taskstatus,taskname,tasktype,assignedto,taskdescription) values ('${req.body.projectid}','${currentID}','todo','${req.body.taskname}','${req.body.tasktype}','${req.body.assignedto}','${req.body.taskdescription}');`
             console.log(currentID)
             model.query(sql, (err, result) => {
                 try {

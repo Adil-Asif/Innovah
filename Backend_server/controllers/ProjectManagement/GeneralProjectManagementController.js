@@ -3,7 +3,7 @@ const model = require('../../models/database')
 exports.returnAllData = (req, res) => {
     userid = req.params.userid
     console.log(userid)
-    let sql = "select  project_details.projectid, project_details.description, project_details.projecttitles, project_details.projectstatus from  project_details inner join  idea on  project_details.ideaid =  idea.ideaid inner join  user_details on  user_details.userid =  idea.ideaid where  idea.userid=" + (userid).toString();
+    let sql = "select  projectid, project_details.description, projecttitles, projectstatus from  project_details inner join  idea on  project_details.ideaid =  idea.ideaid where userid= '" + (userid).toString()+"'";
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2)); //
@@ -19,27 +19,31 @@ exports.returnSpecificRecord = (req, res) => {
     userid = req.params.userid
     projectid = req.params.projectid
     console.log(userid)
-    let sql = `select  project_details.projectid, project_details.description, project_details.projecttitles, project_details.projectstatus from  project_details inner join  idea on  project_details.ideaid =  idea.ideaid inner join  user_details on  user_details.userid =  idea.ideaid where  idea.userid=${userid} and projectid=${projectid}`;
+    let sql = `select projectid,project_details.description,projecttitles,projectstatus from  project_details inner join  idea on  project_details.ideaid =  idea.ideaid where  idea.userid='${userid}' and projectid='${projectid}'`;
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2));
         }
+        
         else {
+            console.log(result)
             totalresponse = result
             //   console.log(result);
             // res.send(result);
         }
     });
+    if(totalresponse==={}){
     let todotask,inventoryMan
     let onlykeys
     let selectingOnlyTodoAndCompleted = []
     let selectingOnlyUtilizedAndUn=[]
-    sql = `select taskstatus,count(boardid)FROM fyp_database.boards where projectid=${projectid} and (taskstatus='todo' or taskstatus='completed') group by taskstatus;`;
+    sql = `select taskstatus,count(boardid)FROM boards where projectid=${projectid} and (taskstatus='todo' or taskstatus='completed') group by taskstatus;`;
     model.query(sql, (err, tasktodo) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2));
         }
         else {
+           
             totalresponse = Object.values(JSON.parse(JSON.stringify(totalresponse)))
             todotask = Object.values(JSON.parse(JSON.stringify(tasktodo)))
             console.log(todotask, "todotask 1 in else block")
@@ -62,8 +66,8 @@ exports.returnSpecificRecord = (req, res) => {
    
             console.log(totalresponse);
             //res.send(totalresponse);
-        }
-    });
+        
+    }});
 
     sql = `select itemstatus, count(inventoryid)FROM fyp_database.inventory where projectid=${projectid} and (itemstatus='unutilized' or itemstatus='utilized') group by itemstatus;`;
     model.query(sql, (err, inventoryMan) => {
@@ -95,7 +99,9 @@ exports.returnSpecificRecord = (req, res) => {
             res.send(totalresponse);
         }
     });
-
+    }else{
+        res.send(totalresponse)
+    }
 
 }
 
