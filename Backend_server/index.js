@@ -10,7 +10,7 @@ const express = require('express')
 const databaseConnections = require('./models/database')
 
 const fileupload = require('express-fileupload')
-const cors=require('cors');
+// const cors=require('cors');
 const bodyParser = require("body-parser")
 const loginSignupRoutes = require('./routes/Login/SignIn&Signout.js')
 const boardRoutes = require('./routes/ProjectManagement/Boards.js')
@@ -33,16 +33,16 @@ app.use(fileupload())
 const port = process.env.PORT
 console.log(process.env.USER)
 
-databaseConnections.connect((err)=>{
-    if(err){
-        console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
+// databaseConnections.connect((err)=>{
+//     if(err){
+//         console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
         
 
-    }
-    else{
-        console.log("mysql connected");    
-    }
-});
+//     }
+//     else{
+//         console.log("mysql connected");    
+//     }
+// });
 
 // this file will be used for basic routing which means high level routes like 
 //if we have Login pages all routes of Login will be like "/Login/Something/Something" so base route
