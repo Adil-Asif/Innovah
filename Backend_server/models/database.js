@@ -28,7 +28,7 @@ var db = mysql.createConnection({
 //    let sql = 'create table user_details(username VARCHAR(200) Not Null UNIQUE,city varchar(2000) Not Null,ph_num varchar(20) Not Null,country varchar(2000) Not Null,gender varchar(10),industry varchar(200) Not Null,userrole varchar(200) Not Null,picture varchar(200) Not Null,resumelink varchar(200) Not Null,userid varchar(200) Primary KEY, email text Unique Not Null,password text Not Null,fullname text Not Null)';
 //    let sql1 = 'create table idea( ideaid varchar(200) PRIMARY KEY, title varchar(200) Not Null, description varchar(200) Not Null, image varchar(2000) Not Null, visibility varchar(200) Not Null, ideaindustry varchar(200) Not Null, userid varchar(200) Not Null, foreign key (userid) references user_details(userid) )'; 
 //    let sql2='create table idea_tags( tagvalue varchar(200), ideaid varchar(200), Foreign KEY (ideaid) REFERENCES idea(ideaid), PRIMARY KEY(tagvalue,ideaid) )';
-   
+
 //    let sql3='create table idea_deliverables( delivery varchar(200), ideaid varchar(200) , Foreign KEY (ideaid) REFERENCES idea(ideaid), PRIMARY KEY(delivery,ideaid) )';
 //    let sql4='create table idea_insights( ideaid varchar(200), Foreign KEY (ideaid) REFERENCES idea(ideaid), insightid varchar(200) PRIMARY KEY, likes int Not Null, ideaviews int Not Null, insighttype varchar(200) Not Null )';
 //    let sql5='create table idea_comment( ideaid varchar(200), Foreign KEY (ideaid) REFERENCES idea(ideaid), ideacomment varchar(2000) Not Null, commentby varchar(200) Not Null, insightid varchar(200) Not Null, Foreign Key (insightid) REFERENCES idea_insights(insightid), Primary key(insightid,commentby) )';
@@ -45,7 +45,7 @@ var db = mysql.createConnection({
 //    let sql15='create table playlist( url varchar(200) , trainerid varchar(200) , status  varchar(200) not null, title  varchar(200) not null, description  varchar(200) not null, userid  varchar(200) , primary KEY (url, trainerid, userid), foreign KEY (trainerid,title) references learning(trainerid,title), foreign KEY (userid) references  user_details(userid)  )';
 //    let sql16='create table competition( competitionid varchar(200) primary key, competitionname varchar(200) not null, description varchar(200) not null, startdate varchar(200) not null, difficulty varchar(200) not null, status varchar(200) not null, userid varchar(200) not null, foreign key(userid) REFERENCES user_details(userid) )';
 //    let sql17='create table idea_hack( gameid varchar(200)  Primary key, competitionid varchar(200) not null, title varchar(200) not null, industry varchar(200) not null, targetaudience varchar(200) not null, description varchar(200) not null, foreign key (competitionid) references competition(competitionid)  )';
-// //    creating tables by executing following query
+//    creating tables by executing following query
 //    db.query(sql16 , (err,result)=>{
 //        if(err){
 //            console.log( JSON.stringify(err,undefined,2));

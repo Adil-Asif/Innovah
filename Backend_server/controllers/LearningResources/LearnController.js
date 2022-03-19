@@ -23,6 +23,7 @@ db.connect((err)=>{
 
 exports.getallitems=(req,res)=>{
     var userinfo = session.getItem('useridinfo');
+    userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb8";
     console.log(userinfo);
     // let sql = "select userid from user_details where userid="+mysql.escape(userinfo);
     let sql = "select * from learning where userid="+mysql.escape(userinfo)
@@ -37,10 +38,11 @@ exports.getallitems=(req,res)=>{
             var pic = result[0].imageurl;
             var title = result[0].title;
             var desc = result[0].description;
-            var status = result[0].status;
+            var completedstatus = result[0].completedstatus;
+            var enrolledstatus = result[0].enrolledstatus;
             console.log(result);
             // res.send(pic)
-            res.json({"pic":pic,"title":title,"desc":desc,"status":status})
+            res.json({"pic":pic,"title":title,"desc":desc,"completedstatus":completedstatus,"enrolledstatus":enrolledstatus})
         }
     })
     
@@ -51,6 +53,9 @@ exports.getplaylist=(req,res)=>{
     var trainerid = session.getItem('trainerid');
     var userinfo = session.getItem('useridinfo');
     var playlistname = title;
+    trainerid="12";
+    userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb8";
+    title="Algorithms course";
     let sql = "select * from playlist where trainerid=? AND userid=? AND playlisttitle=?";
     db.query(sql,[trainerid,userinfo,title],(err,result)=>{
         if(err){
@@ -77,7 +82,12 @@ exports.getvideo=(req,res)=>{
     var trainer = session.getItem('trainerid');
     var userinfo = session.getItem('useridinfo');
     var desc = session.getItem('videodesc');
+    userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb8";
+    trainer="12";
+    playlistname="Algorithms course";
+    console.log(videotitle);
     let sql = "select * from playlist where trainerid=? and videotitle=? and playlisttitle=? and userid=? ";
+    
     db.query(sql,[trainer,videotitle,playlistname,userinfo],(err,result)=>{
         if(err){
             console.log( JSON.stringify(err,undefined,2));
@@ -86,7 +96,7 @@ exports.getvideo=(req,res)=>{
             console.log("query executed properly");
             if(result.length>0)
             {
-                res.json({"videotitle":videotitle,"desc":desc,"url":result[0].url});    
+                res.json({"videotitle":videotitle,"url":result[0].url});    
             }
             
         }

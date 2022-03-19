@@ -121,19 +121,19 @@ exports.enterdata = (req,res)=>{
     var user_id = uuid.v1();
     let userinfo = {
         
-        username:req.body.username,
-        city:req.body.city,
-        ph_num:req.body.mobilenumber,
-        country:req.body.country,
-        gender:req.body.gender,
-        industry:req.body.industry,
-        userrole:req.body.userrole,
-        picture:req.body.picture,
-        resumelink:req.body.resumelink,
+        // username:req.body.username,
+        // city:req.body.city,
+        // ph_num:req.body.mobilenumber,
+        // country:req.body.country,
+        // gender:req.body.gender,
+        // industry:req.body.industry,
+        // userrole:req.body.userrole,
+        // picture:req.body.picture,
+        // resumelink:req.body.resumelink,
         userid:user_id,
         email:req.body.email,
-        password:req.body.password,
-        fullname:req.body.fullname
+        password:req.body.password
+        // fullname:req.body.fullname
         
     };
     // const userinfo = req.body

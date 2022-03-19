@@ -1,5 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect } from "react";
+// import axios from 'axios';
 import {
   faCheckCircle,
   faCheck,
@@ -7,7 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./LearningResource.scss";
 import { Button } from "antd";
+import axios from "axios";
 const LearningResourcesTitle1 = (props) => {
+  
+    
+  
   return (
     <div className="learningResourceItemLayout">
       {props.iscompleted ? (

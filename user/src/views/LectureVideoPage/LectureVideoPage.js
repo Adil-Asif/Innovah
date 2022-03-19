@@ -1,7 +1,7 @@
 import React from "react";
 import "./LectureVideoPage.scss";
 
-import { Layout, Button } from "antd";
+import { Layout, Button,Spin } from "antd";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
@@ -9,6 +9,9 @@ import Footer from "../../components/Footer/Footer";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import lecture from "../../assests/Images/lecture.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from 'axios';
+import {useState,useEffect} from 'react';
+
 import {
   faAngleDoubleLeft,
   faAngleDoubleRight,
@@ -16,6 +19,12 @@ import {
 const { Content } = Layout;
 
 const LectureVideoPage = () => {
+  var [Response,setResponse]=useState(null);
+  useEffect(async ()=>{
+    var response =await axios.get('http://localhost:5000/Learn/playlist/video')
+    setResponse(await response)
+  },[]);
+  console.log(Response);
   return (
   <div className="lectureVideoPage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -24,22 +33,22 @@ const LectureVideoPage = () => {
           <Header />
           <Content style={{ margin: "0 16px" }}>
             <div className="titleSection">
-              <div className="pageTitle">
-                <PageTitle title="Introduction to Algorithms" />
-              </div>
+              {Response?<div className="pageTitle">
+                <PageTitle title={Response.data.videotitle} />
+              </div>:<Spin/>}
               <img src={lecture} alt="Lecture" />
             </div>
 
-            <div className="viewLecture">
+            {Response?<div className="viewLecture">
               <div className="Video">
                 <iframe
                   width="560"
                   height="315"
-                  src="https://www.youtube.com/embed/0IAPZzGSbME"
+                  src={Response.data.url}
                   title="YouTube video player"
-                  frameborder="0"
+                  frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
+                  allowFullScreen
                   className="videoiframe"
                 ></iframe>
               </div>
@@ -53,7 +62,7 @@ const LectureVideoPage = () => {
                   <FontAwesomeIcon icon={faAngleDoubleRight} className="icon" />
                 </Button>
               </div>
-            </div>
+            </div>:<Spin/>}
           </Content>
           <Footer />
         </Layout>
