@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./Modals_Sign.scss";
 import { Modal, Button, Form,Checkbox,Input,Alert } from "antd";
+
 import axios from 'axios';
+
 // import Input from "../Input/Input";
 
 const LoginModals = (props) => {
@@ -23,6 +25,8 @@ const LoginModals = (props) => {
 
   const onFinish = (values) => {
     console.log('Success:', values);
+
+
     const obj={
       emailorname:values.email,
       password:values.password
@@ -31,6 +35,7 @@ const LoginModals = (props) => {
     .then((result)=>{
       console.log(result);
     })
+
     setIsModalVisible(false)
   };
 
@@ -50,6 +55,7 @@ console.log("sucess")
       onFinishFailed("Passwords donot match")
     }
     console.log('Success:', values);
+
     const obj={
       email:values.email,
       password:values.password
@@ -58,6 +64,7 @@ console.log("sucess")
     .then((result)=>{
       console.log(result);
     })
+
   };
   const onFinishSignUpFailed= (errorInfo) => {
     console.log('Failed:', errorInfo);

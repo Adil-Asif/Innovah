@@ -1,7 +1,7 @@
 import React from "react";
 import "./CompetitionPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import { Layout, Button } from "antd";
+import { Layout, Button,Spin } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -9,9 +9,41 @@ import Competition from "../../assests/Images/competition.svg";
 import InnovahCup from "../../assests/Images/InnovahCup.svg";
 import hackathon from "../../assests/Images/hackathon.svg";
 import defend from "../../assests/Images/defend.svg";
+import { useState,useEffect } from "react";
 const { Content } = Layout;
 
 const CompetitionPage = () => {
+
+  const convertBlobToBase64 = async (blob) => { // blob data
+    return await blobToBase64(blob);
+  }
+  
+  const blobToBase64 = blob => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  })
+
+
+  const [competitions, setCompetitions] = useState("")
+  useEffect(() => {
+
+    const getCompetitions=async()=>{
+   let response = await fetch("http://localhost:5000/competitions/")
+   response =await response.json()
+   console.log(response)
+  setCompetitions(response)
+  
+  
+
+  //  console.log(await convertBlobToBase64((response[0].startdate.data)))
+
+    }
+    getCompetitions()
+    
+  }, [])
+  
   return (
     <div className="competitionPage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -25,6 +57,7 @@ const CompetitionPage = () => {
               </div>
               <img src={Competition} alt="Competitions" />
             </div>
+            {(competitions) ?
             <div className="ideaItemsDashboard">
               <div className="competition">
                 <div className="left">
@@ -32,15 +65,9 @@ const CompetitionPage = () => {
                     <img src={hackathon} alt="Hackathon" />
                   </div>
                   <div className="information">
-                    <div className="title">Idea Hack</div>
+                    <div className="title">{competitions[0].competitionname}</div>
                     <div className="description">
-                      There is no question that hackathons have taken the world
-                      by storm, spurring the development of everyday products
-                      and moving millions of dollars. And with the rise of
-                      hackathons, team Innovah has decided to arrange a
-                      hackathon know as Idea Hack.Idea Hack is an event designed
-                      to use technology, primarily coding, to accomplish an
-                      objective.
+                    {competitions[0].description}
                     </div>
                   </div>
                 </div>
@@ -86,9 +113,9 @@ const CompetitionPage = () => {
                     <img src={InnovahCup} alt="Innovah Cup" />
                   </div>
                   <div className="information">
-                    <div className="title">Innovah Cup</div>
+                    <div className="title">{competitions[1].competitionname}</div>
                     <div className="description">
-                    Innovah Cup is an annual competition sponsored and hosted by Innovah Corp. which brings together student developers worldwide to help resolve some of the world's toughest challenges. 
+                    {competitions[1].description}
                     </div>
                   </div>
                 </div>
@@ -133,10 +160,10 @@ const CompetitionPage = () => {
                     <img src={defend} alt="Proposal Defence" />
                   </div>
                   <div className="information">
-                    <div className="title">Proposal Defence</div>
+                    <div className="title">{competitions[2].competitionname}</div>
                     <div className="description">
-                    The competition aims to assure that the plan candidate has proposed for a product  is complete and provide value to the industry. 
-                    Candidates will work closely on this proposal to ensure that they present a unique product. The winners of this competition will get direct mentorship from team Innovah</div>
+                    {competitions[2].description}
+                    </div>
                   </div>
                 </div>
                 <div className="right">
@@ -175,7 +202,7 @@ const CompetitionPage = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> : <Spin size="large"/>}
           </Content>
           <Footer />
         </Layout>

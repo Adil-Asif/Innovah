@@ -1,29 +1,14 @@
-const model = require('../../models/database')
+const model = require('./../../models/database')
 
-exports.getAllInventory = (req, res) => {
-    projectID = req.params.id
-    let sql = "SELECT inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription	 FROM inventory where projectid=" + (projectID);
-    model.query(sql, (err, result) => {
-        if (err) {
-            console.log(JSON.stringify(err, undefined, 2));
-        }
-        else {
-            console.log(result);
-            res.send(result);
-        }
-    });
-
-}
-exports.addNewInventory = async (req, res) => {
-
+exports.addNewRequest= async(req,res)=>{
     let currentID
     console.log(req.body)
     console.log("######################################################")
-    let sql = `SELECT count(*) FROM inventory;`
+    let sql = `SELECT count(*) FROM posting_request;`
     await model.query(sql, (err, result) => {
         try {
             console.log(result,result.length, "result");
-            if (result.length===0) {
+            if (result.length ===0) {
                 currentID = 1
             } else {
                 currentID = Object.values(JSON.parse(JSON.stringify(result)))
@@ -34,12 +19,11 @@ exports.addNewInventory = async (req, res) => {
                 console.log(currentID, "currentID 2")
             }
 
-            sql = `insert into inventory(inventoryname,inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription) values ('${req.body.inventoryname}','${currentID}','${req.body.projectid}','unutilized',${req.body.quantity},${req.body.inventoryvalue},'${req.body.addedby}','${req.body.itemdescription}');`
+            sql = `insert into posting_request(requestid, ideatitle, requesttitle, requesttype, ideaid,image) values ('${currentID}','${req.body.ideaTitle}','${req.body.requesttitle}','Help Wanted','1','${req.body.requestDescription}');`
             console.log(currentID)
             model.query(sql, (err, result) => {
                 try {
                 console.log(result)
-                    console.log(err)
                     res.send({ "DataEntry": true })
 
                 } catch (error) {
