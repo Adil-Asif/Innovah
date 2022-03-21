@@ -21,7 +21,31 @@ const model = require('../../models/database')
 //     }
 // });
 
-
+exports.changeenrollstatus=(req,res)=>{
+    if(session.getItem('signin')==true){
+        var userinfo = session.getItem('useridinfo');
+        userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb8";
+        var title = session.getItem('playlistname');
+        var trainerid = session.getItem('trainerid');
+        console.log(userinfo);
+        title="Algorithms course";
+        trainerid="12"
+        let sql = "update learning set enrolledstatus=1 where userid=? and title=? and trainerid=?";
+        model.query(sql,[userinfo,title,trainerid],(err,result)=>{
+            if(err){
+                console.log( JSON.stringify(err,undefined,2));
+            }
+            else{
+                console.log(result)
+                res.send("query executed propely");
+            }
+            
+        })
+    }
+    else{
+        res.send("please signin first Thankyou");
+    }
+}
 exports.getallitems=(req,res)=>{
     if(session.getItem('signin')==true){
         var userinfo = session.getItem('useridinfo');
@@ -93,6 +117,7 @@ exports.getplaylist=(req,res)=>{
     
     
 }
+
 exports.getvideo=(req,res)=>{
     if(session.getItem('signin')==true && session.getItem("enrollstatus")==1){
         var videotitle = session.getItem('videotitle');

@@ -4,6 +4,8 @@ const uuid = require('uuid')
 const validator = require('email-validator')
 const session = require('sessionstorage')
 const model = require('../../models/database')
+const bcrypt =require('bcrypt');
+const { compareSync } = require('bcrypt')
 // var db = mysql.createConnection({
 //     host: 'localhost',
 //     user: 'root',
@@ -30,6 +32,8 @@ exports.CheckCredentials = (req, res) => {
         model.query(sql,(err,result)=>{
             if(err){
                 console.log( JSON.stringify(err,undefined,2));
+                res.send("Sorry query didn't executed properly");
+                session.setItem("signin",false)
             }    
             else{
                 console.log(result)
@@ -37,23 +41,24 @@ exports.CheckCredentials = (req, res) => {
                     var id = result[0].userid
                     console.log(id)
                     var pass = req.body.password
-                    let sql1 = "select * from user_details where password="+mysql.escape(pass);
-                    model.query(sql1,(err,result)=>{
-                        if(err){
+                    var dbpass = result[0].password;
+                    const verified = bcrypt.compareSync(pass,dbpass);
+                    // let sql1 = "select * from user_details where password="+mysql.escape(pass);
+                    // model.query(sql1,(err,result)=>{
+                        if(!verified){
                             console.log( JSON.stringify(err,undefined,2));
+                            res.send("The password is incorrect")
+                            session.setItem("signin",false)
                         }
                         else{
-                            if(result.length>0){
+                            // if(result.length>0){
                                 res.send("Welcome to our app")
                                 session.setItem("useridinfo",id)
                                 session.setItem("signin",true)
-                            }
-                            else{
-                                res.send("The password is incorrect")
-                                session.setItem("signin",false)
-                            }
+                            
+                            
                         }
-                    })
+                    
                 }
                 else{
                     res.send("Invalid email entered");
@@ -69,6 +74,8 @@ exports.CheckCredentials = (req, res) => {
         model.query(sql,(err,result)=>{
             if(err){
                 console.log( JSON.stringify(err,undefined,2));
+                res.send("Sorry the query didn't executed properly");
+                session.setItem("signin",false)
             }    
             else{
                 console.log(result)
@@ -76,24 +83,42 @@ exports.CheckCredentials = (req, res) => {
                     var id = result[0].userid
                     console.log(id)
                     var pass = req.body.password
-                    let sql1 = "select * from user_details where password="+mysql.escape(pass);
-                    model.query(sql1,(err,result)=>{
-                        if(err){
+                    var dbpass = result[0].password;
+                    const verified = bcrypt.compareSync(pass,dbpass);
+                    // let sql1 = "select * from user_details where password="+mysql.escape(pass);
+                    // model.query(sql1,(err,result)=>{
+                        if(!verified){
                             console.log( JSON.stringify(err,undefined,2));
+                            res.send("The password is incorrect")
+                            session.setItem("signin",false)
                         }
                         else{
-                            if(result.length>0){
+                            // if(result.length>0){
                                 res.send("Welcome to our app")
                                 session.setItem("useridinfo",id)
                                 session.setItem("signin",true)
-                                // console.log(session.getItem("userinfo"))
-                            }
-                            else{
-                                res.send("The password is incorrect")
-                                session.setItem("signin",false)
-                            }
+                            
+                            
                         }
-                    })
+                    
+                    // let sql1 = "select * from user_details where password="+mysql.escape(pass);
+                    // model.query(sql1,(err,result)=>{
+                    //     if(err){
+                    //         console.log( JSON.stringify(err,undefined,2));
+                    //     }
+                    //     else{
+                    //         if(result.length>0){
+                    //             res.send("Welcome to our app")
+                    //             session.setItem("useridinfo",id)
+                    //             session.setItem("signin",true)
+                    //             // console.log(session.getItem("userinfo"))
+                    //         }
+                    //         else{
+                    //             res.send("The password is incorrect")
+                    //             session.setItem("signin",false)
+                    //         }
+                    //     }
+                    // })
                 }
                 else{
                     res.send("Invalid username entered");
@@ -126,36 +151,50 @@ exports.CheckCredentials = (req, res) => {
 // }
 exports.enterdata = (req,res)=>{
     var user_id = uuid.v1();
+    var correct =false;
+    const pass = bcrypt.hashSync(req.body.password,12);
     let userinfo = {
         
-        // username:req.body.username,
-        // city:req.body.city,
-        // ph_num:req.body.mobilenumber,
-        // country:req.body.country,
-        // gender:req.body.gender,
-        // industry:req.body.industry,
-        // userrole:req.body.userrole,
-        // picture:req.body.picture,
-        // resumelink:req.body.resumelink,
+        username:req.body.username,
+        city:req.body.city,
+        ph_num:req.body.mobilenumber,
+        country:req.body.country,
+        gender:req.body.gender,
+        industry:req.body.industry,
+        userrole:req.body.userrole,
+        picture:req.body.picture,
+        resumelink:req.body.resumelink,
         userid:user_id,
         email:req.body.email,
-        password:req.body.password
-        // fullname:req.body.fullname
+        password:pass,
+        fullname:req.body.fullname
         
     };
-    // const userinfo = req.body
-    let sql = "insert into user_details set ?";
-    model.query(sql,userinfo,(err,result)=>{
-        if(err){
-            console.log(user_id)
-            console.log( JSON.stringify(err,undefined,2));
-            // console.log("error")
+    for (var key in userinfo){
+        if(typeof userinfo[key]!=="string" && userinfo[key].length>0){
+            res.send("plzzz enter the correct data");
+            correct=false;   
+            
         }
         else{
-            console.log(result);
-            res.send(result)
+            correct=true;
         }
-    });
+    }
+    // const userinfo = req.body
+    if(correct){
+        let sql = "insert into user_details set ?";
+        model.query(sql,userinfo,(err,result)=>{
+            if(err){
+                console.log(user_id)
+                console.log( JSON.stringify(err,undefined,2));
+                // console.log("error")
+            }
+            else{
+                console.log(result);
+                res.send(result)
+            }
+        });
+    }    
     // console.log("hi")
     // console.log(userdetails);
     // res.json(userdetails);
