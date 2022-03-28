@@ -93,15 +93,15 @@ const Sidebar = (props) => {
             All Ideas
           </Menu.Item>
         </SubMenu>
-        {/* <SubMenu
+        <SubMenu
           key="sub2"
           className="antTitle"
           icon={
             <img alt="Request Icon" src={RequestIcon} className="customIcon" />
           }
           title="Requests"
-        > */}
-          {/* <Menu.Item
+        >
+          <Menu.Item
             onClick={() => {
               moveToAddRequest();
             }}
@@ -130,7 +130,7 @@ const Sidebar = (props) => {
           >
             All Requests
           </Menu.Item>
-        </SubMenu> */}
+        </SubMenu>
         <Menu.Item
           onClick={() => {
             navigatetoLearningResources();
