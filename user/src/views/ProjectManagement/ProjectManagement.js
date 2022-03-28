@@ -28,7 +28,7 @@ const [projectResponse, setProjectResponse] = useState()
   }
 
   let getprojects = async () => {
-    let response = await fetch('http://localhost:5000/generalproject/1');
+    let response = await fetch('http://localhost:5000/generalproject/50cc2100-a79a-11ec-a453-c3c9e76e527c');
     setProjectResponse( await response.json())
   };
 console.log(projectResponse)
