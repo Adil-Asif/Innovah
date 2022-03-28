@@ -3,22 +3,23 @@ const mysql = require('mysql')
 const uuid = require('uuid')
 const validator = require('email-validator')
 const session = require('sessionstorage')
-var db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database:'fypdb'
-});
-db.connect((err)=>{
-    if(err){
-        console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
+const model = require('../../models/database')
+// var db = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: '',
+//     database:'fypdb'
+// });
+// db.connect((err)=>{
+//     if(err){
+//         console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
         
 
-    }
-    else{
-        console.log("mysql connected");    
-    }
-});
+//     }
+//     else{
+//         console.log("mysql connected");    
+//     }
+// });
 
 // this is the file where our logic will be implemented and all functionalities will be defined here
 // always do type checking for variables to mainatain integrity of code
@@ -26,7 +27,7 @@ exports.CheckCredentials = (req, res) => {
     if(validator.validate(req.body.emailorname)){
         var email = req.body.emailorname
         let sql = "select * from user_details where email="+mysql.escape(email);
-        db.query(sql,(err,result)=>{
+        model.query(sql,(err,result)=>{
             if(err){
                 console.log( JSON.stringify(err,undefined,2));
             }    
@@ -37,7 +38,7 @@ exports.CheckCredentials = (req, res) => {
                     console.log(id)
                     var pass = req.body.password
                     let sql1 = "select * from user_details where password="+mysql.escape(pass);
-                    db.query(sql1,(err,result)=>{
+                    model.query(sql1,(err,result)=>{
                         if(err){
                             console.log( JSON.stringify(err,undefined,2));
                         }
@@ -45,15 +46,18 @@ exports.CheckCredentials = (req, res) => {
                             if(result.length>0){
                                 res.send("Welcome to our app")
                                 session.setItem("useridinfo",id)
+                                session.setItem("signin",true)
                             }
                             else{
                                 res.send("The password is incorrect")
+                                session.setItem("signin",false)
                             }
                         }
                     })
                 }
                 else{
                     res.send("Invalid email entered");
+                    session.setItem("signin",false)
                 }
             }
         })
@@ -62,7 +66,7 @@ exports.CheckCredentials = (req, res) => {
     else{
         var user_name = req.body.emailorname
         let sql = "select * from user_details where username="+mysql.escape(user_name);
-        db.query(sql,(err,result)=>{
+        model.query(sql,(err,result)=>{
             if(err){
                 console.log( JSON.stringify(err,undefined,2));
             }    
@@ -73,7 +77,7 @@ exports.CheckCredentials = (req, res) => {
                     console.log(id)
                     var pass = req.body.password
                     let sql1 = "select * from user_details where password="+mysql.escape(pass);
-                    db.query(sql1,(err,result)=>{
+                    model.query(sql1,(err,result)=>{
                         if(err){
                             console.log( JSON.stringify(err,undefined,2));
                         }
@@ -81,16 +85,19 @@ exports.CheckCredentials = (req, res) => {
                             if(result.length>0){
                                 res.send("Welcome to our app")
                                 session.setItem("useridinfo",id)
+                                session.setItem("signin",true)
                                 // console.log(session.getItem("userinfo"))
                             }
                             else{
                                 res.send("The password is incorrect")
+                                session.setItem("signin",false)
                             }
                         }
                     })
                 }
                 else{
                     res.send("Invalid username entered");
+                    session.setItem("signin",false);
                 }
             }
         })
@@ -138,7 +145,7 @@ exports.enterdata = (req,res)=>{
     };
     // const userinfo = req.body
     let sql = "insert into user_details set ?";
-    db.query(sql,userinfo,(err,result)=>{
+    model.query(sql,userinfo,(err,result)=>{
         if(err){
             console.log(user_id)
             console.log( JSON.stringify(err,undefined,2));

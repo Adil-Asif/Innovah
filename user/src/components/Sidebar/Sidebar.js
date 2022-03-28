@@ -100,8 +100,8 @@ const Sidebar = (props) => {
             <img alt="Request Icon" src={RequestIcon} className="customIcon" />
           }
           title="Requests"
-        >
-          <Menu.Item
+        > 
+           <Menu.Item
             onClick={() => {
               moveToAddRequest();
             }}

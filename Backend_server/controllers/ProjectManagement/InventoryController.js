@@ -2,7 +2,7 @@ const model = require('../../models/database')
 
 exports.getAllInventory = (req, res) => {
     projectID = req.params.id
-    let sql = "SELECT inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription	 FROM inventory where projectid=" + (projectID);
+    let sql = "SELECT inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription,inventoryname	 FROM inventory where projectid=" + (projectID);
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2));
@@ -34,7 +34,7 @@ exports.addNewInventory = async (req, res) => {
                 console.log(currentID, "currentID 2")
             }
 
-            sql = `insert into inventory(inventoryname,inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription) values ('${req.body.inventoryname}','${currentID}','${req.body.projectid}','unutilized',${req.body.quantity},${req.body.inventoryvalue},'${req.body.addedby}','${req.body.itemdescription}');`
+            sql = `insert into inventory(inventoryname,inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription) values ('${req.body.Item_Name}','${currentID}','${req.body.projectid}','unutilized',${req.body.quantity},${req.body.inventoryvalue},'${req.body.addedby}','${req.body.itemdescription}');`
             console.log(currentID)
             model.query(sql, (err, result) => {
                 try {
@@ -61,5 +61,37 @@ exports.addNewInventory = async (req, res) => {
 
     });
 
+
+}
+
+exports.getFilteredInventory =(req,res)=>{
+    let getFilter= req.body.status
+    let projectID = req.params.id
+    let sql = `SELECT inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription,inventoryname FROM inventory where projectid= '${projectID}' and itemstatus='${getFilter}'`;
+    model.query(sql, (err, result) => {
+        if (err) {
+            console.log(JSON.stringify(err, undefined, 2));
+        }
+        else {
+            console.log(result);
+            res.send(result);
+        }
+    });
+
+}
+
+exports.deleteinventory=()=>{
+    let projectID = req.params.id
+    let todelete = req.params.idToDelete
+    let sql = `DELETE FROM inventory where inventoryid ='${todelete}'`;
+    model.query(sql, (err, result) => {
+        if (err) {
+            console.log(JSON.stringify(err, undefined, 2));
+        }
+        else {
+            console.log(result);
+            res.send({"Delete":"Sucess"});
+        }
+    });
 
 }

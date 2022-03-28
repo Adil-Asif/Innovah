@@ -217,7 +217,7 @@ const InventoryManagement = () => {
             {fetchInventoryITems ?
               fetchInventoryITems.map((inventory) => (<div className="specific-task-description">
                 <div className="ID-task"> {inventory.inventoryid}</div>
-                <div className="task-name"> cash</div>
+                <div className="task-name"> {inventory.inventoryname}</div>
                 <div className="type"> {inventory.quantity}</div>
                 <div className="assigned-to"> {inventory.inventoryvalue}</div>
                 <div className="added-by"> {inventory.addedby}</div>
