@@ -2,7 +2,7 @@ const model = require('../../models/database')
 
 exports.getAllInventory = (req, res) => {
     projectID = req.params.id
-    let sql = "SELECT inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription,inventoryname	 FROM inventory where projectid=" + (projectID);
+    let sql = "SELECT inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription,inventoryname	 FROM inventory where projectid=" + (projectID) ;
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2));
@@ -19,7 +19,7 @@ exports.addNewInventory = async (req, res) => {
     let currentID
     console.log(req.body)
     console.log("######################################################")
-    let sql = `SELECT count(*) FROM inventory;`
+    let sql = `SELECT MAX( CAST(inventoryid AS SIGNED)) FROM inventory;`
     await model.query(sql, (err, result) => {
         try {
             console.log(result,result.length, "result");
@@ -80,7 +80,7 @@ exports.getFilteredInventory =(req,res)=>{
 
 }
 
-exports.deleteinventory=()=>{
+exports.deleteinventory=(req,res)=>{
     let projectID = req.params.id
     let todelete = req.params.idToDelete
     let sql = `DELETE FROM inventory where inventoryid ='${todelete}'`;
@@ -94,4 +94,19 @@ exports.deleteinventory=()=>{
         }
     });
 
+}
+
+exports.updateInventory=(req,res)=>{
+    let inventoryid = req.body.id
+    let updateStatus = req.body.status
+    let sql = `UPDATE inventory SET itemstatus='${updateStatus}' WHERE inventoryid ='${inventoryid}'`
+    model.query(sql, (err, result) => {
+        if (err) {
+            console.log(JSON.stringify(err, undefined, 2));
+        }
+        else {
+            console.log(result);
+            res.send({"Delete":"Sucess"});
+        }
+    });
 }

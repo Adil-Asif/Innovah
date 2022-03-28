@@ -18,7 +18,7 @@ exports.addNewBoard = async (req, res) => {
 
     let currentID
     console.log(req.body)
-    let sql = `select count(boardid)FROM boards`
+    let sql = `SELECT MAX( CAST(boardid AS SIGNED)) FROM boards;`
     await model.query(sql, (err, result) => {
         try {
              console.log(result);
@@ -60,5 +60,21 @@ exports.addNewBoard = async (req, res) => {
 
     });
 
+
+}
+
+exports.getFilteredBoard =(req,res)=>{
+    let getFilter= req.body.status
+    let projectID = req.params.id
+    let sql = `SELECT boardid,projectid,taskstatus,taskname,tasktype,assignedto,taskdescription FROM boards where projectid= '${projectID}' and taskstatus='${getFilter}'`;
+    model.query(sql, (err, result) => {
+        if (err) {
+            console.log(JSON.stringify(err, undefined, 2));
+        }
+        else {
+            console.log(result);
+            res.send(result);
+        }
+    });
 
 }
