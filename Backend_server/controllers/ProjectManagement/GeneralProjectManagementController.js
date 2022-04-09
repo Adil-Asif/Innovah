@@ -32,7 +32,7 @@ exports.returnSpecificRecord = (req, res) => {
             // res.send(result);
         }
     });
-    if(totalresponse==={}){
+    if(totalresponse!={}){
     let todotask,inventoryMan
     let onlykeys
     let selectingOnlyTodoAndCompleted = []
@@ -69,7 +69,7 @@ exports.returnSpecificRecord = (req, res) => {
         
     }});
 
-    sql = `select itemstatus, count(inventoryid)FROM fyp_database.inventory where projectid=${projectid} and (itemstatus='unutilized' or itemstatus='utilized') group by itemstatus;`;
+    sql = `select itemstatus, count(inventoryid)FROM inventory where projectid=${projectid} and (itemstatus='unutilized' or itemstatus='utilized') group by itemstatus;`;
     model.query(sql, (err, inventoryMan) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2));
