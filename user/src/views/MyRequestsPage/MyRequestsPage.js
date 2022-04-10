@@ -36,8 +36,8 @@ const MyRequestsPage = () => {
                           likes="100"
                           views="3000"
                           comments="20"
-                          // imageUrl={require("../../assests/Images/RequestsImage/Stream.jpg")}
-                          global={false}
+                          imageUrl={require("../../assests/Images/IdeasImage/Stream.jpg")}
+                          global={true}
                         />
                       </div>
                     </Col>
