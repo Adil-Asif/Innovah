@@ -1,24 +1,56 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import "./RequestsItem.scss";
-import { Modal, Button, Form, Input } from "antd";
+import { Modal, Button, Form, Input, Upload } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faThumbsUp,
   faEye,
   faComment,
+  faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 const { TextArea } = Input;
 
 const RequestsItem = (props) => {
+  let request = {
+    requestName: props.RequestName,
+    requestDescription: props.description,
+    requestImage: props.imageUrl,
+  };
 
-  const [Proposal ,setProposal] = useState("");
+  const [Proposal, setProposal] = useState("");
+  const [requestDetails, setRequestDetails] = useState(request);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
 
-  const onSubmit = (values) => {
-    setProposal(values.Proposal)
+  useEffect(() => {
+    updateModal();
+  }, [requestDetails]);
+
+  const onApply = (values) => {
+    setProposal(values.Proposal);
     console.log("Received values of form: ", Proposal);
     setIsModalVisible(false);
+  };
+  const updateModal = () => {
+    form.resetFields();
+    setIsModalVisible(false);
+    console.log("hi", requestDetails);
+  };
+  const onEdit = (values) => {
+    request.requestName =
+      values.requestName !== undefined
+        ? values.requestName
+        : requestDetails.requestName;
+    request.requestDescription =
+      values.requestDescription !== undefined
+        ? values.requestDescription
+        : requestDetails.requestDescription;
+        request.requestImage =
+      values.requestImage !== undefined
+        ? values.requestImage
+        : requestDetails.requestImage;
+    setRequestDetails(request);
+    console.log("Received values of form: ", requestDetails);
   };
 
   return props.global ? (
@@ -54,7 +86,7 @@ const RequestsItem = (props) => {
             .validateFields()
             .then((values) => {
               form.resetFields();
-              onSubmit(values);
+              onApply(values);
             })
             .catch((info) => {
               console.log("Validate Failed:", info);
@@ -120,6 +152,9 @@ const RequestsItem = (props) => {
         type="primary"
         className="left"
         style={{ marginRight: "4%", borderBottomLeftRadius: "8px" }}
+        onClick={() => {
+          setIsModalVisible(true);
+        }}
       >
         Edit
       </Button>
@@ -132,6 +167,66 @@ const RequestsItem = (props) => {
       >
         View Submissions
       </Button>
+
+      <Modal
+        centered
+        title={props.RequestName}
+        visible={isModalVisible}
+        okText="Submit"
+        cancelText="Cancel"
+        onCancel={() => {
+          setIsModalVisible(false);
+        }}
+        onOk={() => {
+          form
+            .validateFields()
+            .then((values) => {
+              form.resetFields();
+              onEdit(values);
+            })
+            .catch((info) => {
+              console.log("Validate Failed:", info);
+            });
+        }}
+        className="requestSubmissionForm"
+      >
+        <div className="requestForm">
+          <div>
+            {/* <h3>Description: </h3>
+            <p>{props.description}</p> */}
+          </div>
+          <div>
+            <Form form={form}>
+              <div>
+                <Form.Item
+                  name="requestName"
+                  label="Request Tile"
+                  rules={[{ message: "Previous title will be used" }]}
+                >
+                  <Input defaultValue={requestDetails.requestName} />
+                </Form.Item>
+                <Form.Item
+                  name="requestDescription"
+                  label="Request Description"
+                >
+                  <TextArea defaultValue={requestDetails.requestDescription} />
+                </Form.Item>
+                <Form.Item name="requestImage" label="Image Url">
+                  <Upload>
+                    <Button
+                      icon={
+                        <FontAwesomeIcon icon={faUpload} className="icon" />
+                      }
+                    >
+                      Upload
+                    </Button>
+                  </Upload>
+                </Form.Item>
+              </div>
+            </Form>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
