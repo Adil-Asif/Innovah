@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./RequestsItem.scss";
 import { Modal, Button, Form, Input, Upload } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +12,12 @@ import {
 const { TextArea } = Input;
 
 const RequestsItem = (props) => {
+
+  let navigate = useNavigate();
+  const moveToRequestSubmissions = () => {
+    navigate("/myrequests/submissions");
+  };
+
   let request = {
     requestName: props.RequestName,
     requestDescription: props.description,
@@ -23,18 +30,14 @@ const RequestsItem = (props) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    updateModal();
-  }, [requestDetails]);
+    form.resetFields();
+    setIsModalVisible(false);
+  }, [requestDetails, form]);
 
   const onApply = (values) => {
     setProposal(values.Proposal);
     console.log("Received values of form: ", Proposal);
     setIsModalVisible(false);
-  };
-  const updateModal = () => {
-    form.resetFields();
-    setIsModalVisible(false);
-    console.log("hi", requestDetails);
   };
   const onEdit = (values) => {
     request.requestName =
@@ -45,7 +48,7 @@ const RequestsItem = (props) => {
       values.requestDescription !== undefined
         ? values.requestDescription
         : requestDetails.requestDescription;
-        request.requestImage =
+    request.requestImage =
       values.requestImage !== undefined
         ? values.requestImage
         : requestDetails.requestImage;
@@ -159,6 +162,9 @@ const RequestsItem = (props) => {
         Edit
       </Button>
       <Button
+        onClick={() => {
+          moveToRequestSubmissions();
+        }}
         type="primary"
         className="right"
         style={{
@@ -219,6 +225,7 @@ const RequestsItem = (props) => {
                       }
                     >
                       Upload
+                      {/* TODO: Fix Images upload */}
                     </Button>
                   </Upload>
                 </Form.Item>

@@ -7,6 +7,7 @@ import GlobalIdeasPage from "../views/GlobalIdeasPage/GlobalIdeasPage";
 import ViewIdeasPage from "../views/ViewIdeasPage/ViewIdeasPage";
 import AddRequestPage from "../views/AddRequestPage/AddRequestPage";
 import MyRequestsPage from "../views/MyRequestsPage/MyRequestsPage";
+import RequestSubmissionPage from "../views/RequestsSubmissionPage/RequestsSubmissionPage";
 import GlobalRequestsPage from "../views/GlobalRequestsPage/GlobalRequestsPage";
 import LearningResourcesPage from "../views/LearningResourcesPage/LearningResourcesPage";
 import PLayListPage from "../views/PlaylistPage/PlaylistPage";
@@ -29,6 +30,7 @@ const Routers = () => {
       <Route exact path="/globalideas" element={<GlobalIdeasPage />} />
       <Route exact path="/addrequest" element={<AddRequestPage />} />
       <Route exact path="/myrequests" element={<MyRequestsPage />} />
+      <Route exact path="/myrequests/submissions" element={<RequestSubmissionPage />} />
       <Route exact path="/globalrequests" element={<GlobalRequestsPage />} />
       <Route
         exact
