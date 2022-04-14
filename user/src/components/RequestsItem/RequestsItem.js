@@ -4,12 +4,7 @@ import "./RequestsItem.scss";
 import { storage } from "../../services/Firebase/Firebase";
 import { Modal, Button, Form, Input, Upload } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faThumbsUp,
-  faEye,
-  faComment,
-  faUpload,
-} from "@fortawesome/free-solid-svg-icons";
+import { faFileLines, faUpload } from "@fortawesome/free-solid-svg-icons";
 const { TextArea } = Input;
 
 const RequestsItem = (props) => {
@@ -142,6 +137,7 @@ const RequestsItem = (props) => {
       </Button>
 
       <Modal
+        centered
         title={props.title}
         visible={isModalVisible}
         okText="Submit"
@@ -203,44 +199,42 @@ const RequestsItem = (props) => {
         <div className="description">{props.description}</div>
         <div className="insights">
           <div className="details">
-            <FontAwesomeIcon icon={faThumbsUp} className="icon" />
-            {props.likes}
-          </div>
-          <div className="details">
-            <FontAwesomeIcon icon={faEye} className="icon" />
-            {props.views}
-          </div>
-          <div className="details">
-            <FontAwesomeIcon icon={faComment} />
-            {props.comments}
+            <FontAwesomeIcon icon={faFileLines} />
+            {props.applications}
           </div>
         </div>
       </div>
-      <Button
-        type="primary"
-        className="left"
-        style={{ marginRight: "4%", borderBottomLeftRadius: "8px" }}
-        onClick={() => {
-          setIsModalVisible(true);
-        }}
-      >
-        Edit
-      </Button>
-      <Button
-        onClick={() => {
-          moveToRequestSubmissions();
-        }}
-        type="primary"
-        className="right"
-        style={{
-          borderBottomRightRadius: "8px",
-        }}
-      >
-        View Submissions
-      </Button>
-
+      {props.isHired ? (
+        <div className="hired">Hired</div>
+      ) : (
+        <>
+          <Button
+            type="primary"
+            className="left"
+            style={{ marginRight: "4%", borderBottomLeftRadius: "8px" }}
+            onClick={() => {
+              setIsModalVisible(true);
+            }}
+          >
+            Edit
+          </Button>
+          <Button
+            onClick={() => {
+              moveToRequestSubmissions();
+            }}
+            type="primary"
+            className="right"
+            style={{
+              borderBottomRightRadius: "8px",
+            }}
+          >
+            View Submissions
+          </Button>{" "}
+        </>
+      )}
       <Modal
         centered
+        className="editRequestModal"
         title={props.RequestName}
         visible={isModalVisible}
         okText="Submit"
@@ -259,52 +253,44 @@ const RequestsItem = (props) => {
               console.log("Validate Failed:", info);
             });
         }}
-        className="requestSubmissionForm"
       >
-        <div className="requestForm">
-          <div>
-            {/* <h3>Description: </h3>
-            <p>{props.description}</p> */}
-          </div>
-          <div>
-            <Form form={form}>
-              <div>
-                <Form.Item
-                  name="requestName"
-                  label="Request Tile"
-                  rules={[{ message: "Previous title will be used" }]}
+        <div className="editRequestForm">
+          <Form form={form}>
+            <div>
+              <Form.Item
+                name="requestName"
+                label="Request Tile"
+                rules={[{ message: "Previous title will be used" }]}
+              >
+                <Input defaultValue={requestDetails.requestName} />
+              </Form.Item>
+              <Form.Item name="requestDescription" label="Request Description">
+                <TextArea
+                  defaultValue={requestDetails.requestDescription}
+                  showCount
+                  maxLength={3000}
+                />
+              </Form.Item>
+              <Form.Item name="requestImage">
+                <Upload.Dragger
+                  listType="picture"
+                  accept=".png,.jpg"
+                  defaultFileList={""}
+                  beforeUpload={(file) => {
+                    console.log({ file });
+                    return false;
+                  }}
+                  action={"localhost:3000/"}
                 >
-                  <Input defaultValue={requestDetails.requestName} />
-                </Form.Item>
-                <Form.Item
-                  name="requestDescription"
-                  label="Request Description"
-                >
-                  <TextArea defaultValue={requestDetails.requestDescription} />
-                </Form.Item>
-                <Form.Item name="requestImage" label="Image Url">
-                  <Upload.Dragger
-                    listType="picture"
-                    accept=".png,.jpg"
-                    defaultFileList={""}
-                    beforeUpload={(file) => {
-                      console.log({ file });
-                      return false;
-                    }}
-                    action={"localhost:3000/"}
+                  <Button
+                    icon={<FontAwesomeIcon icon={faUpload} className="icon" />}
                   >
-                    <Button
-                      icon={
-                        <FontAwesomeIcon icon={faUpload} className="icon" />
-                      }
-                    >
-                      Upload
-                    </Button>
-                  </Upload.Dragger>
-                </Form.Item>
-              </div>
-            </Form>
-          </div>
+                    Upload Image
+                  </Button>
+                </Upload.Dragger>
+              </Form.Item>
+            </div>
+          </Form>
         </div>
       </Modal>
     </div>

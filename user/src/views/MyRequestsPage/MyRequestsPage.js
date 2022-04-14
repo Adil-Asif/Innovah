@@ -11,9 +11,6 @@ import RequestsItem from "../../components/RequestsItem/RequestsItem";
 const { Content } = Layout;
 
 const MyRequestsPage = () => {
-
-
-
   return (
     <div className="myRequestsPage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -36,11 +33,22 @@ const MyRequestsPage = () => {
                         <RequestsItem
                           RequestName="Stream.io"
                           description="It is video streaming platform where content creators can upload their videos and monetize them. These videos will be available to watch all around the globe based on user watch history and preferences."
-                          likes="100"
-                          views="3000"
-                          comments="20"
+                          applications="20"
                           imageUrl={require("../../assests/Images/IdeasImage/Stream.jpg")}
                           global={false}
+                          isHired={false}
+                        />
+                      </div>
+                    </Col>
+                    <Col className="gutter-row" span={8}>
+                      <div style={{ paddingTop: "40px"}}>
+                        <RequestsItem
+                          RequestName="Stream.io"
+                          description="It is video streaming platform where content creators can upload their videos and monetize them. These videos will be available to watch all around the globe based on user watch history and preferences."
+                          applications="25"
+                          imageUrl={require("../../assests/Images/IdeasImage/Stream.jpg")}
+                          global={false}
+                          isHired={true}
                         />
                       </div>
                     </Col>
