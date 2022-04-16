@@ -55,12 +55,11 @@ const RequestsItem = (props) => {
       console.log(requestDetails);
     }
   }, [requestDetails]);
-  
   useEffect(() => {
     if (Proposal !== "") {
       console.log("Received values of form: ", Proposal);
     }
-  }, [Proposal]);
+  },[Proposal]);
   const onApply = (values) => {
     setProposal(values.Proposal);
     setIsModalVisible(false);
