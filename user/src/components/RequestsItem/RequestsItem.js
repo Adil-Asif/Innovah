@@ -14,9 +14,11 @@ const RequestsItem = (props) => {
   };
 
   let request = {
+    requestID: "",
     requestName: props.RequestName,
     requestDescription: props.description,
     requestImage: props.imageUrl,
+    isUpdated: false,
   };
   const allInputs = { imgUrl: "" };
   const [imageAsFile, setImageAsFile] = useState("");
@@ -32,9 +34,9 @@ const RequestsItem = (props) => {
   }, [requestDetails, form]);
 
   useEffect(() => {
-    const funct = async () => {
+    const funct = () => {
       if (imageAsFile !== "") {
-        await handleFireBaseUpload();
+        handleFireBaseUpload();
       }
     };
     funct();
@@ -42,13 +44,25 @@ const RequestsItem = (props) => {
 
   useEffect(() => {
     if (imageAsUrl.imgUrl !== "") {
-      console.log(imageAsUrl, "j");
+      request.requestImage = imageAsUrl.imgUrl;
+      request.isUpdated = true;
+      setRequestDetails(request);
     }
   }, [imageAsUrl]);
 
+  useEffect(() => {
+    if (requestDetails.isUpdated) {
+      console.log(requestDetails);
+    }
+  }, [requestDetails]);
+  
+  useEffect(() => {
+    if (Proposal !== "") {
+      console.log("Received values of form: ", Proposal);
+    }
+  }, [Proposal]);
   const onApply = (values) => {
     setProposal(values.Proposal);
-    console.log("Received values of form: ", Proposal);
     setIsModalVisible(false);
   };
   const onEdit = (values) => {
@@ -60,11 +74,13 @@ const RequestsItem = (props) => {
       values.requestDescription !== undefined
         ? values.requestDescription
         : requestDetails.requestDescription;
-    request.requestImage =
+
+    requestDetails.requestImage =
       values.requestImage !== undefined
         ? (values.requestImage, handleSubmission(values.requestImage))
-        : requestDetails.requestImage;
-    setRequestDetails(request);
+        : ((requestDetails.requestImage = request.requestImage),
+          (request.isUpdated = true),
+          setRequestDetails(request));
   };
   const handleSubmission = async (requestImage) => {
     setImageAsFile(requestImage.file);
