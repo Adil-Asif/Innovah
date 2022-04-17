@@ -22,10 +22,7 @@
     margin-top: 50px;
     margin-left: 5.75%;
     .rightSection {
-      margin-left: 100px;
-      .ideaDescription {
-        margin-top: 50px;
-      }
+      margin-left: 40px;
     }
   }
 
@@ -54,6 +51,10 @@
       padding: 10px 20px;
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
+      .feedbackRow{
+        border-bottom: 2px solid var( --textbox-border);
+        border-radius: 2px;
+      }
     }
   }
 }

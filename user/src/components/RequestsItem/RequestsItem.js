@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState  } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RequestsItem.scss";
 import { storage } from "../../services/Firebase/Firebase";
@@ -34,6 +34,54 @@ const RequestsItem = (props) => {
   }, [requestDetails, form]);
 
   useEffect(() => {
+    const handleFireBaseUpload = () => {
+      console.log("start of upload");
+      // async magic goes here...
+      console.log(imageAsFile);
+      if (imageAsFile === "") {
+        console.error(
+          `not an image, the image file is a ${typeof imageAsFile}`
+        );
+      }
+
+      if (imageAsFile !== undefined) {
+        const uploadTask = storage
+          .ref(`/images/${imageAsFile.name}`)
+          .put(imageAsFile);
+        //initiates the firebase side uploading
+        uploadTask.on(
+          "state_changed",
+          (snapShot) => {
+            //takes a snap shot of the process as it is happening
+            console.log(snapShot);
+          },
+          (err) => {
+            //catches the errors
+            console.log(err);
+          },
+          () => {
+            // gets the functions from storage refences the image storage in firebase by the children
+            // gets the download url then sets the image from firebase as the value for the imgUrl key:
+            // TODO: Reolve issue returns url on second submit look for solution. Issue with promise
+            storage
+              .ref("images")
+              .child(imageAsFile.name)
+              .getDownloadURL()
+              .then(async (fireBaseUrl) => {
+                if (fireBaseUrl !== "") {
+                  setImageAsUrl((prevObject) => ({
+                    ...prevObject,
+                    imgUrl: fireBaseUrl,
+                  }));
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        );
+      }
+    };
     const funct = () => {
       if (imageAsFile !== "") {
         handleFireBaseUpload();
@@ -43,11 +91,14 @@ const RequestsItem = (props) => {
   }, [imageAsFile]);
 
   useEffect(() => {
+    
     if (imageAsUrl.imgUrl !== "") {
+      
       request.requestImage = imageAsUrl.imgUrl;
       request.isUpdated = true;
       setRequestDetails(request);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
 
   useEffect(() => {
@@ -59,7 +110,7 @@ const RequestsItem = (props) => {
     if (Proposal !== "") {
       console.log("Received values of form: ", Proposal);
     }
-  },[Proposal]);
+  }, [Proposal]);
   const onApply = (values) => {
     setProposal(values.Proposal);
     setIsModalVisible(false);
@@ -74,61 +125,15 @@ const RequestsItem = (props) => {
         ? values.requestDescription
         : requestDetails.requestDescription;
 
-    requestDetails.requestImage =
+    request.requestImage =
       values.requestImage !== undefined
         ? (values.requestImage, handleSubmission(values.requestImage))
-        : ((requestDetails.requestImage = request.requestImage),
+        : ((requestDetails.requestImage),
           (request.isUpdated = true),
           setRequestDetails(request));
   };
   const handleSubmission = async (requestImage) => {
     setImageAsFile(requestImage.file);
-  };
-  const handleFireBaseUpload = () => {
-    console.log("start of upload");
-    // async magic goes here...
-    console.log(imageAsFile);
-    if (imageAsFile === "") {
-      console.error(`not an image, the image file is a ${typeof imageAsFile}`);
-    }
-
-    if (imageAsFile !== undefined) {
-      const uploadTask = storage
-        .ref(`/images/${imageAsFile.name}`)
-        .put(imageAsFile);
-      //initiates the firebase side uploading
-      uploadTask.on(
-        "state_changed",
-        (snapShot) => {
-          //takes a snap shot of the process as it is happening
-          console.log(snapShot);
-        },
-        (err) => {
-          //catches the errors
-          console.log(err);
-        },
-        () => {
-          // gets the functions from storage refences the image storage in firebase by the children
-          // gets the download url then sets the image from firebase as the value for the imgUrl key:
-          // TODO: Reolve issue returns url on second submit look for solution. Issue with promise
-          storage
-            .ref("images")
-            .child(imageAsFile.name)
-            .getDownloadURL()
-            .then(async (fireBaseUrl) => {
-              if (fireBaseUrl !== "") {
-                setImageAsUrl((prevObject) => ({
-                  ...prevObject,
-                  imgUrl: fireBaseUrl,
-                }));
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      );
-    }
   };
 
   return props.global ? (

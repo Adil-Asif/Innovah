@@ -14,6 +14,7 @@
     "antd": "^4.17.2",
     "axios": "^0.26.0",
     "craco-less": "^2.0.0",
+    "eslint-plugin-react-hooks": "^4.5.0-next-726ba8029-20220415",
     "firebase": "^9.6.10",
     "i": "^0.3.7",
     "react": "^17.0.2",
