@@ -5,7 +5,7 @@ const Remarks = (props) => {
   return (
     <div className="remarksItemLayout">
       <div className="avatar">
-      <Avatar shape="square" size={70} src={props.imageUrl} /> 
+      <Avatar shape="round" size={70} src={props.imageUrl} /> 
       </div>
       <div className="juryFeedback">
         <div className="userName">{props.name}</div>
