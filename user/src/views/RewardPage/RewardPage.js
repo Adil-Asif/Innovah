@@ -11,7 +11,7 @@ const { Content } = Layout;
 const { TextArea } = Input;
 
 const RewardPage = () => {
-  const userRole = "admin";
+  const userRole = "user";
   const [rewardItem, setRewardItem] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();

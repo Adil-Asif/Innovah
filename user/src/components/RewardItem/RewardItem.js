@@ -12,7 +12,7 @@ const RewardItem = (props) => {
     rewardPoints: props.points,
     isUpdated: false,
   };
-  const role = "admin";
+  const role = "user";
   const [isClaimed, setIsClaimed] = useState(false);
 
   const [rewardDetails, setRewardDetails] = useState(reward);

@@ -96,11 +96,13 @@ const IdeasItem = (props) => {
 
   useEffect(() => {
     if (imageAsUrl.imgUrl !== "") {
+      idea.ideaName = ideaDetails.ideaName;
+      idea.ideaDescription = ideaDetails.ideaDescription;
       idea.ideaImage = imageAsUrl.imgUrl;
       idea.isUpdated = true;
       setIdeaDetails(idea);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
 
   useEffect(() => {
@@ -120,9 +122,8 @@ const IdeasItem = (props) => {
     ideaDetails.ideaImage =
       values.ideaImage !== undefined
         ? (values.ideaImage, handleSubmission(values.ideaImage))
-        : ((ideaDetails.ideaImage = idea.ideaImage),
-          (idea.isUpdated = true),
-          setIdeaDetails(idea));
+        : ((ideaDetails.ideaImage = idea.ideaImage), (idea.isUpdated = true));
+    setIdeaDetails(idea);
   };
 
   return (
