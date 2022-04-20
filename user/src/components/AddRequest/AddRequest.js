@@ -3,7 +3,7 @@ import "./AddRequest.scss";
 import { storage } from "../../services/Firebase/Firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import { Button, Form, Input, Upload } from "antd";
+import { Button, Form, Input, Upload,message } from "antd";
 const { TextArea } = Input;
 
 const AddRequest = () => {
@@ -87,6 +87,7 @@ const AddRequest = () => {
 
   useEffect(() => {
     if (requestDetails.isSubmit) {
+      message.success("Request Posted");
       console.log(requestDetails);
     }
   }, [requestDetails]);

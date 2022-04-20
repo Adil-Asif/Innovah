@@ -14,35 +14,35 @@ const { Content } = Layout;
 
 const CompetitionPage = () => {
 
-  const convertBlobToBase64 = async (blob) => { // blob data
-    return await blobToBase64(blob);
-  }
+  // const convertBlobToBase64 = async (blob) => { // blob data
+  //   return await blobToBase64(blob);
+  // }
   
-  const blobToBase64 = blob => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(blob);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  })
+  // const blobToBase64 = blob => new Promise((resolve, reject) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(blob);
+  //   reader.onload = () => resolve(reader.result);
+  //   reader.onerror = error => reject(error);
+  // })
 
 
-  const [competitions, setCompetitions] = useState("")
-  useEffect(() => {
+  // const [competitions, setCompetitions] = useState("")
+  // useEffect(() => {
 
-    const getCompetitions=async()=>{
-   let response = await fetch("http://localhost:5000/competitions/")
-   response =await response.json()
-   console.log(response)
-  setCompetitions(response)
+  //   const getCompetitions=async()=>{
+  //  let response = await fetch("http://localhost:5000/competitions/")
+  //  response =await response.json()
+  //  console.log(response)
+  // setCompetitions(response)
   
   
 
-  //  console.log(await convertBlobToBase64((response[0].startdate.data)))
+  // //  console.log(await convertBlobToBase64((response[0].startdate.data)))
 
-    }
-    getCompetitions()
+  //   }
+  //   getCompetitions()
     
-  }, [])
+  // }, [])
   
   return (
     <div className="competitionPage">
@@ -57,7 +57,7 @@ const CompetitionPage = () => {
               </div>
               <img src={Competition} alt="Competitions" />
             </div>
-            {(competitions) ?
+            {/* {(competitions) ? */}
             <div className="ideaItemsDashboard">
               <div className="competition">
                 <div className="left">
@@ -65,9 +65,9 @@ const CompetitionPage = () => {
                     <img src={hackathon} alt="Hackathon" />
                   </div>
                   <div className="information">
-                    <div className="title">{competitions[0].competitionname}</div>
+                    {/* <div className="title">{competitions[0].competitionname}</div> */}
                     <div className="description">
-                    {competitions[0].description}
+                    {/* {competitions[0].description} */}
                     </div>
                   </div>
                 </div>
@@ -113,9 +113,9 @@ const CompetitionPage = () => {
                     <img src={InnovahCup} alt="Innovah Cup" />
                   </div>
                   <div className="information">
-                    <div className="title">{competitions[1].competitionname}</div>
+                    {/* <div className="title">{competitions[1].competitionname}</div> */}
                     <div className="description">
-                    {competitions[1].description}
+                    {/* {competitions[1].description} */}
                     </div>
                   </div>
                 </div>
@@ -160,9 +160,9 @@ const CompetitionPage = () => {
                     <img src={defend} alt="Proposal Defence" />
                   </div>
                   <div className="information">
-                    <div className="title">{competitions[2].competitionname}</div>
+                    {/* <div className="title">{competitions[2].competitionname}</div> */}
                     <div className="description">
-                    {competitions[2].description}
+                    {/* {competitions[2].description} */}
                     </div>
                   </div>
                 </div>
