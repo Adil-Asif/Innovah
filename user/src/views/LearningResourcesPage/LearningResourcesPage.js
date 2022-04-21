@@ -23,7 +23,7 @@ const LearningResourcesPage = () => {
     isSubmitted: false,
   };
 
-  const userRole = "admin";
+  const userRole = "trainer";
   const [isModalVisible, setIsModalVisible] = useState(false);
   const allInputs = { imgUrl: "" };
   const [imageAsFile, setImageAsFile] = useState("");
@@ -149,7 +149,7 @@ const LearningResourcesPage = () => {
                 <div className="pageTitle">
                   <PageTitle title="Learning Resources" />
                 </div>
-                {userRole === "admin" ? (
+                {userRole === "trainer" ? (
                   <>
                     <div>
                       {" "}
