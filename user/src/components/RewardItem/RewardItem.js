@@ -5,45 +5,45 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 const { TextArea } = Input;
 const RewardItem = (props) => {
-  let reward = {
-    rewardID: "",
-    rewardTitle: props.title,
-    rewardDescription: props.description,
-    rewardPoints: props.points,
-    isUpdated: false,
-  };
+  // let reward = {
+  //   rewardID: "",
+  //   rewardTitle: props.title,
+  //   rewardDescription: props.description,
+  //   rewardPoints: props.points,
+  //   isUpdated: false,
+  // };
   const role = "user";
   const [isClaimed, setIsClaimed] = useState(false);
 
-  const [rewardDetails, setRewardDetails] = useState(reward);
+  // const [rewardDetails, setRewardDetails] = useState(reward);
   const [isDelete, setIsDelete] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [form] = Form.useForm();
+  // const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [form] = Form.useForm();
 
-  useEffect(() => {
-    if (rewardDetails.isUpdated) {
-      form.resetFields();
-      setIsModalVisible(false);
-      console.log(rewardDetails)
-    }
-  }, [rewardDetails, form]);
+  // useEffect(() => {
+  //   if (rewardDetails.isUpdated) {
+  //     form.resetFields();
+  //     setIsModalVisible(false);
+  //     console.log(rewardDetails);
+  //   }
+  // }, [rewardDetails, form]);
 
-  const onEdit = (values) => {
-    reward.rewardTitle =
-      values.rewardTitle !== undefined
-        ? values.rewardTitle
-        : rewardDetails.rewardTitle;
-    reward.rewardDescription =
-      values.rewardDescription !== undefined
-        ? values.rewardDescription
-        : rewardDetails.rewardDescription;
-    reward.rewardPoints =
-      values.rewardPoints !== undefined
-        ? values.rewardPoints
-        : rewardDetails.rewardPoints;
-    reward.isUpdated = true;
-    setRewardDetails(reward);
-  };
+  // const onEdit = (values) => {
+  //   reward.rewardTitle =
+  //     values.rewardTitle !== undefined
+  //       ? values.rewardTitle
+  //       : rewardDetails.rewardTitle;
+  //   reward.rewardDescription =
+  //     values.rewardDescription !== undefined
+  //       ? values.rewardDescription
+  //       : rewardDetails.rewardDescription;
+  //   reward.rewardPoints =
+  //     values.rewardPoints !== undefined
+  //       ? values.rewardPoints
+  //       : rewardDetails.rewardPoints;
+  //   reward.isUpdated = true;
+  //   setRewardDetails(reward);
+  // };
 
   return (
     <>
@@ -94,7 +94,7 @@ const RewardItem = (props) => {
                 </>
               ) : (
                 <>
-                  <Modal
+                  {/* <Modal
                     centered
                     className="editRewardModal"
                     title={props.title}
@@ -156,7 +156,8 @@ const RewardItem = (props) => {
                       }}
                     >
                       <FontAwesomeIcon icon={faPenToSquare} />
-                    </Button>
+                    </Button> */}
+                  <div className="adminButton">
                     <Button
                       className="deletebtn"
                       type="primary"
