@@ -2,7 +2,16 @@ import { React, useState, useEffect } from "react";
 import "./AddIdeaPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { storage } from "../../services/Firebase/Firebase";
-import { Layout, Form, Input, Button, Select, Switch, Upload } from "antd";
+import {
+  Layout,
+  Form,
+  Input,
+  Button,
+  Select,
+  Switch,
+  Upload,
+  message,
+} from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -102,6 +111,7 @@ const AddIdeaPage = () => {
   useEffect(() => {
     if (ideaDetails.isSubmit) {
       console.log(ideaDetails);
+      message.success("Idea Posted");
     }
   }, [ideaDetails]);
 
@@ -145,14 +155,15 @@ const AddIdeaPage = () => {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
               >
-                <Form.Item label="Idea Title" name="ideaTitle">
-                  <Input />
+                <Form.Item label="Idea Title" name="ideaTitle" required>
+                  <Input required />
                 </Form.Item>
-                <Form.Item label="Description" name="ideaDescription">
-                  <Input />
+                <Form.Item label="Description" name="ideaDescription" required>
+                  <Input required />
                 </Form.Item>
-                <Form.Item label="Domain" name="ideaDomain">
+                <Form.Item label="Domain" name="ideaDomain" required>
                   <Select
+                    required
                     mode="multiple"
                     allowClear
                     style={{ width: "100%" }}
@@ -181,8 +192,9 @@ const AddIdeaPage = () => {
                     </Option>
                   </Select>
                 </Form.Item>
-                <Form.Item label="Industry" name="ideaIndustry">
+                <Form.Item label="Industry" name="ideaIndustry" required>
                   <Select
+                    required
                     allowClear
                     style={{ width: "100%" }}
                     placeholder="Please select the relevant industry your idea belong to"
@@ -213,8 +225,10 @@ const AddIdeaPage = () => {
                 <Form.Item
                   label="Final Deliverables"
                   name="ideaFinalDeliverables"
+                  required
                 >
                   <Select
+                    required
                     mode="multiple"
                     allowClear
                     style={{ width: "100%" }}
@@ -242,6 +256,7 @@ const AddIdeaPage = () => {
                 </Form.Item>
                 <Form.Item label="Attach Image" name="ideaImage" required>
                   <Upload.Dragger
+                    required
                     listType="picture"
                     accept=".png,.jpg"
                     defaultFileList={""}

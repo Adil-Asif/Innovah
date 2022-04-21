@@ -1,4 +1,4 @@
-import { React, useEffect, useState  } from "react";
+import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RequestsItem.scss";
 import { storage } from "../../services/Firebase/Firebase";
@@ -91,14 +91,14 @@ const RequestsItem = (props) => {
   }, [imageAsFile]);
 
   useEffect(() => {
-    
     if (imageAsUrl.imgUrl !== "") {
-      
+      request.requestName = requestDetails.requestName;
+      request.requestDescription = requestDetails.requestDescription;
       request.requestImage = imageAsUrl.imgUrl;
       request.isUpdated = true;
       setRequestDetails(request);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
 
   useEffect(() => {
@@ -128,9 +128,8 @@ const RequestsItem = (props) => {
     request.requestImage =
       values.requestImage !== undefined
         ? (values.requestImage, handleSubmission(values.requestImage))
-        : ((requestDetails.requestImage),
-          (request.isUpdated = true),
-          setRequestDetails(request));
+        : (requestDetails.requestImage, (request.isUpdated = true));
+    setRequestDetails(request);
   };
   const handleSubmission = async (requestImage) => {
     setImageAsFile(requestImage.file);
