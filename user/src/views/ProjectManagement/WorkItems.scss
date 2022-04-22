@@ -154,45 +154,42 @@
     flex-wrap: wrap;
     width: 90%;
     margin: 50px 0px 15px 5.5%;
-    align-items: center;
     border-bottom: 2px solid var(--gray-button);
     padding: 0px 0px 10px 10px;
   }
   .ID-task {
     width: 10%;
     display: flex;
-    align-items: center;
+    justify-content: center;
   }
   .task-name {
     width: 30%;
     display: flex;
-    align-items: center;
+    justify-content: center;
   }
   .type {
     width: 15%;
     display: flex;
-    align-items: center;
+    justify-content: center;
   }
   .assigned-to {
     width: 20%;
     display: flex;
-    align-items: center;
+    justify-content: center;
   }
   .status {
     width: 15%;
     display: flex;
-    align-items: center;
+    justify-content: center;
   }
 
   .specific-task-description {
     border-radius: 4px;
     margin: 15px 0px 15px 5.5%;
-    align-items: center;
     height: 5%;
     width: 90.5%;
     background-color: #fff;
     display: flex;
-    flex-wrap: wrap;
     padding: 0px 0px 0px 10px;
     .editbtn {
       background-color: var(--white);

@@ -6,6 +6,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import AI_image from "./../../assests/Images/ProjectManagement/AI_project.jpg";
+import board from "./../../assests/Images/Boards.svg";
 import { Modal, Button, Spin, Form, Input, Select } from "antd";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,7 +21,6 @@ const WorkItems = () => {
   const [isModalVisible2, setIsModalVisible2] = useState(false);
   const [fetchBoardItems, setFetchBoardItems] = useState([]);
   const [taskStatus, setTaskStatus] = useState("");
-  const [form] = Form.useForm();
 
   let params = useParams();
   console.log(params.projectid);
@@ -44,6 +44,7 @@ const WorkItems = () => {
 
   useEffect(() => {
     fetchBoards();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entrySucess]);
 
   const showModal2 = () => {
@@ -113,6 +114,7 @@ const WorkItems = () => {
                   </Button>
                 </div>
               </div>
+              <img src={board} alt="Boards" />
             </div>
             <Modal
               title="Add New Task"
@@ -238,36 +240,36 @@ const WorkItems = () => {
                     </>
                   ) : taskID === board.boardid ? (
                     <>
-                      {/* TODO: Handle form and rendering in map */}
-
+                      
                       <Form
                         onFinish={updateStatus}
                         onFinishFailed={onFinishFailed}
                         style={{
                           display: "flex",
                           justifyContent: "space-between",
+                          marginLeft: "80px",
                         }}
                       >
                         <div className="status">
                           <Form.Item
                             name="taskstatus"
                             style={{ marginBottom: "0px" }}
-                            className ="update"
+                            className="update"
                           >
                             <Select
                               placeholder="Select task status"
                               defaultValue={board.taskstatus}
                             >
-                              <Option value="created">Created</Option>
-                              <Option value="todo">To Do</Option>
-                              <Option value="doing">Doing</Option>
-                              <Option value="completed">Completed</Option>
+                              <Option value="Created">Created</Option>
+                              <Option value="To Do">To Do</Option>
+                              <Option value="Doing">Doing</Option>
+                              <Option value="Completed">Completed</Option>
                             </Select>
                           </Form.Item>
                         </div>
                         <div
                           className="editButton"
-                          style={{ marginLeft: "95px"}}
+                          style={{ marginLeft: "10px", marginTop: "-1.5px" }}
                         >
                           <Form.Item style={{ marginBottom: "0px" }}>
                             <Button
@@ -276,6 +278,7 @@ const WorkItems = () => {
                               className="editbtn"
                               htmlType="submit"
                             >
+                              {" "}
                               <FontAwesomeIcon icon={faCheck} />
                             </Button>
                           </Form.Item>
@@ -294,6 +297,7 @@ const WorkItems = () => {
                             setISEdit(true);
                             setTaskID(board.boardid);
                           }}
+                          style={{ border: "none" }}
                         >
                           <FontAwesomeIcon icon={faPenToSquare} />
                         </Button>
