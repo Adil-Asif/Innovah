@@ -1,7 +1,6 @@
 import React from "react";
 import "./PlaylistPage.scss";
-import { storage } from "../../services/Firebase/Firebase";
-import { Layout, Spin, Button, Modal, Form, Input, Upload } from "antd";
+import { Layout, Spin, Button, Modal, Form, Input } from "antd";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
@@ -9,8 +8,6 @@ import Footer from "../../components/Footer/Footer";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import playlist from "../../assests/Images/Playlist.svg";
 import playlistItem from "../../components/Playlist/PlaylistItem";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useState, useEffect } from "react";
 const { Content } = Layout;
