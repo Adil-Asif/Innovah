@@ -112,6 +112,7 @@ const ProjectManagement = () => {
     if (imageAsUrl.imgUrl !== "") {
       project.projectTitle = projectDetails.projectTitle;
       project.projectDescription = projectDetails.projectDescription;
+      project.projectMembers = projectDetails.projectMembers;
       project.projectImage = imageAsUrl.imgUrl;
       project.isSubmitted = true;
       setProjectDetails(project);

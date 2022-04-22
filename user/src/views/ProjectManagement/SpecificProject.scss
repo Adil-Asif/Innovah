@@ -1,16 +1,28 @@
 .specificProjectPage {
-  .Project-heading {
-    margin: 15px 15px 20px 10px;
-    background-color: #fff;
-    border-radius: 16px;
-    padding-left: 20px;
-    font-weight: 400;
-    padding-bottom: 10px;
+  .titleSection {
+    background-color: var(--white);
+    border-radius: 4px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5.75%;
+    height: fit-content;
+    padding-bottom: 20px;
+    margin-top: 30px;
+    .Project-heading {
+      padding: 4% 0 0 0%;
+      margin-left: 35px;
+    }
+    img {
+      width: 15%;
+      padding: 1% 3% 0% 0%;
+    }
   }
 
   .project-container {
+    width: 90%;
     display: flex;
-    margin: 15px 15px 20px 10px;
+    margin: 15px 15px 20px 5.75%;
     justify-content: space-between;
   }
   .project-description {
