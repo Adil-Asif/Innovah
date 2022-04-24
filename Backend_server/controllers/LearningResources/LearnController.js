@@ -24,7 +24,7 @@ const model = require('../../models/database')
 exports.changeenrollstatus=(req,res)=>{
     if(session.getItem('signin')==true){
         var userinfo = session.getItem('useridinfo');
-        userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb8";
+        userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb81";
         var title = session.getItem('playlistname');
         var trainerid = session.getItem('trainerid');
         console.log(userinfo);
@@ -49,7 +49,7 @@ exports.changeenrollstatus=(req,res)=>{
 exports.getallitems=(req,res)=>{
     if(session.getItem('signin')==true){
         var userinfo = session.getItem('useridinfo');
-        userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb8";
+        userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb81";
         console.log(userinfo);
         // let sql = "select userid from user_details where userid="+mysql.escape(userinfo);
         let sql = "select * from learning where userid="+mysql.escape(userinfo)
@@ -87,7 +87,7 @@ exports.getplaylist=(req,res)=>{
         var userinfo = session.getItem('useridinfo');
         var playlistname = title;
         trainerid="12";
-        userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb8";
+        userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb81";
         title="Algorithms course";
         let sql = "select * from playlist where trainerid=? AND userid=? AND playlisttitle=?";
         model.query(sql,[trainerid,userinfo,title],(err,result)=>{
@@ -125,7 +125,7 @@ exports.getvideo=(req,res)=>{
         var trainer = session.getItem('trainerid');
         var userinfo = session.getItem('useridinfo');
         var desc = session.getItem('videodesc');
-        userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb8";
+        userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb81";
         trainer="12";
         playlistname="Algorithms course";
         console.log(videotitle);

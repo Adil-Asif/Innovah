@@ -16,7 +16,7 @@ const loginSignupRoutes = require('./routes/Login/SignIn&Signout.js')
 const boardRoutes = require('./routes/ProjectManagement/Boards.js')
 const projectManagement = require('./routes/ProjectManagement/GeneralProjectManagement.js')
 const inventoryRoutes = require('./routes/ProjectManagement/Inventory')
-
+const rewardroutes = require('./routes/Rewards/reward');
 const requestRoutes = require('./routes/Requests/requests')
 var cors = require('cors')
 
@@ -53,7 +53,7 @@ app.use('/generalproject',projectManagement)
 app.use('/projectboards',boardRoutes)
 app.use('/projectinventory',inventoryRoutes)
 app.use('/Learn',LearnRoutes)
-
+app.use('/Rewards',rewardroutes)
 app.use('/requests',requestRoutes)
 
 
