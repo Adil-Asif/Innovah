@@ -180,7 +180,7 @@ const IdeasItem = (props) => {
         <>
           <Button
             type="primary"
-            className="left"
+            className="viewBtn"
             style={{ marginRight: "4%", borderBottomLeftRadius: "8px" }}
             onClick={() => {
               setIsModalVisible(true);
@@ -190,7 +190,7 @@ const IdeasItem = (props) => {
           </Button>
           <Button
             type="primary"
-            className="right"
+            className="viewBtn"
             onClick={() => {
               moveToIdea();
             }}
