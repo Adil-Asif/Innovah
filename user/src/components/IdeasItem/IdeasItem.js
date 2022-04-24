@@ -15,11 +15,13 @@ const IdeasItem = (props) => {
     ideaImage: props.imageUrl,
     isUpdated: false,
   };
+  const role = "admin";
   const allInputs = { imgUrl: "" };
   const [imageAsFile, setImageAsFile] = useState("");
   const [imageAsUrl, setImageAsUrl] = useState(allInputs);
   const [ideaDetails, setIdeaDetails] = useState(idea);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isApproved, setISApproved] = useState(false);
   const [form] = Form.useForm();
 
   const handleSubmission = async (ideaImage) => {
@@ -134,27 +136,51 @@ const IdeasItem = (props) => {
         <div className="description">{props.description}</div>
       </div>
       {props.global ? (
-        <>
-          <Button
-            type="primary"
-            className="left"
-            onClick={() => {
-              moveToIdea();
-            }}
-            style={{
-              width: "100%",
-              borderBottomLeftRadius: "8px",
-              borderBottomRightRadius: "8px",
-            }}
-          >
-            View Item
-          </Button>
+        role !== "admin" ? (
+          <>
+            <Button
+              type="primary"
+              className="viewBtn"
+              onClick={() => {
+                moveToIdea();
+              }}
+              style={{
+                width: "100%",
+                borderBottomLeftRadius: "8px",
+                borderBottomRightRadius: "8px",
+              }}
+            >
+              View Item
+            </Button>
+          </>
+        ) : isApproved ? (
+          <>
+          <div className="approved">
+            Approved
+          </div>
         </>
+        ) : (
+          <>
+            {" "}
+            <Button
+              type="primary"
+              className="approveBtn"
+              style={{
+                width: "100%",
+                borderBottomLeftRadius: "8px",
+                borderBottomRightRadius: "8px",
+              }}
+              onClick = {() => {setISApproved(true);}}
+            >
+              Approve
+            </Button>
+          </>
+        )
       ) : (
         <>
           <Button
             type="primary"
-            className="left"
+            className="viewBtn"
             style={{ marginRight: "4%", borderBottomLeftRadius: "8px" }}
             onClick={() => {
               setIsModalVisible(true);
@@ -164,7 +190,7 @@ const IdeasItem = (props) => {
           </Button>
           <Button
             type="primary"
-            className="right"
+            className="viewBtn"
             onClick={() => {
               moveToIdea();
             }}
