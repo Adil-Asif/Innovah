@@ -10,7 +10,7 @@ Content-Type: application/json
         "industry":"CS",
         "userrole":"user",
         "picture":"https://pixabay.com/photos/sun-water-clouds-reflection-3713835/",
-        "resumelink":"https://www.bezkoder.com/node-js-express-file-upload/",
+        
         "email":"arsalan@gmail.com",
         "password":"123456",
         "fullname":"arsalansheikh"

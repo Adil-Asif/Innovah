@@ -163,7 +163,7 @@ exports.enterdata = (req,res)=>{
         industry:req.body.industry,
         userrole:req.body.userrole,
         picture:req.body.picture,
-        resumelink:req.body.resumelink,
+        
         userid:user_id,
         email:req.body.email,
         password:pass,
