@@ -1,18 +1,18 @@
 import React from "react";
-import "./MyIdeasPage.scss";
+import "./MyRequestsPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { Layout, Row, Col } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import MyIdea from "../../assests/Images/MyIdeas.svg";
-import IdeasItem from "../../components/IdeasItem/IdeasItem";
+import MyRequest from "../../assests/Images/MyRequests.svg";
+import RequestsItem from "../../components/RequestsItem/RequestsItem";
 
 const { Content } = Layout;
 
-const MyIdeasPage = () => {
+const MyRequestsPage = () => {
   return (
-    <div className="myIdeasPage">
+    <div className="myRequestsPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">
@@ -20,21 +20,35 @@ const MyIdeasPage = () => {
           <Content style={{ margin: "0 16px" }}>
             <div className="titleSection">
               <div className="pageTitle">
-                <PageTitle title="My Ideas" />
+                <PageTitle title="My Requests" />
               </div>
-              <img src={MyIdea} alt="My Ideas" />
+              <img src={MyRequest} alt="My Requests" />
             </div>
             <div>
-              <div className="ideaItemsDashboard">
-                <div className="ideaItems">
+              <div className="RequestItemsDashboard">
+                <div className="RequestItems">
                   <Row gutter={32}>
                     <Col className="gutter-row" span={8}>
                       <div style={{ paddingTop: "40px" }}>
-                        <IdeasItem
-                          ideaName="Stream.io"
+                        <RequestsItem
+                          RequestName="Stream.io"
                           description="It is video streaming platform where content creators can upload their videos and monetize them. These videos will be available to watch all around the globe based on user watch history and preferences."
+                          applications="20"
                           imageUrl={require("../../assests/Images/IdeasImage/Stream.jpg")}
                           global={false}
+                          isHired={false}
+                        />
+                      </div>
+                    </Col>
+                    <Col className="gutter-row" span={8}>
+                      <div style={{ paddingTop: "40px"}}>
+                        <RequestsItem
+                          RequestName="Stream.io"
+                          description="It is video streaming platform where content creators can upload their videos and monetize them. These videos will be available to watch all around the globe based on user watch history and preferences."
+                          applications="25"
+                          imageUrl={require("../../assests/Images/IdeasImage/Stream.jpg")}
+                          global={false}
+                          isHired={true}
                         />
                       </div>
                     </Col>
@@ -50,4 +64,4 @@ const MyIdeasPage = () => {
   );
 };
 
-export default MyIdeasPage;
+export default MyRequestsPage;

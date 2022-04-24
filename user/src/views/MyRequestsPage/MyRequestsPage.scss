@@ -1,4 +1,4 @@
-.myIdeasPage {
+.myRequestsPage {
   .titleSection {
     background-color: var(--white);
     border-radius: 4px;
@@ -18,11 +18,11 @@
       padding: 1% 3% 0% 0%;
     }
   }
-  .ideaItemsDashboard {
+  .RequestItemsDashboard {
     margin: 3% 5.75% 5.75% 5.75%;
     width: 90%;
 
-    .ideaItems {
+    .RequestItems {
       display: flex;
       justify-content: space-between;
     }

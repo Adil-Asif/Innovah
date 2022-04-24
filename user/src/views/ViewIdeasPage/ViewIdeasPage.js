@@ -37,30 +37,7 @@ const ViewIdeasPage = () => {
                 </Col>
                 <Col className="gutter-row rightSection" span={16}>
                   <Row gutter={32}>
-                    <Col className="gutter-row" span={6}>
-                      <IdeaInsight
-                        icon={<FontAwesomeIcon icon={faThumbsUp} />}
-                        description="50"
-                        title="Likes"
-                      />
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                      <IdeaInsight
-                        icon={<FontAwesomeIcon icon={faEye} />}
-                        description="500"
-                        title="Views"
-                      />
-                    </Col>
-
-                    <Col className="gutter-row" span={6}>
-                      <IdeaInsight
-                        icon={<FontAwesomeIcon icon={faComment} />}
-                        description="0"
-                        title="Comments"
-                      />
-                    </Col>
-
-                    <Col className="gutter-row ideaDescription" span={18}>
+                    <Col className="gutter-row ideaDescription" span={20}>
                       <IdeaInsight
                         icon={<FontAwesomeIcon icon={faFileLines} />}
                         description="It is video streaming platform where content creators can upload their videos and monetize them. These videos will be available to watch all around the globe based on user watch history and preferences."
@@ -75,12 +52,22 @@ const ViewIdeasPage = () => {
               <Row gutter={32}>
                 <Col className="gutter-row" span={20}>
                   <div className="title">Jury Remarks</div>
+
                   <div className="comments">
-                    <Remarks
-                      name="Adil Asif"
-                      description="Scope of idea needs to be re-defined"
-                      imageUrl={require("../../assests/Images/HomepageImages/Adil.jpg")}
-                    />
+                    <Row className="feedbackRow">
+                      <Remarks
+                        name="Adil Asif"
+                        description="Scope of idea needs to be re-defined"
+                        imageUrl={require("../../assests/Images/HomepageImages/Adil.jpg")}
+                      />
+                    </Row>
+                    <Row>
+                      <Remarks
+                        name="Adil Asif"
+                        description="Scope of idea needs to be re-defined"
+                        imageUrl={require("../../assests/Images/HomepageImages/Adil.jpg")}
+                      />
+                    </Row>
                   </div>
                 </Col>
               </Row>

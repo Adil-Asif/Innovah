@@ -1,6 +1,5 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect } from "react";
 // import axios from 'axios';
 import {
   faCheckCircle,
@@ -9,11 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./LearningResource.scss";
 import { Button } from "antd";
-import axios from "axios";
 const LearningResourcesTitle1 = (props) => {
-  
-    
-  
   return (
     <div className="learningResourceItemLayout">
       {props.iscompleted ? (
@@ -34,10 +29,14 @@ const LearningResourcesTitle1 = (props) => {
       </div>
 
       {props.isenrolled ? (
-        <></>
+        <>
+          <Button type="primary" shape="round">
+            View <FontAwesomeIcon icon={faAngleDoubleRight} className="" />
+          </Button>
+        </>
       ) : (
         <Button type="primary" shape="round">
-          Enroll Now <FontAwesomeIcon icon={faAngleDoubleRight} className=""/>
+          Enroll Now <FontAwesomeIcon icon={faAngleDoubleRight} className="" />
         </Button>
       )}
     </div>

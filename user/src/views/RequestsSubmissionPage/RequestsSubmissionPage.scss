@@ -1,4 +1,4 @@
-.myIdeasPage {
+.requestsSubmissionPage {
   .titleSection {
     background-color: var(--white);
     border-radius: 4px;
@@ -10,21 +10,16 @@
     padding-bottom: 20px;
     margin-top: 30px;
     .pageTitle {
-      padding: 4% 0 0 0%;
+      padding: 3% 0 0 0%;
       margin-left: 35px;
     }
     img {
-      width: 18%;
+      width: 13%;
       padding: 1% 3% 0% 0%;
     }
   }
-  .ideaItemsDashboard {
+  .requestSubmissionDashboard{
     margin: 3% 5.75% 5.75% 5.75%;
-    width: 90%;
-
-    .ideaItems {
-      display: flex;
-      justify-content: space-between;
-    }
+    width:90%;
   }
 }

@@ -27,6 +27,9 @@ const Sidebar = (props) => {
   const moveToAddRequest = () => {
     navigate("/addrequest");
   };
+  const moveToMyRequest = () => {
+    navigate("/myrequests");
+  };
   const moveToGlobalRequests = () => {
     navigate("/globalrequests");
   };
@@ -93,15 +96,15 @@ const Sidebar = (props) => {
             All Ideas
           </Menu.Item>
         </SubMenu>
-        {/* <SubMenu
+        <SubMenu
           key="sub2"
           className="antTitle"
           icon={
             <img alt="Request Icon" src={RequestIcon} className="customIcon" />
           }
           title="Requests"
-        > */}
-          {/* <Menu.Item
+        >
+          <Menu.Item
             onClick={() => {
               moveToAddRequest();
             }}
@@ -116,6 +119,9 @@ const Sidebar = (props) => {
             Post Request
           </Menu.Item>
           <Menu.Item
+            onClick={() => {
+              moveToMyRequest();
+            }}
             key="6"
             icon={<FontAwesomeIcon icon={faCircle} className="customIcon" />}
           >
@@ -130,7 +136,7 @@ const Sidebar = (props) => {
           >
             All Requests
           </Menu.Item>
-        </SubMenu> */}
+        </SubMenu>
         <Menu.Item
           onClick={() => {
             navigatetoLearningResources();
