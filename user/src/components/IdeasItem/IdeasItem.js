@@ -67,7 +67,6 @@ const IdeasItem = (props) => {
           () => {
             // gets the functions from storage refences the image storage in firebase by the children
             // gets the download url then sets the image from firebase as the value for the imgUrl key:
-            // TODO: Reolve issue returns url on second submit look for solution. Issue with promise
             storage
               .ref("images")
               .child(imageAsFile.name)
