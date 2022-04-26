@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Modals_Sign.scss";
+import { useNavigate } from "react-router-dom";
 import { Modal, Button, Form,Checkbox,Input,Alert } from "antd";
 
 import axios from 'axios';
@@ -8,12 +9,15 @@ import axios from 'axios';
 
 const LoginModals = (props) => {
   console.log(props);
+  let navigate = useNavigate();
   let currentTitle = props.title +" to Innovah"
   const [isModalVisible, setIsModalVisible] = useState("");
   const [emailInput, setEmail] = useState(false);
   const [passwordInput, setPassword] = useState("");
   const [typeOfLogin,setTypeOfLogin] = useState(props.typeOfLogin)
-
+  const moveToRegisterPage = () => {
+    navigate("/register");
+  };
   
   // const onFinish = (values) => {
   //   console.log("Success:", values);
@@ -60,6 +64,7 @@ console.log("sucess")
       email:values.email,
       password:values.password
     }
+    moveToRegisterPage();
     axios.post('http://localhost:5000/Login/signup',obj)
     .then((result)=>{
       console.log(result);
