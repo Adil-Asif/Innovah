@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 // import axios from 'axios';
 import {
   faCheckCircle,
@@ -9,6 +10,10 @@ import {
 import "./LearningResource.scss";
 import { Button } from "antd";
 const LearningResourcesTitle1 = (props) => {
+  let navigate = useNavigate();
+  const movetoplaylist = () => {
+    navigate("/learningresources/playlist");
+  };
   return (
     <div className="learningResourceItemLayout">
       {props.iscompleted ? (
@@ -30,8 +35,8 @@ const LearningResourcesTitle1 = (props) => {
 
       {props.isenrolled ? (
         <>
-          <Button type="primary" shape="round">
-            View <FontAwesomeIcon icon={faAngleDoubleRight} className="" />
+          <Button type="primary" shape="round" onClick={movetoplaylist}>
+            View <FontAwesomeIcon icon={faAngleDoubleRight} className=""/>
           </Button>
         </>
       ) : (

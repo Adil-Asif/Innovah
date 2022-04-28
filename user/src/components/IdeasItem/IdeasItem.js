@@ -15,7 +15,7 @@ const IdeasItem = (props) => {
     ideaImage: props.imageUrl,
     isUpdated: false,
   };
-  const role = "admin";
+  const role = "";
   const allInputs = { imgUrl: "" };
   const [imageAsFile, setImageAsFile] = useState("");
   const [imageAsUrl, setImageAsUrl] = useState(allInputs);

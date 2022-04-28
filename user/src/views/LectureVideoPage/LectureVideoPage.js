@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import "./LectureVideoPage.scss";
-
+import { useNavigate } from "react-router-dom";
 import { Layout, Button, Spin } from "antd";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -18,17 +18,21 @@ import {
 const { Content } = Layout;
 
 const LectureVideoPage = () => {
-  var [Response, setResponse] = useState(null);
-  useEffect(() => {
-    const responseFunction = async () => {
-      var response = await axios.get(
-        "http://localhost:5000/Learn/playlist/video"
-      );
-      setResponse(await response);
-    };
-    responseFunction();
-  }, []);
-  console.log(Response);
+  // var [Response, setResponse] = useState(null);
+  // useEffect(() => {
+  //   const responseFunction = async () => {
+  //     var response = await axios.get(
+  //       "http://localhost:5000/Learn/playlist/video"
+  //     );
+  //     setResponse(await response);
+  //   };
+  //   responseFunction();
+  // }, []);
+  // console.log(Response);
+  let navigate = useNavigate();
+  const movetoplaylist = () => {
+    navigate("/learningresources/playlist");
+  };
   return (
     <div className="lectureVideoPage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -37,35 +41,37 @@ const LectureVideoPage = () => {
           <Header />
           <Content style={{ margin: "0 16px" }}>
             <div className="titleSection">
-              {Response ? (
-                <div className="pageTitle">
-                  <PageTitle title={Response.data.videotitle} />
-                </div>
-              ) : (
+              {/* {Response ? ( */}
+              <div className="pageTitle">
+                {/* <PageTitle title={Response.data.videotitle} /> */}
+                <PageTitle title="Video Title" />
+              </div>
+              {/* ) : (
                 <Spin />
-              )}
+              )} */}
               <img src={lecture} alt="Lecture" />
             </div>
 
-            {Response ? (
-              <div className="viewLecture">
-                <div className="Video">
-                  {/* TODO: Entire iframe will be entered by user not the url */}
-                  <iframe
-                    width="560"
-                    height="315"
-                    src={Response.data.url}
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="videoiframe"
-                  ></iframe>
-                </div>
+            {/* {Response ? ( */}
+            <div className="viewLecture">
+              <Button onClick={movetoplaylist}>Back to plalist</Button>
+              <div className="Video">
+                {/* TODO: Entire iframe will be entered by user not the url */}
+                <iframe
+                  width="560"
+                  height="315"
+                  src="https://www.youtube.com/embed/_WncuhSJZyA"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  // style={{borderRadius: "16px"}}
+                ></iframe>
               </div>
-            ) : (
+            </div>
+            {/* ) : (
               <Spin />
-            )}
+            )} */}
           </Content>
           <Footer />
         </Layout>

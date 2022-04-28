@@ -120,7 +120,7 @@ const LearningResourcesPage = () => {
     setImageAsFile(playlistImage.file);
   };
 
-  var Response;
+  // var Response;
   // var [Response, setResponse] = useState(null);
   // useEffect(() => {
   //   const responseFunction = async () => {
@@ -136,7 +136,7 @@ const LearningResourcesPage = () => {
   //   console.log(Response);
   // };
   // getdata();
-  console.log(Response);
+  // console.log(Response);
   return (
     <div className="learningResourcesPage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -250,19 +250,20 @@ const LearningResourcesPage = () => {
 
               <img src={LearningRescources} alt="Learning Resources" />
             </div>
-            {Response ? (
+            {/* {Response ? ( */}
               <div className="resources">
                 <LearningResourcesItem
-                  // title="Mastering Data Structures and Algorithms using C and C++"
-                  title={Response.data.title}
-                  // description="You may be new to Data Structure or you have already Studied and Implemented Data Structures but still you feel you need to learn more about Data Structure in detail so that it helps you solve challenging problems and used Data Structure efficiently. This 53 hours of course covers each topic in greater details, every topic is covered on Whiteboard which will improve your Problem Solving and Analytical Skills. Every Data Structure is discussed, analysed and implemented with a Practical line-by-line coding."
-                  description={Response.data.desc}
-                  // imageUrl={require("../../assests/Images/ResourcesImage/Algorithms.jpg")}
-                  imageUrl={Response.data.pic}
+                  title="Mastering Data Structures and Algorithms using C and C++"
+                  // title={Response.data.title}
+                  description="You may be new to Data Structure or you have already Studied and Implemented Data Structures but still you feel you need to learn more about Data Structure in detail so that it helps you solve challenging problems and used Data Structure efficiently. This 53 hours of course covers each topic in greater details, every topic is covered on Whiteboard which will improve your Problem Solving and Analytical Skills. Every Data Structure is discussed, analysed and implemented with a Practical line-by-line coding."
+                  // description={Response.data.desc}
+                  imageUrl={require("../../assests/Images/ResourcesImage/Algorithms.jpg")}
+                  // imageUrl={Response.data.pic}
                   className="resourceItem"
-                  // isenrolled={false}
-                  isenrolled={Response.data.enrolledstatus > 0 ? true : false}
-                  iscompleted={Response.data.completedstatus > 0 ? true : false}
+                  isenrolled={false}
+                  iscompleted = {false}
+                  // isenrolled={Response.data.enrolledstatus > 0 ? true : false}
+                  // iscompleted={Response.data.completedstatus > 0 ? true : false}
                 />
                 <LearningResourcesItem
                   title="React - The Complete Guide (incl Hooks, React Router, Redux)"
@@ -273,9 +274,9 @@ const LearningResourcesPage = () => {
                   iscompleted={true}
                 />
               </div>
-            ) : (
+            {/* ) : (
               <Spin />
-            )}
+            )} */}
           </Content>
           <Footer />
         </Layout>
