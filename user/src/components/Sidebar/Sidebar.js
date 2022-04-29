@@ -8,6 +8,7 @@ import IdeaIcon from "../../assests/Images/Icons/Idea.png";
 import RequestIcon from "../../assests/Images/Icons/Request.png";
 import LearnigResourcesIcon from "../../assests/Images/Icons/LearningResources.png";
 import ProjectManagementIcon from "../../assests/Images/Icons/ProjectManagement.png";
+import ProfilePageIcon from "../../assests/Images/Icons/profilePageIcon.png";
 import CompetitionIcon from "../../assests/Images/Icons/Competition.png";
 import { useNavigate } from "react-router-dom";
 const { Sider } = Layout;
@@ -15,6 +16,9 @@ const { SubMenu } = Menu;
 
 const Sidebar = (props) => {
   let navigate = useNavigate();
+  const movetoProfilePage = () => {
+    navigate("/profilepage");
+  };
   const moveToAddIdea = () => {
     navigate("/addidea");
   };
@@ -26,6 +30,9 @@ const Sidebar = (props) => {
   };
   const moveToAddRequest = () => {
     navigate("/addrequest");
+  };
+  const moveToMyRequest = () => {
+    navigate("/myrequests");
   };
   const moveToGlobalRequests = () => {
     navigate("/globalrequests");
@@ -54,6 +61,23 @@ const Sidebar = (props) => {
         mode="inline"
         className="menu"
       >
+        <Menu.Item
+          onClick={() => {
+            movetoProfilePage();
+          }}
+          key="13"
+          className="antTitle"
+          icon={
+            <img
+              alt="Profile Page Icon"
+              src={ProfilePageIcon}
+              style={{ width: "28px" }}
+              className="customIcon"
+            />
+          }
+        >
+          My Profile
+        </Menu.Item>
         <SubMenu
           key="sub1"
           className="antTitle"
@@ -100,8 +124,8 @@ const Sidebar = (props) => {
             <img alt="Request Icon" src={RequestIcon} className="customIcon" />
           }
           title="Requests"
-        > 
-           <Menu.Item
+        >
+          <Menu.Item
             onClick={() => {
               moveToAddRequest();
             }}
@@ -116,6 +140,9 @@ const Sidebar = (props) => {
             Post Request
           </Menu.Item>
           <Menu.Item
+            onClick={() => {
+              moveToMyRequest();
+            }}
             key="6"
             icon={<FontAwesomeIcon icon={faCircle} className="customIcon" />}
           >

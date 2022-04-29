@@ -32,7 +32,7 @@ exports.returnSpecificRecord = (req, res) => {
             // res.send(result);
         }
     });
-    if(totalresponse!=={}){
+    if(totalresponse!={}){
     let todotask,inventoryMan
     let onlykeys
     let selectingOnlyTodoAndCompleted = []

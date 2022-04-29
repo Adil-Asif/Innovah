@@ -1,6 +1,6 @@
 import React from "react";
 import "./ViewIdeasPage.scss";
-import { Layout, Row, Col } from "antd";
+import { Layout, Row, Col, Avatar, Form, Input, Button } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -8,15 +8,17 @@ import IdeaInfo from "../../components/IdeaInfo/IdeaInfo";
 import IdeaInsight from "../../components/IdeaInsight/IdeaInsight";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faThumbsUp,
-  faEye,
-  faComment,
   faFileLines,
+  faSquareCaretRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Remarks from "../../components/Remarks/Remarks";
 const { Content } = Layout;
 
 const ViewIdeasPage = () => {
+  const ideaReview = (values) => {
+    console.log(values);
+  };
+
   return (
     <div className="viewIdeasPage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -37,30 +39,7 @@ const ViewIdeasPage = () => {
                 </Col>
                 <Col className="gutter-row rightSection" span={16}>
                   <Row gutter={32}>
-                    <Col className="gutter-row" span={6}>
-                      <IdeaInsight
-                        icon={<FontAwesomeIcon icon={faThumbsUp} />}
-                        description="50"
-                        title="Likes"
-                      />
-                    </Col>
-                    <Col className="gutter-row" span={6}>
-                      <IdeaInsight
-                        icon={<FontAwesomeIcon icon={faEye} />}
-                        description="500"
-                        title="Views"
-                      />
-                    </Col>
-
-                    <Col className="gutter-row" span={6}>
-                      <IdeaInsight
-                        icon={<FontAwesomeIcon icon={faComment} />}
-                        description="0"
-                        title="Comments"
-                      />
-                    </Col>
-
-                    <Col className="gutter-row ideaDescription" span={18}>
+                    <Col className="gutter-row ideaDescription" span={20}>
                       <IdeaInsight
                         icon={<FontAwesomeIcon icon={faFileLines} />}
                         description="It is video streaming platform where content creators can upload their videos and monetize them. These videos will be available to watch all around the globe based on user watch history and preferences."
@@ -71,16 +50,67 @@ const ViewIdeasPage = () => {
                 </Col>
               </Row>
             </div>
+            {/* TODO: Convert it to role for jury and add comment option below */}
             <div className="feedback">
               <Row gutter={32}>
                 <Col className="gutter-row" span={20}>
                   <div className="title">Jury Remarks</div>
+
                   <div className="comments">
-                    <Remarks
-                      name="Adil Asif"
-                      description="Scope of idea needs to be re-defined"
-                      imageUrl={require("../../assests/Images/HomepageImages/Adil.jpg")}
-                    />
+                    <Row className="feedbackRow">
+                      <Remarks
+                        name="Adil Asif"
+                        description="Scope of idea needs to be re-defined"
+                        imageUrl={require("../../assests/Images/HomepageImages/Adil.jpg")}
+                      />
+                    </Row>
+                    <Row className="feedbackRow">
+                      <Remarks
+                        name="Adil Asif"
+                        description="Scope of idea needs to be re-defined"
+                        imageUrl={require("../../assests/Images/HomepageImages/Adil.jpg")}
+                      />
+                    </Row>
+
+                    <Row>
+                      <div className="response">
+                        <div className="avatar">
+                          <Avatar
+                            shape="round"
+                            size={50}
+                            style={{
+                              backgroundColor: "var(--primary-color)",
+                              marginLeft: "10px",
+                            }}
+                          >
+                            Jury
+                          </Avatar>
+                        </div>
+                        <div className="responseForm">
+                          <Form onFinish={ideaReview}>
+                            <div>
+                              <Form.Item name="comment">
+                                <Input placeholder="Enter Your Response...." />
+                              </Form.Item>
+                            </div>
+                            <div>
+                              <Form.Item>
+                                <Button
+                                  htmlType="submit"
+                                  icon={
+                                    <FontAwesomeIcon
+                                      icon={faSquareCaretRight}
+                                      className="icon"
+                                      style={{ fontSize: "34px" }}
+                                    />
+                                  }
+                                ></Button>
+                              </Form.Item>
+                            </div>
+                          </Form>
+                        </div>
+                      </div>
+                    </Row>
                   </div>
                 </Col>
               </Row>

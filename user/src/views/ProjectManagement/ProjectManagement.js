@@ -1,128 +1,337 @@
 import React from "react";
 import "./ProjectManagement.scss";
-import { useEffect,useState } from 'react'
-import { Layout,Spin } from "antd";
+import { storage } from "../../services/Firebase/Firebase";
+import { useEffect, useState } from "react";
+import { Layout, Spin, Button, Modal, Form, Input, Upload, Select } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import ProjectDashboard from "../../assests/Images/ProjectDashboard.svg";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import AI_image from "./../../assests/Images/ProjectManagement/AI_project.jpg";
 import Stream from "./../../assests/Images/IdeasImage/Stream.jpg";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 const { Content } = Layout;
-
-
-
-
+const { TextArea } = Input;
+const { Option } = Select;
 
 const ProjectManagement = () => {
-
-
-const [projectResponse, setProjectResponse] = useState()
+  const role = "admin";
+  let project = {
+    projectID: "",
+    projectTitle: "",
+    projectDescription: "",
+    projectImage: "",
+    projectMembers: "",
+    isSubmitted: false,
+  };
+  const email = [
+    "adil.asif@gmail.com",
+    "k180123@nu.edu.pk",
+    "k181117@nu.edu.pk",
+    "k180376@nu.edu.pk",
+    "hasaan.malik@nu.edu.pk",
+    "syedabdurraffay@gmail.com",
+  ];
+  const userRole = "admin";
+  const [options, setOptions] = useState(email);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const allInputs = { imgUrl: "" };
+  const [imageAsFile, setImageAsFile] = useState("");
+  const [imageAsUrl, setImageAsUrl] = useState(allInputs);
+  const [projectDetails, setProjectDetails] = useState(project);
+  const [projectResponse, setProjectResponse] = useState();
   const navigate = useNavigate();
-  const navigationToSpecificProject = (projectnumber=1) => {
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    form.resetFields();
+    setIsModalVisible(false);
+  }, [projectDetails, form]);
+
+  useEffect(() => {
+    const handleFireBaseUpload = () => {
+      console.log("start of upload");
+      // async magic goes here...
+      console.log(imageAsFile);
+      if (imageAsFile === "") {
+        console.error(
+          `not an image, the image file is a ${typeof imageAsFile}`
+        );
+      }
+
+      if (imageAsFile !== undefined) {
+        const uploadTask = storage
+          .ref(`/images/${imageAsFile.name}`)
+          .put(imageAsFile);
+        //initiates the firebase side uploading
+        uploadTask.on(
+          "state_changed",
+          (snapShot) => {
+            //takes a snap shot of the process as it is happening
+            console.log(snapShot);
+          },
+          (err) => {
+            //catches the errors
+            console.log(err);
+          },
+          () => {
+            // gets the functions from storage refences the image storage in firebase by the children
+            // gets the download url then sets the image from firebase as the value for the imgUrl key:
+            storage
+              .ref("images")
+              .child(imageAsFile.name)
+              .getDownloadURL()
+              .then(async (fireBaseUrl) => {
+                if (fireBaseUrl !== "") {
+                  setImageAsUrl((prevObject) => ({
+                    ...prevObject,
+                    imgUrl: fireBaseUrl,
+                  }));
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        );
+      }
+    };
+    const funct = () => {
+      if (imageAsFile !== "") {
+        handleFireBaseUpload();
+      }
+    };
+    funct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageAsFile]);
+
+  useEffect(() => {
+    if (imageAsUrl.imgUrl !== "") {
+      project.projectTitle = projectDetails.projectTitle;
+      project.projectDescription = projectDetails.projectDescription;
+      project.projectMembers = projectDetails.projectMembers;
+      project.projectImage = imageAsUrl.imgUrl;
+      project.isSubmitted = true;
+      setProjectDetails(project);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageAsUrl]);
+
+  useEffect(() => {
+    if (projectDetails.isSubmitted) {
+      console.log(projectDetails);
+    }
+  }, [projectDetails]);
+
+  const onSubmit = (values) => {
+    project = values;
+    setProjectDetails(project);
+    handleSubmission(values.projectImage);
+  };
+  const handleSubmission = (projectImage) => {
+    setImageAsFile(projectImage.file);
+  };
+
+  const navigationToSpecificProject = (projectnumber = 1) => {
     navigate(`/projectmanagement/${projectnumber}`);
-
-
-  }
+  };
 
   let getprojects = async () => {
-    let response = await fetch('http://localhost:5000/generalproject/1');
-    setProjectResponse( await response.json())
+    let response = await fetch("http://localhost:5000/generalproject/1");
+    setProjectResponse(await response.json());
   };
-console.log(projectResponse)
+  console.log(projectResponse);
   useEffect(() => {
-    getprojects()
+    getprojects();
+  }, []);
 
-  }, [])
   return (
     <div className="projectManagementPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar PageKey="9" />
         <Layout className="site-layout" data-theme="dark">
           <Header />
-          
-          <Content style={{ margin: "0 16px" }}>
-            <div className="Project-heading">
-              <PageTitle title="Your Projects" />
-            </div>
-          
 
-            <div className="your-projects">
-  
-              <div
-                onClick={() => {
-                  navigationToSpecificProject(1);
-                }}
-                className="projects"
-              >
-                <img src='data:image/jpeg;base64,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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/Z' alt="" />
-                <div className="name-description">
-                  <span className="project-name"> Stream.Io </span> <br />{" "}
-                  <div className="project-description">
-                    {/* {" "} */}
-                    Online Straming platform
+          <Content style={{ margin: "0 16px" }}>
+            <div className="titleSection">
+              {role !== "admin" ? (
+                <>
+                  <div className="Project-heading">
+                    <PageTitle title="Your Projects" />
                   </div>
-                </div>
-                <div className="members-list">
-                  <div className="member">
-                    <img src={AI_image} alt="" />
-                  </div>
-                  <div className="member">
-                    <img src={AI_image} alt="" />
-                  </div>
-                  <div className="member">
-                    <img src={AI_image} alt="" />
-                  </div>
-                  <div className="member">
-                    <img src={AI_image} alt="" />
-                  </div>
-                </div>
-              </div>
-{projectResponse ?
-              projectResponse.map((project)=>(
-                  <div key={project.projectid}
-                  onClick={() => {
-                    navigationToSpecificProject(project.projectid);
-                  }}
-                
-                  className="projects"
-                >
-                  <img src={Stream} alt="" />
-                  <div className="name-description">
-                    <span className="project-name">  {project.projecttitles} </span> <br />{" "}
-                   
-                      {/* {" "} */}
-                     { (project.description.length > 10) ? <div className="project-description">{project.description.substring(0,25)} </div>: <div className="project-description">{project.description}</div> }
-                    
-                  </div>
-                  <div className="members-list">
-                    <div className="member">
-                      <img src={AI_image} alt="" />
+                </>
+              ) : (
+                <>
+                  <div>
+                    <div className="Project-heading">
+                      <PageTitle title="Projects" />
                     </div>
-                    <div className="member">
-                      <img src={AI_image} alt="" />
+                    <div>
+                      <Button
+                        type="primary"
+                        className="left"
+                        style={{ marginRight: "4%", borderRadius: "8px" }}
+                        onClick={() => {
+                          setIsModalVisible(true);
+                        }}
+                      >
+                        Add Project
+                      </Button>
                     </div>
-                    <div className="member">
-                      <img src={AI_image} alt="" />
-                    </div>
-                    <div className="member">
-                      <img src={AI_image} alt="" />
-                    </div>
+                    <Modal
+                      centered
+                      title="Add Project"
+                      visible={isModalVisible}
+                      okText="Submit"
+                      cancelText="Cancel"
+                      onCancel={() => {
+                        setIsModalVisible(false);
+                      }}
+                      onOk={() => {
+                        form
+                          .validateFields()
+                          .then((values) => {
+                            form.resetFields();
+                            onSubmit(values);
+                          })
+                          .catch((info) => {
+                            console.log("Validate Failed:", info);
+                          });
+                      }}
+                      className="addProjectForm"
+                    >
+                      <div className="projectForm">
+                        <Form form={form}>
+                          <Form.Item
+                            name="projectTitle"
+                            label="Project Tile"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please enter project title",
+                              },
+                            ]}
+                          >
+                            <Input
+                              placeholder="Enter Project Title"
+                              showCount
+                              maxLength={50}
+                            />
+                          </Form.Item>
+                          <Form.Item
+                            name="projectDescription"
+                            label="Project Description"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please enter project description",
+                              },
+                            ]}
+                          >
+                            <TextArea showCount maxLength={3000} />
+                          </Form.Item>
+                          <Form.Item name="projectMembers" label="Project Tile">
+                            <Select
+                              mode="multiple"
+                              style={{ width: "100%" }}
+                              placeholder="select Members"
+                              optionLabelProp="label"
+                            >
+                              {/* TODO: Registered Users Names and Email Addresses required here those who are not admin */}
+                              {email.map((emailId) => (
+                                <Option value={emailId} label={emailId}>
+                                  <div>Name: {emailId}</div>
+                                </Option>
+                              ))}
+                            </Select>
+                          </Form.Item>
+                          <Form.Item name="projectImage">
+                            <Upload.Dragger
+                              listType="picture"
+                              accept=".png,.jpg"
+                              defaultFileList={""}
+                              beforeUpload={(file) => {
+                                console.log({ file });
+                                return false;
+                              }}
+                              action={"localhost:3000/"}
+                            >
+                              <Button
+                                icon={
+                                  <FontAwesomeIcon
+                                    icon={faUpload}
+                                    className="icon"
+                                  />
+                                }
+                              >
+                                Upload Image
+                              </Button>
+                            </Upload.Dragger>
+                          </Form.Item>
+                        </Form>
+                      </div>
+                    </Modal>
                   </div>
-                </div>
-  
-              
-              )) :
-                <Spin size="large"/>
-                }
-               
-            
-             
-        
-              
-            </div> 
+                </>
+              )}
+
+              <img src={ProjectDashboard} alt="Project Dashboard" />
+            </div>
+
+            <div className="yourProjects">
+              {projectResponse ? (
+                projectResponse.map((project) => (
+                  <>
+                    <div
+                      key={project.projectid}
+                      onClick={() => {
+                        navigationToSpecificProject(project.projectid);
+                      }}
+                      className="projects"
+                    >
+                      <div className="projectHeader">
+                        <img src={Stream} alt="" />
+                        <div className="name-description">
+                          <span className="project-name">
+                            {" "}
+                            {project.projecttitles}{" "}
+                          </span>{" "}
+                          <br /> {/* {" "} */}
+                          {project.description.length > 10 ? (
+                            <div className="project-description">
+                              {project.description.substring(0, 25)}{" "}
+                            </div>
+                          ) : (
+                            <div className="project-description">
+                              {project.description}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="members-list">
+                        <div className="member">
+                          <img src={AI_image} alt="" />
+                        </div>
+                        <div className="member">
+                          <img src={AI_image} alt="" />
+                        </div>
+                        <div className="member">
+                          <img src={AI_image} alt="" />
+                        </div>
+                        <div className="member">
+                          <img src={AI_image} alt="" />
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ))
+              ) : (
+                <Spin size="large" />
+              )}
+            </div>
           </Content>
           <Footer />
         </Layout>

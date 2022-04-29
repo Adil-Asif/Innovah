@@ -1,17 +1,135 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import "./AddIdeaPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
-import { Layout, Form, Input, Button, Select, Switch } from "antd";
+import { storage } from "../../services/Firebase/Firebase";
+import {
+  Layout,
+  Form,
+  Input,
+  Button,
+  Select,
+  Switch,
+  Upload,
+  message,
+} from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import AddIdea from "../../assests/Images/AddIdea.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
 const { Content } = Layout;
 const { Option } = Select;
 
 const AddIdeaPage = () => {
+  let idea = {
+    ideaID: "",
+    ideaTitle: "",
+    ideaDescription: "",
+    ideaDomain: "",
+    ideaIndustry: "",
+    ideaFinalDeliverables: "",
+    ideaImage: "",
+    ideaVisibility: "",
+    isSubmit: false,
+  };
+  const allInputs = { imgUrl: "" };
+  const [imageAsFile, setImageAsFile] = useState("");
+  const [imageAsUrl, setImageAsUrl] = useState(allInputs);
+  const [ideaDetails, setIdeaDetails] = useState(idea);
+
+  useEffect(() => {
+    const handleFireBaseUpload = () => {
+      console.log("start of upload");
+      // async magic goes here...
+      console.log(imageAsFile);
+      if (imageAsFile === "") {
+        console.error(
+          `not an image, the image file is a ${typeof imageAsFile}`
+        );
+      }
+
+      if (imageAsFile !== undefined) {
+        const uploadTask = storage
+          .ref(`/images/${imageAsFile.name}`)
+          .put(imageAsFile);
+        //initiates the firebase side uploading
+        uploadTask.on(
+          "state_changed",
+          (snapShot) => {
+            //takes a snap shot of the process as it is happening
+            console.log(snapShot);
+          },
+          (err) => {
+            //catches the errors
+            console.log(err);
+          },
+          () => {
+            // gets the functions from storage refences the image storage in firebase by the children
+            // gets the download url then sets the image from firebase as the value for the imgUrl key:
+            // TODO: Reolve issue returns url on second submit look for solution. Issue with promise
+            storage
+              .ref("images")
+              .child(imageAsFile.name)
+              .getDownloadURL()
+              .then(async (fireBaseUrl) => {
+                if (fireBaseUrl !== "") {
+                  setImageAsUrl((prevObject) => ({
+                    ...prevObject,
+                    imgUrl: fireBaseUrl,
+                  }));
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        );
+      }
+    };
+
+    if (imageAsFile !== "") {
+      handleFireBaseUpload();
+    }
+  }, [imageAsFile]);
+
+  useEffect(() => {
+    if (imageAsUrl.imgUrl !== "") {
+      idea.ideaTitle = ideaDetails.ideaTitle;
+      idea.ideaDescription = ideaDetails.ideaDescription;
+      idea.ideaDomain = ideaDetails.ideaDomain;
+      idea.ideaIndustry = ideaDetails.ideaIndustry;
+      idea.ideaVisibility = ideaDetails.ideaVisibility ? "private" : "public";
+      idea.ideaFinalDeliverables = ideaDetails.ideaFinalDeliverables;
+      idea.ideaImage = imageAsUrl.imgUrl;
+      idea.isSubmit = true;
+      setIdeaDetails(idea);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageAsUrl]);
+
+  useEffect(() => {
+    if (ideaDetails.isSubmit) {
+      console.log(ideaDetails);
+      message.success("Idea Posted");
+    }
+  }, [ideaDetails]);
+
+  const onFinish = (values) => {
+    idea = values;
+    setIdeaDetails(idea);
+    console.log(idea, "2");
+    handleSubmission(idea.ideaImage);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  const handleSubmission = async (ideaImage) => {
+    setImageAsFile(ideaImage.file);
+  };
+
   return (
     <div className="addIdeaPage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -34,15 +152,18 @@ const AddIdeaPage = () => {
                   span: 14,
                 }}
                 layout="horizontal"
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
               >
-                <Form.Item label="Idea Title">
-                  <Input />
+                <Form.Item label="Idea Title" name="ideaTitle" required>
+                  <Input required />
                 </Form.Item>
-                <Form.Item label="Description">
-                  <Input />
+                <Form.Item label="Description" name="ideaDescription" required>
+                  <Input required />
                 </Form.Item>
-                <Form.Item label="Idea Tags">
+                <Form.Item label="Domain" name="ideaDomain" required>
                   <Select
+                    required
                     mode="multiple"
                     allowClear
                     style={{ width: "100%" }}
@@ -57,20 +178,23 @@ const AddIdeaPage = () => {
                     <Option value="DataScience" label="DataScience">
                       Data Science
                     </Option>
-                    <Option value="Innovation" label="Innovation">
-                      Innovation
+                    <Option
+                      value="ArtifitialIntelligence"
+                      label="ArtifitialIntelligence"
+                    >
+                      Artifitial Intelligence
                     </Option>
-                    <Option value="Health" label="Health">
-                      Health
+                    <Option value="Security" label="Security">
+                      Security
                     </Option>
-                    <Option value="FoodChain" label="FoodChain">
-                      Food Chain
+                    <Option value="Blockchain" label="Blockchain">
+                      Blockchain
                     </Option>
                   </Select>
                 </Form.Item>
-                <Form.Item label="Idea Tags">
+                <Form.Item label="Industry" name="ideaIndustry" required>
                   <Select
-                    mode="multiple"
+                    required
                     allowClear
                     style={{ width: "100%" }}
                     placeholder="Please select the relevant industry your idea belong to"
@@ -98,8 +222,13 @@ const AddIdeaPage = () => {
                     </Option>
                   </Select>
                 </Form.Item>
-                <Form.Item label="Final Deliverables">
+                <Form.Item
+                  label="Final Deliverables"
+                  name="ideaFinalDeliverables"
+                  required
+                >
                   <Select
+                    required
                     mode="multiple"
                     allowClear
                     style={{ width: "100%" }}
@@ -125,26 +254,46 @@ const AddIdeaPage = () => {
                     </Option>
                   </Select>
                 </Form.Item>
-                <Form.Item label="Attach Image">
-                  <Button>
-                    <FontAwesomeIcon icon={faPaperclip} />
-                    Attach
-                  </Button>
+                <Form.Item label="Attach Image" name="ideaImage" required>
+                  <Upload.Dragger
+                    required
+                    listType="picture"
+                    accept=".png,.jpg"
+                    defaultFileList={""}
+                    beforeUpload={(file) => {
+                      console.log({ file });
+                      return false;
+                    }}
+                    action={"localhost:3000/"}
+                  >
+                    <Button
+                      icon={
+                        <FontAwesomeIcon icon={faUpload} className="icon" />
+                      }
+                    >
+                      Upload Image
+                    </Button>
+                  </Upload.Dragger>
                 </Form.Item>
-                <Form.Item label="Make Private" valuePropName="checked">
+                <Form.Item
+                  label="Make Private"
+                  valuePropName="checked"
+                  name="ideaVisibility"
+                >
                   <Switch />
                 </Form.Item>
+                <div className="submit">
+                  <Button
+                    type="primary"
+                    style={{
+                      borderRadius: "8px",
+                    }}
+                    htmlType="submit"
+                  >
+                    Submit
+                  </Button>
+                </div>
               </Form>
-              <div className="submit">
-                <Button
-                  type="primary"
-                  style={{
-                    borderRadius: "8px",
-                  }}
-                >
-                  Submit
-                </Button>
-              </div>
             </div>
           </Content>
           <Footer />

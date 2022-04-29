@@ -1,27 +1,51 @@
 .inventoryManagementPage {
-  .Project-heading {
-    margin: 15px 15px 20px 10px;
-    background-color: #fff;
-    border-radius: 16px;
-    padding-left: 20px;
-    font-weight: 400;
-    padding-bottom: 10px;
-
-    Button {
-      float: right;
-      margin-top: 15px;
-      margin-right: 10px;
-      border-radius: 16px;
-      // display: inline-block;
+  .titleSection {
+    background-color: var(--white);
+    border-radius: 4px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5.75%;
+    height: fit-content;
+    padding-bottom: 20px;
+    margin-top: 30px;
+    .Project-heading {
+      padding: 4% 0 0 0%;
+      margin-left: 35px;
     }
-  }
-  .title {
-    display: inline-block;
+    .newinventorybtn {
+      border: none;
+      color: var(--white);
+      padding: 8px 0px 8px 0px;
+      height: fit-content;
+      text-align: center;
+      margin: 10% 10% 0% 12%;
+      width: 180px;
+      font-size: 18px;
+      font-family: var(--font-family-button);
+      background: linear-gradient(
+          to left,
+          var(--gray) 50%,
+          var(--primary-color) 50%
+        )
+        right;
+      background-size: 200%;
+      transition: 0.5s ease-out;
+      &:hover {
+        //background-color: var(--primary-color);
+        background-position: left;
+      }
+    }
+    img {
+      width: 15%;
+      padding: 1% 3% 0% 0%;
+    }
   }
 
   .project-container {
+    width: 90%;
     display: flex;
-    margin: 15px 15px 20px 10px;
+    margin: 5.75% 15px 20px 5.75%;
     justify-content: space-between;
   }
   .project-description {
@@ -42,12 +66,12 @@
     font-size: 20px;
     font-weight: 400;
   }
-  .tasks {
+  .inventorys {
     img {
       height: 40px;
       width: 40px;
     }
-    .specific-task {
+    .specific-inventory {
       display: inline-block;
       margin-left: 20px;
       margin-top: 10px;
@@ -107,8 +131,10 @@
     width: 100%;
   }
   .total-work-items {
+    margin: 3% 5.75%;
+    width: 90%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
   }
   .work-items {
     padding: 20px;
@@ -123,88 +149,75 @@
     }
   }
 
-  .work-Items-Heading {
-    margin-top: 30px;
-    border-bottom: 1px solid gray;
-    padding-bottom: 0px;
-    ul {
-      // padding-bottom: 0px;
-      list-style: none;
-      li {
-        display: inline-block;
-        margin-left: 30px;
-        // padding-bottom: 0px;
-      }
-      #element-1 {
-        margin-left: 2px;
-        border-bottom: 1px solid blue;
-      }
-    }
-  }
-
-  .specific-task-heading {
+  .specific-inventory-heading {
     display: flex;
     flex-wrap: wrap;
-    margin-left: 1vh;
-text-align: center;
-    width: 95%;
-    justify-content: space-around;
-
-    .ID-task {
-      padding-left: 5px;
-      width: 5%;
-    }
-    .task-name {
-      width: 10%;
-
-      margin-left: 8px;
-    }
-    .type {
-      width: 10%;
-    }
-    .assigned-to {
-      width: 10%;
-      margin-left: 20px;
-    }
-    .added-by {
-      width: 10%;
-    }
-    .status {
-      width: 10%;
-    }
+    width: 90%;
+    margin: 50px 0px 15px 5.5%;
+    align-items: center;
+    border-bottom: 2px solid var(--gray-button);
+    padding: 0px 0px 10px 10px;
   }
-  .specific-task-description {
-    border-radius: 8px;
-    margin: 10px 0px;
-    padding-top: 6px;
-    height: 6%;
-    width: 95%;
+  .ID-inventory {
+    padding-left: 5px;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+  }
+  .inventory-name {
+    width: 25%;
+    margin-left: 8px;
+    display: flex;
+    justify-content: center;
+  }
+  .type {
+    width: 12%;
+    display: flex;
+    justify-content: center;
+  }
+  .assigned-to {
+    width: 15%;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .added-by {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+  }
+  .status {
+    width: 8%;
+    display: flex;
+    justify-content: center;
+  }
+  .edit {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .specific-inventory-description {
+    border-radius: 4px;
+    margin: 15px 0px 15px 5.5%;
+    align-items: center;
+    height: 5%;
+    width: 90.5%;
     background-color: #fff;
     display: flex;
     flex-wrap: wrap;
-    margin-left: 1.25vh;
-    justify-content: space-around;
-    text-align: center;
-
-    .ID-task {
-      padding-left: 5px;
-      width: 5%;
+    padding: 0px 0px 0px 10px;
+    .editbtn {
+      background-color: var(--white);
+      border: none;
+      border-radius: 0px;
+      color: var(--black);
+      height: fit-content;
+      text-align: center;
+      margin-left: 35px;
     }
-    .task-name {
-      width: 10%;
-    }
-    .type {
-      width: 10%;
-    }
-    .assigned-to {
-      width: 10%;
-      margin-left: 10px;
-    }
-    .added-by {
-      width: 10%;
-    }
-    .status {
-      width: 10%;
+    .editbtn:hover {
+      color: var(--green-button);
     }
   }
 }
