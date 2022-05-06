@@ -20,13 +20,23 @@ const model = require('../../models/database')
 //         console.log("mysql connected");    
 //     }
 // });
-
+exports.addresource=(req,res)=>{
+    if(session.getItem('signin')==true){
+        var trainerid = session.getItem('useridinfo');
+        var title = req.body.playlistname;
+        var desc = req.body.description;
+        var pic = req.body.pic;
+        
+    }
+}
 exports.changeenrollstatus=(req,res)=>{
     if(session.getItem('signin')==true){
         var userinfo = session.getItem('useridinfo');
         userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb81";
-        var title = session.getItem('playlistname');
-        var trainerid = session.getItem('trainerid');
+        // var title = session.getItem('playlistname');
+        var title = req.body.playlistname
+        // var trainerid = session.getItem('trainerid');
+        var trainerid = req.body.trainerid
         console.log(userinfo);
         title="Algorithms course";
         trainerid="12"
