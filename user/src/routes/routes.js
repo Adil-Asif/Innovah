@@ -18,12 +18,14 @@ import WorkItems from "../views/ProjectManagement/WorkITems";
 import InventoryManagement from "../views/ProjectManagement/InventoryManagement";
 import CompetitionPage from "../views/CompetitionPage/CompetitionPage";
 import RewardPage from "../views/RewardPage/RewardPage";
+import ProfilePage from "../views/ProfilePage/ProfilePage";
 
 const Routers = () => {
   return (
     <Routes>
       <Route exact path="/" element={<HomePage />} />
       <Route exact path="/register" element={<SignUp />} />
+      <Route exact path="/profilepage" element = {<ProfilePage/>}/>
       <Route exact path="/addidea" element={<AddIdeaPage />} />
       <Route exact path="/myideas" element={<MyIdeasPage />} />
       <Route exact path="myideas/idea" element={<ViewIdeasPage />} />

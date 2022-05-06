@@ -26,7 +26,7 @@
       padding: 10px;
     }
   }
-  .ant-btn-primary {
+  .viewBtn {
     border: none;
     color: var(--white);
     padding: 8px 0px 8px 0px;
@@ -43,6 +43,32 @@
     background-position: left;
     }
   }
+}
+.approveBtn{
+  border: none;
+  color: var(--white);
+  background-color: var(--primary-color);
+  padding: 8px 0px 8px 0px;
+  height: fit-content;
+  text-align: center;
+  width: 48%;
+  font-size: 18px;
+  font-family: var(--font-family-button);
+}
+.approved
+{
+  border: none;
+  color: var(--white);
+  background-color: var(--gray);
+  padding: 8px 0px 8px 0px;
+  height: fit-content;
+  text-align: center;
+  width: 100%;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  font-size: 18px;
+  font-family: var(--font-family-button);
+
 }
 
 .editIdeaModal {

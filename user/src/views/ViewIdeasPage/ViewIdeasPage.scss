@@ -48,12 +48,43 @@
       font-size: 20px;
       font-family: var(--font-family-description);
       text-align: justify;
-      padding: 10px 20px;
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
-      .feedbackRow{
-        border-bottom: 2px solid var( --textbox-border);
+      .feedbackRow {
+        padding: 10px 20px;
+        border-bottom: 2px solid var(--textbox-border);
         border-radius: 2px;
+      }
+    }
+    .response {
+      padding: 10px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      .responseForm {
+        .ant-form {
+          display: flex;
+          .ant-input {
+            width: 850px;
+            border-radius: 8px;
+            margin-right: 20px;
+          }
+          .ant-form-item{
+            margin-bottom: 0px;
+          }
+          .ant-btn{
+            border: none;
+            width: fit-content;
+            height: fit-content;
+            font-size: 0px;
+            display: flex;
+            align-items: center;
+            padding: 0px;
+            color: var(--primary-color);
+          }
+        }
       }
     }
   }
