@@ -29,6 +29,7 @@ exports.addresource=(req,res)=>{
         
     }
 }
+// need to store the playlostid userid and all the videoids of the playlist here
 exports.changeenrollstatus=(req,res)=>{
     if(session.getItem('signin')==true){
         var userinfo = session.getItem('useridinfo');
@@ -56,6 +57,7 @@ exports.changeenrollstatus=(req,res)=>{
         res.send("please signin first Thankyou");
     }
 }
+// condition if a user enrolls in 2 playlists consecutively and then view each one
 exports.getallitems=(req,res)=>{
     if(session.getItem('signin')==true){
         var userinfo = session.getItem('useridinfo');
@@ -68,6 +70,7 @@ exports.getallitems=(req,res)=>{
                 console.log( JSON.stringify(err,undefined,2));
             }
             else{
+                // below 2 lines are useless
                 session.setItem('trainerid',result[0].trainerid);
                 session.setItem('playlistname',result[0].title);
                 // console.log(result)
