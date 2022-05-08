@@ -65,10 +65,10 @@ console.log("sucess")
       password:values.password
     }
     moveToRegisterPage();
-    axios.post('http://localhost:5000/Login/signup',obj)
-    .then((result)=>{
-      console.log(result);
-    })
+    // axios.post('http://localhost:5000/Login/signup',obj)
+    // .then((result)=>{
+    //   console.log(result);
+    // })
 
   };
   const onFinishSignUpFailed= (errorInfo) => {

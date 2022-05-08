@@ -25,7 +25,7 @@ db.connect((err)=>{
 });
 // app.get('/createtables',(req,res)=>{
 
-//    let sql = 'create table user_details(username VARCHAR(200) Not Null UNIQUE,city varchar(2000) Not Null,ph_num varchar(20) Not Null,country varchar(2000) Not Null,gender varchar(10),industry varchar(200) Not Null,userrole varchar(200) Not Null,picture varchar(200) Not Null,userid varchar(200) Primary KEY, email text Unique Not Null,password text Not Null,fullname text Not Null)';
+//    let sql = 'create table user_details(username VARCHAR(200) Not Null UNIQUE,city varchar(2000) Not Null,ph_num varchar(20) Not Null,country varchar(2000) Not Null,gender varchar(10),industry varchar(200) Not Null,userrole varchar(200) Not Null,picture varchar(200) Not Null,userid varchar(200) Primary KEY, email text Unique Not Null,password text Not Null,fullname text Not Null,resume_desc text Not Null)';
 //    let sql1 = 'create table idea( ideaid varchar(200) PRIMARY KEY, title varchar(200) Not Null, description varchar(200) Not Null, image varchar(2000) Not Null, visibility varchar(200) Not Null, ideaindustry varchar(200) Not Null, userid varchar(200) Not Null, foreign key (userid) references user_details(userid) )'; 
 //    let sql2='create table idea_tags( tagvalue varchar(200), ideaid varchar(200), Foreign KEY (ideaid) REFERENCES idea(ideaid), PRIMARY KEY(tagvalue,ideaid) )';
 

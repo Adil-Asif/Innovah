@@ -8,20 +8,25 @@ import Footer from "../../components/Footer/Footer";
 // import Input from "../../components/Input/Input";
 import { Form, Input, Button, Select, Upload, InputNumber, Anchor,Checkbox } from "antd";
 import { Layout } from "antd";
+import axios from 'axios';
 const { Content } = Layout;
 const { Option } = Select;
 const { TextArea } = Input;
 const { Link } = Anchor;
 const SignUp = () => {
   let registerAccount = {
-    userName: "",
+    username: "",
     city: "",
     gender: "",
-    profileImage: "",
-    ideaIndustry: "",
-    mobileNumber: "",
+    picture: "",
+    industry: "",
+    country:"Pakistan",
+    mobilenumber: "",
     resume: "",
-    role: "",
+    userrole: "",
+    email:"",
+    password:"",
+    fullname:"",
     isSubmit: false,
   };
   const [accountDetails, setAccountDetails] = useState(registerAccount);
@@ -88,15 +93,19 @@ const SignUp = () => {
 
   useEffect(() => {
     if (imageAsUrl.imgUrl !== "") {
-      registerAccount.userName = accountDetails.userName;
+      registerAccount.username = accountDetails.username;
       registerAccount.city = accountDetails.city;
       registerAccount.gender = accountDetails.gender;
-      registerAccount.ideaIndustry = accountDetails.ideaIndustry;
-      registerAccount.mobileNumber = accountDetails.mobileNumber;
+      registerAccount.industry = accountDetails.industry;
+      registerAccount.mobilenumber = accountDetails.mobilenumber;
       registerAccount.resume = accountDetails.resume;
-      registerAccount.role = accountDetails.role;
+      registerAccount.userrole = accountDetails.userrole;
+      registerAccount.country = accountDetails.country;
+      registerAccount.email = accountDetails.email;
+      registerAccount.password = accountDetails.password;
+      registerAccount.fullname = accountDetails.fullname;
       registerAccount.isSubmit = true;
-      registerAccount.profileImage = imageAsUrl.imgUrl;
+      registerAccount.picture = imageAsUrl.imgUrl;
       setAccountDetails(registerAccount);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -105,6 +114,10 @@ const SignUp = () => {
   useEffect(() => {
     if (accountDetails.isSubmit) {
       console.log(accountDetails);
+      axios.post('http://localhost:5000/Login/signup',accountDetails)
+      .then((result)=>{
+        console.log(result);
+      })
     }
   }, [accountDetails]);
 
@@ -112,7 +125,7 @@ const SignUp = () => {
     registerAccount = values;
     console.log(values);
     setAccountDetails(registerAccount);
-    handleSubmission(registerAccount.profileImage);
+    handleSubmission(registerAccount.picture);
   };
 
   const handleSubmission = (profileImage) => {
@@ -132,13 +145,13 @@ const SignUp = () => {
 
               <div className="getting-input-container">
                 <Form layout="horizontal" onFinish={onFinish}>
-                  <Form.Item name="userName" label="User name" required>
+                  <Form.Item name="username" label="User name" required>
                     <Input placeholder="Enter User name" required />
                   </Form.Item>
                   <Form.Item required name="city" label="City">
                     <Input placeholder="Enter City" required />
                   </Form.Item>
-                  <Form.Item required name="mobileNumber" label="Mobile Number">
+                  <Form.Item required name="mobilenumber" label="Mobile Number">
                     <InputNumber placeholder="Enter Mobile Number" required />
                   </Form.Item>
                   <Form.Item label="Gender" name="gender" required>
@@ -158,7 +171,7 @@ const SignUp = () => {
                       </Option>
                     </Select>
                   </Form.Item>
-                  <Form.Item label="Industry" name="ideaIndustry" required>
+                  <Form.Item label="Industry" name="industry" required>
                     <Select
                       required
                       allowClear
@@ -187,7 +200,7 @@ const SignUp = () => {
                       </Option>
                     </Select>
                   </Form.Item>
-                  <Form.Item label="Role" name="role" required>
+                  <Form.Item label="Role" name="userrole" required>
                     <Select allowClear placeholder="Select your role" required>
                       <Option value="Trainer" label="Trainer">
                         Trainer
@@ -215,7 +228,7 @@ const SignUp = () => {
                       required
                     />
                   </Form.Item>
-                  <Form.Item label="Attach Image" name="profileImage" required>
+                  <Form.Item label="Attach Image" name="picture" required>
                     <Upload.Dragger
                       required
                       listType="picture"
