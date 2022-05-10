@@ -22,7 +22,7 @@ const model = require('../../models/database')
 // });
 exports.addresource=(req,res)=>{
     if(session.getItem('signin')==true){
-        var trainerid = session.getItem('useridinfo');
+        // var trainerid = session.getItem('useridinfo');
         var title = req.body.playlistname;
         var desc = req.body.description;
         var pic = req.body.pic;
@@ -159,18 +159,19 @@ exports.getplaylist=(req,res)=>{
 
 exports.getvideo=(req,res)=>{
     if(session.getItem('signin')==true){
-        var videotitle = session.getItem('videotitle');
-        var playlistname = session.getItem('playlistname');
-        var trainer = session.getItem('trainerid');
+        // var videotitle = session.getItem('videotitle');
+        // var playlistname = session.getItem('playlistname');
+        // var trainer = session.getItem('trainerid');
         var userinfo = session.getItem('useridinfo');
-        var desc = session.getItem('videodesc');
+        // var desc = session.getItem('videodesc');
         userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb81";
-        trainer="12";
-        playlistname="Algorithms course";
-        console.log(videotitle);
-        let sql = "select * from playlist where trainerid=? and videotitle=? and playlisttitle=? and userid=? ";
+        // trainer="12";
+        // playlistname="Algorithms course";
+        var videoid = req.body.id;
+        // console.log(videotitle);
+        let sql = "select * from playlist where id=? and userid=? ";
         
-        model.query(sql,[trainer,videotitle,playlistname,userinfo],(err,result)=>{
+        model.query(sql,[videoid,userinfo],(err,result)=>{
             if(err){
                 console.log( JSON.stringify(err,undefined,2));
             }
@@ -178,7 +179,9 @@ exports.getvideo=(req,res)=>{
                 console.log("query executed properly");
                 if(result.length>0)
                 {
-                    res.json({"videotitle":videotitle,"url":result[0].url});    
+                    var videotitle = result[0].videotitle;
+                    
+                    res.json({"videotitle":videotitle,"url":result[0].videoiframe,"trainerid":result[0].trainerid,"status":result[0].status,"playlisttitle":result[0].playlisttitle,"desc":result[0].description});    
                 }
                 
             }
