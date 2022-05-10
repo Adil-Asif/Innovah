@@ -55,6 +55,8 @@ exports.CheckCredentials = (req, res) => {
                                 res.send("Welcome to our app")
                                 session.setItem("useridinfo",id)
                                 session.setItem("signin",true)
+                                session.setItem("password",pass)
+                                
                             
                             
                         }
@@ -97,6 +99,7 @@ exports.CheckCredentials = (req, res) => {
                                 res.send("Welcome to our app")
                                 session.setItem("useridinfo",id)
                                 session.setItem("signin",true)
+                                session.setItem("password",pass)
                             
                             
                         }
@@ -167,7 +170,8 @@ exports.enterdata = (req,res)=>{
         userid:user_id,
         email:req.body.email,
         password:pass,
-        fullname:req.body.fullname
+        fullname:req.body.fullname,
+        resume_desc:req.body.resume
         
     };
     for (var key in userinfo){

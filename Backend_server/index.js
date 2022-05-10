@@ -18,6 +18,7 @@ const projectManagement = require('./routes/ProjectManagement/GeneralProjectMana
 const inventoryRoutes = require('./routes/ProjectManagement/Inventory')
 const rewardroutes = require('./routes/Rewards/reward');
 const requestRoutes = require('./routes/Requests/requests')
+const profile = require('./routes/Profile/Profile')
 var cors = require('cors')
 
 
@@ -55,6 +56,7 @@ app.use('/projectinventory',inventoryRoutes)
 app.use('/Learn',LearnRoutes)
 app.use('/Rewards',rewardroutes)
 app.use('/requests',requestRoutes)
+app.use('/profile',profile)
 
 
 
