@@ -20,13 +20,72 @@ const model = require('../../models/database')
 //         console.log("mysql connected");    
 //     }
 // });
-exports.addresource=(req,res)=>{
+exports.addplaylist=(req,res)=>{
     if(session.getItem('signin')==true){
         // var trainerid = session.getItem('useridinfo');
-        var title = req.body.playlistname;
-        var desc = req.body.description;
-        var pic = req.body.pic;
+        var playlistid = uuid.v1();
+        let playlistinfo = {
         
+         trainerid: req.body.trainerid,
+         userid : req.body.userid,
+         title : req.body.playlistname,
+         description : req.body.description,
+         completedstatus : 0,
+         imageurl : req.body.pic,
+         playlistid:playlistid,
+         
+         enrolledstatus : 0
+
+        
+    };
+        let sql = "insert into learning set ?";
+        model.query(sql,playlistinfo,(err,result)=>{
+            if(err){
+                console.log(user_id)
+                console.log( JSON.stringify(err,undefined,2));
+                // console.log("error")
+            }
+            else{
+                console.log(result);
+                res.JSON(playlistinfo)
+            }
+        });
+        
+                
+        
+    }
+}
+exports.addvideo=(req,res)=>{
+    if(session.getItem('signin')==true){
+        // var trainerid = session.getItem('useridinfo');
+        var videoid = uuid.v1();
+        let videoinfo = {
+         id:videoid,
+         trainerid: req.body.trainerid,
+         status : 0,
+         playlisttitle : req.body.playlistname,
+         description : req.body.description,
+         userid : req.body.userid,
+         videotitle:req.body.videotitle,
+         videoiframe:req.body.videoiframe
+         
+         
+         
+
+        
+    };
+        let sql = "insert into playlist set ?";
+        model.query(sql,videoinfo,(err,result)=>{
+            if(err){
+                console.log(user_id)
+                console.log( JSON.stringify(err,undefined,2));
+                // console.log("error")
+            }
+            else{
+                console.log(result);
+                res.JSON(videoinfo)
+            }
+        });
     }
 }
 // need to store the playlostid userid and all the videoids of the playlist here
