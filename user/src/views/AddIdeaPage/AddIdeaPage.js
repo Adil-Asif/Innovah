@@ -18,6 +18,7 @@ import Footer from "../../components/Footer/Footer";
 import AddIdea from "../../assests/Images/AddIdea.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import axios from 'axios';
 const { Content } = Layout;
 const { Option } = Select;
 
@@ -112,6 +113,11 @@ const AddIdeaPage = () => {
     if (ideaDetails.isSubmit) {
       console.log(ideaDetails);
       message.success("Idea Posted");
+      axios.post('http://localhost:5000/ideas/addidea',ideaDetails)
+      .then((result)=>{
+        console.log(result);
+      })
+      // Post request for adding idea
     }
   }, [ideaDetails]);
 
