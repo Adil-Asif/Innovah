@@ -107,8 +107,10 @@ const IdeasItem = (props) => {
   }, [imageAsUrl]);
 
   useEffect(() => {
+    // get request to retrieve the data 
     if (ideaDetails.isUpdated) {
       console.log(ideaDetails);
+      // Post request for updated idea details
     }
   }, [ideaDetails]);
 
