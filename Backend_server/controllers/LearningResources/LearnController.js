@@ -20,13 +20,72 @@ const model = require('../../models/database')
 //         console.log("mysql connected");    
 //     }
 // });
-exports.addresource=(req,res)=>{
+exports.addplaylist=(req,res)=>{
     if(session.getItem('signin')==true){
-        var trainerid = session.getItem('useridinfo');
-        var title = req.body.playlistname;
-        var desc = req.body.description;
-        var pic = req.body.pic;
+        // var trainerid = session.getItem('useridinfo');
+        var playlistid = uuid.v1();
+        let playlistinfo = {
         
+         trainerid: req.body.trainerid,
+         userid : req.body.userid,
+         title : req.body.playlistname,
+         description : req.body.description,
+         completedstatus : 0,
+         imageurl : req.body.pic,
+         playlistid:playlistid,
+         
+         enrolledstatus : 0
+
+        
+    };
+        let sql = "insert into learning set ?";
+        model.query(sql,playlistinfo,(err,result)=>{
+            if(err){
+                console.log(user_id)
+                console.log( JSON.stringify(err,undefined,2));
+                // console.log("error")
+            }
+            else{
+                console.log(result);
+                res.JSON(playlistinfo)
+            }
+        });
+        
+                
+        
+    }
+}
+exports.addvideo=(req,res)=>{
+    if(session.getItem('signin')==true){
+        // var trainerid = session.getItem('useridinfo');
+        var videoid = uuid.v1();
+        let videoinfo = {
+         id:videoid,
+         trainerid: req.body.trainerid,
+         status : 0,
+         playlisttitle : req.body.playlistname,
+         description : req.body.description,
+         userid : req.body.userid,
+         videotitle:req.body.videotitle,
+         videoiframe:req.body.videoiframe
+         
+         
+         
+
+        
+    };
+        let sql = "insert into playlist set ?";
+        model.query(sql,videoinfo,(err,result)=>{
+            if(err){
+                console.log(user_id)
+                console.log( JSON.stringify(err,undefined,2));
+                // console.log("error")
+            }
+            else{
+                console.log(result);
+                res.JSON(videoinfo)
+            }
+        });
     }
 }
 // need to store the playlostid userid and all the videoids of the playlist here
@@ -159,18 +218,19 @@ exports.getplaylist=(req,res)=>{
 
 exports.getvideo=(req,res)=>{
     if(session.getItem('signin')==true){
-        var videotitle = session.getItem('videotitle');
-        var playlistname = session.getItem('playlistname');
-        var trainer = session.getItem('trainerid');
+        // var videotitle = session.getItem('videotitle');
+        // var playlistname = session.getItem('playlistname');
+        // var trainer = session.getItem('trainerid');
         var userinfo = session.getItem('useridinfo');
-        var desc = session.getItem('videodesc');
+        // var desc = session.getItem('videodesc');
         userinfo="6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb81";
-        trainer="12";
-        playlistname="Algorithms course";
-        console.log(videotitle);
-        let sql = "select * from playlist where trainerid=? and videotitle=? and playlisttitle=? and userid=? ";
+        // trainer="12";
+        // playlistname="Algorithms course";
+        var videoid = req.body.id;
+        // console.log(videotitle);
+        let sql = "select * from playlist where id=? and userid=? ";
         
-        model.query(sql,[trainer,videotitle,playlistname,userinfo],(err,result)=>{
+        model.query(sql,[videoid,userinfo],(err,result)=>{
             if(err){
                 console.log( JSON.stringify(err,undefined,2));
             }
@@ -178,7 +238,9 @@ exports.getvideo=(req,res)=>{
                 console.log("query executed properly");
                 if(result.length>0)
                 {
-                    res.json({"videotitle":videotitle,"url":result[0].url});    
+                    var videotitle = result[0].videotitle;
+                    
+                    res.json({"videotitle":videotitle,"url":result[0].videoiframe,"trainerid":result[0].trainerid,"status":result[0].status,"playlisttitle":result[0].playlisttitle,"desc":result[0].description});    
                 }
                 
             }
