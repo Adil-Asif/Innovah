@@ -10,6 +10,7 @@ import playlist from "../../assests/Images/Playlist.svg";
 import playlistItem from "../../components/Playlist/PlaylistItem";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import PlaylistItem from "../../components/Playlist/PlaylistItem";
 const { Content } = Layout;
 const { TextArea } = Input;
 
@@ -42,14 +43,14 @@ const PLayListPage = () => {
     setvideoDetails(video);
   };
 
-  var [Response, setResponse] = useState(null);
-  useEffect(() => {
-    const responseFunction = async () => {
-      var response = await axios.get("http://localhost:5000/Learn/video");
-      setResponse(await response);
-    };
-    responseFunction();
-  }, []);
+  // var [Response, setResponse] = useState(null);
+  // useEffect(() => {
+  //   const responseFunction = async () => {
+  //     var response = await axios.get("http://localhost:5000/Learn/video");
+  //     setResponse(await response);
+  //   };
+  //   responseFunction();
+  // }, []);
 
   return (
     <div className="playListPage">
@@ -172,7 +173,7 @@ const PLayListPage = () => {
               {/* :<Spin/>} */}
               <img src={playlist} alt="video" />
             </div>
-            {Response ? (
+            {/* {Response ? (
               <div className="lectures">
                 <div className="lectureItem">
                   <playlistItem
@@ -192,7 +193,24 @@ const PLayListPage = () => {
               </div>
             ) : (
               <></>
-            )}
+            )} */}
+            <div className="lectures">
+              <div className="lectureItem">
+                <PlaylistItem
+                  title="Characteristics of Algorithm"
+                  description=" Algorithms are very important to the way computers process information, because a computer program is basically an algorithm that tells computer what specific tasks to perform in what specific order to accomplish a specific task. The same problem can be solved with different methods. So, for solving the same problem, different algorithms can be designed. In these algorithms, number of steps, time and efforts may vary more or less."
+                  className="lectureItem"
+                  iscompleted={false}
+                />
+                <hr/>
+                <PlaylistItem
+                  title="Characteristics of Algorithm"
+                  description=" Algorithms are very important to the way computers process information, because a computer program is basically an algorithm that tells computer what specific tasks to perform in what specific order to accomplish a specific task. The same problem can be solved with different methods. So, for solving the same problem, different algorithms can be designed. In these algorithms, number of steps, time and efforts may vary more or less."
+                  className="lectureItem"
+                  iscompleted={false}
+                />
+              </div>
+            </div>
           </Content>
           <Footer />
         </Layout>

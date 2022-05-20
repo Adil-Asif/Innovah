@@ -29,14 +29,9 @@
     margin-bottom: 40px;
     align-items: center;
     flex-direction: column;
-    .Video {
-      width: 560px;
+    iframe {
       background-color: var(--white);
-      border-radius: 16px;
-      height: 315px;
-      .videoiframe {
-        border-radius: 16px;
-      }
+      border-radius: 8px;
     }
     .moreLectures {
       margin-top: 20px;
