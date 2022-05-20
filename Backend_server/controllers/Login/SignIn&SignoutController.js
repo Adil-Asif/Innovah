@@ -42,7 +42,7 @@ exports.CheckCredentials = (req, res) => {
                     console.log(id)
                     var pass = req.body.password
                     var dbpass = result[0].password;
-                    const verified = bcrypt.compareSync(pass,dbpass);
+                    var verified = bcrypt.compareSync(pass,dbpass);
                     // let sql1 = "select * from user_details where password="+mysql.escape(pass);
                     // model.query(sql1,(err,result)=>{
                         if(!verified){
@@ -86,7 +86,7 @@ exports.CheckCredentials = (req, res) => {
                     console.log(id)
                     var pass = req.body.password
                     var dbpass = result[0].password;
-                    const verified = bcrypt.compareSync(pass,dbpass);
+                    var verified = bcrypt.compareSync(pass,dbpass);
                     // let sql1 = "select * from user_details where password="+mysql.escape(pass);
                     // model.query(sql1,(err,result)=>{
                         if(!verified){
@@ -155,9 +155,10 @@ exports.CheckCredentials = (req, res) => {
 exports.enterdata = (req,res)=>{
     var user_id = uuid.v1();
     var correct =false;
-    const pass = bcrypt.hashSync(req.body.password,12);
+    console.log(req);
+    console.log(req.body.password);
+    var pass = bcrypt.hashSync(req.body.password,12);
     let userinfo = {
-        
         username:req.body.username,
         city:req.body.city,
         ph_num:req.body.mobilenumber,
@@ -166,7 +167,6 @@ exports.enterdata = (req,res)=>{
         industry:req.body.industry,
         userrole:req.body.userrole,
         picture:req.body.picture,
-        
         userid:user_id,
         email:req.body.email,
         password:pass,
