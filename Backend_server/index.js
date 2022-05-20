@@ -6,6 +6,20 @@
 // for unique assignment of IDs use either Time function of GUID/UUID
 // The credintials for database and other sensitive information regarding to server should be stored
 // in .env file
+//////////////////////////##################################//////////////////////////////////
+
+// changes in DB //
+
+//added new field for domain and final deliverables in ideas table
+// changed the name of requesttype to request_description in posting_request
+// changes request foreign key constraint from idea to userid because now request 
+// can be of any type and not restrcited to any  specific idea along with it dropped idea title
+
+// created table submission details
+// with attributes: submittion id : unique identifier of id
+//                  submitted by : ID of member whi had applied for the job
+//                  request id : to which request they had submitted the      
+
 const express = require('express')
 const databaseConnections = require('./models/database')
 

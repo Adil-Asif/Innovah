@@ -108,9 +108,41 @@ const RequestsItem = (props) => {
   }, [requestDetails]);
   useEffect(() => {
     if (Proposal !== "") {
-      console.log("Received values of form: ", Proposal);
+      console.log("Received values of form: ", Proposal,props);
+      sendDataToDB({submitted_by:'7b92e770-a79a-11ec-a453-c3c9e76e527c',
+      request_id:props.requestId,
+      proposal_content:Proposal})
     }
   }, [Proposal]);
+
+  const sendDataToDB = async(object)=>{
+    let response = await fetch(
+      `http://localhost:5000/requests/submitrequest`,
+      {
+        // Adding method type
+        method: "POST",
+    
+        // Adding body or contents to send
+        body: JSON.stringify(
+          object
+         
+        ),
+    
+        // Adding headers to the request
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    response = await response.json()
+    console.log(response)
+      }
+
+
+
+
+
+
   const onApply = (values) => {
     setProposal(values.Proposal);
     setIsModalVisible(false);
@@ -138,6 +170,7 @@ const RequestsItem = (props) => {
   return props.global ? (
     <div className="requestItemGlobal">
       <div className="img">
+        {/* {console.log(props.imageUrl)} */}
         <img src={props.imageUrl} alt={props.title} />
       </div>
       <div className="information">

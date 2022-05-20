@@ -3,13 +3,13 @@ const model = require('../../models/database')
 exports.returnAllData = (req, res) => {
     userid = req.params.userid
     console.log(userid)
-    let sql = "select  projectid, project_details.description, projecttitles, projectstatus from  project_details inner join  idea on  project_details.ideaid =  idea.ideaid where userid= '" + (userid).toString()+"'";
+    let sql = "select  projectid,project_details.ideaid ,project_details.description, projecttitles, projectstatus from  project_details inner join  idea on  project_details.ideaid =  idea.ideaid where userid= '" + (userid).toString()+"'";
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2)); //
         }
         else {
-            // console.log(result);
+             console.log(result);
             res.send(result);
         }
     });
@@ -163,4 +163,29 @@ const checkIfelementExists = (twodimarray, tofind) => {
         } 
     }
     return true
+}
+
+exports.getAllIdeas =(req, res) => {
+   const userid ='50cc2100-a79a-11ec-a453-c3c9e76e527c'
+   print(userid)
+   try {
+    let sql = "SELECT ideaid,title FROM idea WHERE userid= '" + (userid).toString()+"'";
+    console.log("Test")
+    model.query(sql, (err, result) => {
+        if (err) {
+            console.log("###########");
+            console.log(JSON.stringify(err, undefined, 2)); //
+        }
+        else {
+            console.log("###########");
+            console.log(result);
+            res.send(result);
+        }
+    });
+    
+
+   } catch (error) {
+       console.log(err)
+   }
+   
 }

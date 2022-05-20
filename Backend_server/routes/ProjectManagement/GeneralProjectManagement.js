@@ -3,5 +3,6 @@ const projectManagemet = require('./../../controllers/ProjectManagement/GeneralP
 const router = express.Router()
 router.get('/:userid', projectManagemet.returnAllData)
 router.get('/:userid/:projectid', projectManagemet.returnSpecificRecord)
+router.get('/getideas',projectManagemet.getAllIdeas)
 
 module.exports=router

@@ -43,6 +43,7 @@ const ProjectManagement = () => {
   const [imageAsUrl, setImageAsUrl] = useState(allInputs);
   const [projectDetails, setProjectDetails] = useState(project);
   const [projectResponse, setProjectResponse] = useState();
+  const [myIdeasoptions, setmyIdeasoptions] = useState({})
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
@@ -140,13 +141,19 @@ const ProjectManagement = () => {
   };
 
   let getprojects = async () => {
-    let response = await fetch("http://localhost:5000/generalproject/1");
+    let response = await fetch("http://localhost:5000/generalproject/50cc2100-a79a-11ec-a453-c3c9e76e527c");
     setProjectResponse(await response.json());
   };
   console.log(projectResponse);
   useEffect(() => {
     getprojects();
   }, []);
+
+const getIdeas=async()=>{
+ let ideas =  await fetch("http://localhost:5000/generalproject/getideas");
+setmyIdeasoptions(ideas.json());
+
+}
 
   return (
     <div className="projectManagementPage">
@@ -175,7 +182,10 @@ const ProjectManagement = () => {
                         className="left"
                         style={{ marginRight: "4%", borderRadius: "8px" }}
                         onClick={() => {
+                          getIdeas()
+                          console.log(myIdeasoptions)
                           setIsModalVisible(true);
+                        
                         }}
                       >
                         Add Project
@@ -233,7 +243,7 @@ const ProjectManagement = () => {
                           >
                             <TextArea showCount maxLength={3000} />
                           </Form.Item>
-                          <Form.Item name="projectMembers" label="Project Tile">
+                          <Form.Item name="projectMembers" label="Project Members">
                             <Select
                               mode="multiple"
                               style={{ width: "100%" }}
@@ -248,6 +258,7 @@ const ProjectManagement = () => {
                               ))}
                             </Select>
                           </Form.Item>
+                         
                           <Form.Item name="projectImage">
                             <Upload.Dragger
                               listType="picture"

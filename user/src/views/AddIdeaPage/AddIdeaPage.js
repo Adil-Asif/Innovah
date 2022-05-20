@@ -111,10 +111,12 @@ const AddIdeaPage = () => {
   useEffect(() => {
     if (ideaDetails.isSubmit) {
       console.log(ideaDetails);
+
       message.success("Idea Posted");
     }
   }, [ideaDetails]);
 
+  
   const onFinish = (values) => {
     idea = values;
     setIdeaDetails(idea);
