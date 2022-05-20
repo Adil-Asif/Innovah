@@ -108,15 +108,21 @@ const AddIdeaPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
-
+  const func = async (obj)=>{
+    await axios.post('http://localhost:5000/ideas/addidea',obj)
+      .then((result)=>{
+        console.log(result);
+      })
+  }
   useEffect(() => {
     if (ideaDetails.isSubmit) {
       console.log(ideaDetails);
       message.success("Idea Posted");
-      axios.post('http://localhost:5000/ideas/addidea',ideaDetails)
-      .then((result)=>{
-        console.log(result);
-      })
+      // axios.post('http://localhost:5000/ideas/addidea',ideaDetails)
+      // .then((result)=>{
+      //   console.log(result);
+      // })
+      func(ideaDetails);
       // Post request for adding idea
     }
   }, [ideaDetails]);

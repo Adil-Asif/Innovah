@@ -18,7 +18,8 @@ exports.addidea = (req,res)=>{
           visibility:req.body.ideaVisibility,
           ideaindustry:req.body.ideaIndustry,
           userid:userinfo,
-          domain:req.body.ideaDomain
+          domain:req.body.ideaDomain,
+          isapproved:0
             
         };
         let deliverables ={
@@ -76,7 +77,8 @@ exports.getallitems = (req,res) =>{
                     var ideavisibility=result[key].visibility;
                     var ideaindustry=result[key].ideaindustry;
                     var ideadomain=result[key].domain;
-                    res.json({"ideaid":ideaid,"ideatitle":ideatitle,"ideadescription":ideadesc,"ideaimage":ideaimage,"ideavisibility":ideavisibility,"ideaindustry":ideaindustry,"ideadomain":ideadomain})
+                    var isapproved=result[key].isapproved;
+                    res.json({"ideaid":ideaid,"ideatitle":ideatitle,"ideadescription":ideadesc,"ideaimage":ideaimage,"ideavisibility":ideavisibility,"ideaindustry":ideaindustry,"ideadomain":ideadomain,"isapproved":isapproved})
                     // console.log(row.name)
                 });
             }
