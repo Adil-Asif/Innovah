@@ -3,30 +3,46 @@ import SignUpHeaderDetails from "../../components/SignupDetailsHeader/SignUpHead
 import "./SignUp.scss";
 import { storage } from "../../services/Firebase/Firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
+import { resetRegistrationDetails } from "../../Slice/registerUserSlice";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../../components/Footer/Footer";
 // import Input from "../../components/Input/Input";
-import { Form, Input, Button, Select, Upload, InputNumber, Anchor,Checkbox } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Select,
+  Upload,
+  InputNumber,
+  Anchor,
+  Checkbox,
+} from "antd";
 import { Layout } from "antd";
-import axios from 'axios';
+import axios from "axios";
 const { Content } = Layout;
 const { Option } = Select;
 const { TextArea } = Input;
 const { Link } = Anchor;
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const registrationEmail = useSelector((state) => state.registrationDetails.useremail);
+  const registrationPassword = useSelector( (state) => state.registrationDetails.userpassword);
+  console.log(registrationEmail, registrationPassword ,"h");
+  
   let registerAccount = {
     username: "",
     city: "",
     gender: "",
     picture: "",
     industry: "",
-    country:"Pakistan",
+    country: "Pakistan",
     mobilenumber: "",
     resume: "",
     userrole: "",
-    email:"",
-    password:"",
-    fullname:"",
+    email: registrationEmail,
+    password: registrationPassword,
+    fullname: "",
     isSubmit: false,
   };
   const [accountDetails, setAccountDetails] = useState(registerAccount);
@@ -48,7 +64,7 @@ const SignUp = () => {
 
       if (imageAsFile !== undefined) {
         const uploadTask = storage
-          .ref(`/images/${imageAsFile.name}`)
+          .ref(`/images/profileImage/${registrationEmail}-${imageAsFile.name}`)
           .put(imageAsFile);
         //initiates the firebase side uploading
         uploadTask.on(
@@ -66,8 +82,8 @@ const SignUp = () => {
             // gets the download url then sets the image from firebase as the value for the imgUrl key:
             // TODO: Reolve issue returns url on second submit look for solution. Issue with promise
             storage
-              .ref("images")
-              .child(imageAsFile.name)
+              .ref(`/images/profileImage/`)
+              .child(`${registrationEmail}-${imageAsFile.name}`)
               .getDownloadURL()
               .then(async (fireBaseUrl) => {
                 if (fireBaseUrl !== "") {
@@ -89,6 +105,7 @@ const SignUp = () => {
     if (imageAsFile !== "") {
       handleFireBaseUpload();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsFile]);
 
   useEffect(() => {
@@ -114,11 +131,14 @@ const SignUp = () => {
   useEffect(() => {
     if (accountDetails.isSubmit) {
       console.log(accountDetails);
-      axios.post('http://localhost:5000/Login/signup',accountDetails)
-      .then((result)=>{
-        console.log(result);
-      })
+      axios
+        .post("http://localhost:5000/Login/signup", accountDetails)
+        .then((result) => {
+          console.log(result);
+        });
+        dispatch(resetRegistrationDetails());
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountDetails]);
 
   const onFinish = (values) => {
@@ -252,7 +272,7 @@ const SignUp = () => {
 
                   <div className="form-instruction">
                     <Form.Item>
-                    <Checkbox style={{marginRight:"10px"}} required/>
+                      <Checkbox style={{ marginRight: "10px" }} required />
                       Team Innovah has the right to decline your Account
                       Creation Request If your details do not meet our criteria.{" "}
                       <br />
