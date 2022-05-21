@@ -5,6 +5,7 @@ import "./ProfileDetails.scss";
 const ProfileDetails = (props) => {
   return (
     <div className="profileDetailsLayout">
+      {console.log(props.imageUrl)}
       <img src={props.imageUrl} alt={props.userName} />
       <div className="profileDetails">
       <div className="description">
