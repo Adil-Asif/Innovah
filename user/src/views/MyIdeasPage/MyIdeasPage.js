@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./MyIdeasPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { Layout, Row, Col } from "antd";
@@ -11,6 +11,9 @@ import IdeasItem from "../../components/IdeasItem/IdeasItem";
 const { Content } = Layout;
 
 const MyIdeasPage = () => {
+  useEffect(() => {
+    //TODO: Need to get response of API here
+  }, []);
   return (
     <div className="myIdeasPage">
       <Layout style={{ minHeight: "100vh" }}>
