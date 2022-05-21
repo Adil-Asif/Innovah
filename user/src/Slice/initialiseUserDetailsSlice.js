@@ -13,14 +13,14 @@ export const userDetailsSlice = createSlice({
   },
   reducers: {
     setIsLogin: (state, action) => {
-      state.isLogin = action.isLogin;
+      state.isLogin = action.payload.isLogin;
     },
     setUserDetails: (state, action) => {
-      state.userid = action.userid;
-      state.username = action.username;
-      state.userrole = action.userrole;
-      state.industry = action.industry;
-      state.picture = action.picture;
+      state.userid = action.payload.userid;
+      state.username = action.payload.username;
+      state.userrole = action.payload.userrole;
+      state.industry = action.payload.industry;
+      state.picture = action.payload.picture;
     },
     resetUserDetails: (state, action) => {
       state.userid = "";
