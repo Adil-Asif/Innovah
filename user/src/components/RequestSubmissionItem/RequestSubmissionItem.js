@@ -11,7 +11,7 @@ const RequestSubmissionItem = () => {
 useEffect(() => {
   
 fetchingAllSubmissions()
-
+console.log(mySubmissions)
 }, [])
 
 
@@ -19,7 +19,6 @@ fetchingAllSubmissions()
   const fetchingAllSubmissions = async ()=>{
 let response = await fetch(`http://localhost:5000/requests/getallyoursubmissions`)
 setMySubmissions(await response.json())  
-console.log(mySubmissions)
 
 }
   const moveToMyRequests = () => {
@@ -50,7 +49,7 @@ console.log(mySubmissions)
     },
   ];
 
-  const info = async(requestedby,submittedby,requestid) => {
+  const info = async(requestedby,submittedby,requestid,postid) => {
     //data[id].isHired = true;
     message.success("Hired! Details Shared via Email");
     let response = await fetch(
@@ -61,7 +60,7 @@ console.log(mySubmissions)
     
         // Adding body or contents to send
         body: JSON.stringify(
-          {requestedby,submittedby,requestid}
+          {requestedby,submittedby,requestid,postid}
          
         ),
     
@@ -90,10 +89,11 @@ console.log(mySubmissions)
                 title={item.requesttitle}
                 description={item.proposal_content}
               />
+              {console.log(item.requestid)}
               <Button
                 type="primary"
                 shape="round"
-                onClick={() => info(item.userid,item.submitted_by,item.submission_id)}
+                onClick={() => info(item.userid,item.submitted_by,item.submission_id,item.requestid)}
               >
                 Hire Me
               </Button>

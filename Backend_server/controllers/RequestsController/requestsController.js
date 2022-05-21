@@ -56,7 +56,7 @@ exports.gettAllYourRequests = (req, res) => {
             console.log(JSON.stringify(err, undefined, 2)); //
         }
         else {
-            console.log(result);
+         //   console.log(result);
             res.send(result);
         }
     });
@@ -71,7 +71,7 @@ exports.gettAllRequests = (req, res) => {
             console.log(JSON.stringify(err, undefined, 2)); //
         }
         else {
-            console.log(result);
+         //   console.log(result);
             res.send(result);
         }
     });
@@ -164,13 +164,13 @@ console.log("Before if and checking condition")
 }
 
 exports.gettAllYourSubmissions=(req,res)=>{
-    let sql = "SELECT requesttitle,proposal_content,submission_id,submitted_by,userid FROM `submission_table` inner JOIN  posting_request on submission_table.request_id = posting_request.requestid  WHERE userid = '50cc2100-a79a-11ec-a453-c3c9e76e527c' and isHired = false;";
+    let sql = "SELECT requesttitle,proposal_content,submission_id,submitted_by,userid,requestid FROM `submission_table` inner JOIN  posting_request on submission_table.request_id = posting_request.requestid  WHERE userid = '50cc2100-a79a-11ec-a453-c3c9e76e527c' and isHired = false;";
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2)); //
         }
         else {
-         //   console.log(result);
+            console.log(result);
             res.send(result);
         }
     });
@@ -184,20 +184,46 @@ let sql = `SELECT fullname,email FROM user_details where userid = '${req.body.su
             console.log(JSON.stringify(err, undefined, 2)); //
         }
         else {
-            let [mail,name]=[Object.values(JSON.parse(JSON.stringify(result[0])))[0],Object.values(JSON.parse(JSON.stringify(result[0])))[1]]
+          let [name,mail]=[Object.values(result[0])[0],Object.values(result[0])[1]]
           console.log(mail,name)
           sendingMailFunction(mail,name,false)
 
            
         }
     });
-//sendingMailFunction()
-res.send({"Email":"sucess"})
+     sql = `SELECT fullname,email FROM user_details where userid = '${req.body.requestedby}'` ;
+    model.query(sql, (err, result) => {
+        if (err) {
+            console.log(JSON.stringify(err, undefined, 2)); //
+        }
+        else {
+            
+            let [name,mail]=[Object.values(result[0])[0],Object.values(result[0])[1]]
+          console.log(mail,name)
+          sendingMailFunction(mail,name,true)
+
+           
+        }
+    });
+    sql = `Update posting_request set isHired = true  where requestid = '${req.body.postid}'` ;
+    model.query(sql, (err, result) => {
+        if (err) {
+            console.log(JSON.stringify(err, undefined, 2)); //
+        }
+        else {
+           
+            res.send({"Email":"sucess"})
+         
+
+           
+        }
+    });
+
 }
 
 const sendingMailFunction = async(emailaddress,name,requestOwner)=>{
 
-    console.log("in mail function")
+    console.log("in mail function",emailaddress,name)
     let message = ""
     let subject = ""
     if(requestOwner){
@@ -206,7 +232,7 @@ const sendingMailFunction = async(emailaddress,name,requestOwner)=>{
         subject = " congrats person is recruited to be an effective member of your team"
     }
     else{
-        message = `Hi${name}, Thanks for interviewing with us, our hiring team was very excited to meet you. 
+        message = `Hi ${name}, Thanks for Applying, our hiring team was very excited to meet you. 
         You impressed us with your skills and we believe you'll fit well in our team. `
         subject="Congrats you have been hired"
     }
@@ -226,7 +252,7 @@ const sendingMailFunction = async(emailaddress,name,requestOwner)=>{
     
     
    
-transporter.sendMail(info,(err)=>{
+await transporter.sendMail(info,(err)=>{
     if(err){
         console.log(`Error has Occures${err}`)
     }

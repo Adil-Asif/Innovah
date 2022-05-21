@@ -107,6 +107,8 @@ const RequestsItem = (props) => {
     }
   }, [requestDetails]);
   useEffect(() => {
+
+    // when redux is implemented get logged in ID
     if (Proposal !== "") {
       console.log("Received values of form: ", Proposal,props);
       sendDataToDB({submitted_by:'7b92e770-a79a-11ec-a453-c3c9e76e527c',
