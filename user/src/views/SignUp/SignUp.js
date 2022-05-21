@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import SignUpHeaderDetails from "../../components/SignupDetailsHeader/SignUpHeader";
 import "./SignUp.scss";
+import { useNavigate } from "react-router-dom";
 import { storage } from "../../services/Firebase/Firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +18,7 @@ import {
   InputNumber,
   Anchor,
   Checkbox,
+  message,
 } from "antd";
 import { Layout } from "antd";
 import axios from "axios";
@@ -25,11 +27,19 @@ const { Option } = Select;
 const { TextArea } = Input;
 const { Link } = Anchor;
 const SignUp = () => {
+  let navigate = useNavigate();
   const dispatch = useDispatch();
-  const registrationEmail = useSelector((state) => state.registrationDetails.useremail);
-  const registrationPassword = useSelector( (state) => state.registrationDetails.userpassword);
-  console.log(registrationEmail, registrationPassword ,"h");
-  
+  const moveToHomePage = () => {
+    navigate("/");
+  };
+  const registrationEmail = useSelector(
+    (state) => state.registrationDetails.useremail
+  );
+  const registrationPassword = useSelector(
+    (state) => state.registrationDetails.userpassword
+  );
+  console.log(registrationEmail, registrationPassword, "h");
+
   let registerAccount = {
     username: "",
     city: "",
@@ -105,7 +115,7 @@ const SignUp = () => {
     if (imageAsFile !== "") {
       handleFireBaseUpload();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsFile]);
 
   useEffect(() => {
@@ -117,10 +127,10 @@ const SignUp = () => {
       registerAccount.mobilenumber = accountDetails.mobilenumber;
       registerAccount.resume = accountDetails.resume;
       registerAccount.userrole = accountDetails.userrole;
-      registerAccount.country = accountDetails.country;
-      registerAccount.email = accountDetails.email;
-      registerAccount.password = accountDetails.password;
-      registerAccount.fullname = accountDetails.fullname;
+      registerAccount.country = "Pakistan";
+      registerAccount.email = registrationEmail;
+      registerAccount.password = registrationPassword;
+      registerAccount.fullname = accountDetails.username;
       registerAccount.isSubmit = true;
       registerAccount.picture = imageAsUrl.imgUrl;
       setAccountDetails(registerAccount);
@@ -129,19 +139,26 @@ const SignUp = () => {
   }, [imageAsUrl]);
 
   useEffect(() => {
+    console.log(accountDetails);
     if (accountDetails.isSubmit) {
       console.log(accountDetails);
       axios
-        .post("http://localhost:5000/Login/signup", accountDetails)
+        .post("http://localhost:5000/Login/signup", { accountDetails })
         .then((result) => {
-          console.log(result);
+          console.log(result, "2");
+          if (result.data === "Error") {
+              message.error("Account already registered with this email")
+          }
+          moveToHomePage();
+          dispatch(resetRegistrationDetails()); 
         });
-        dispatch(resetRegistrationDetails());
+      // dispatch(resetRegistrationDetails());
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountDetails]);
 
   const onFinish = (values) => {
+    // TODO: Value is erasing details that are not part of form so need to handle this
     registerAccount = values;
     console.log(values);
     setAccountDetails(registerAccount);
