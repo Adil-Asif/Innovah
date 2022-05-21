@@ -31,7 +31,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const moveToHomePage = () => {
     navigate("/");
-  };
+  };//////////
   const registrationEmail = useSelector(
     (state) => state.registrationDetails.useremail
   );

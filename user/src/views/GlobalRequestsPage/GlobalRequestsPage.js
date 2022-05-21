@@ -7,6 +7,10 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import GlobalRequests from "../../assests/Images/PostRequest.svg";
 import RequestsItem from "../../components/RequestsItem/RequestsItem";
+import { useDispatch, useSelector } from "react-redux";
+import {userDetailsSlice  } from "../../Slice/initialiseUserDetailsSlice";
+
+
 import {useEffect, useState} from 'react'
 const { Content } = Layout;
 
@@ -18,12 +22,16 @@ const GlobalRequestsPage = () => {
   
   
   }, [])
-  
+  ///////////////
 const getRequestsAPI = async()=>{
   let requestResponse = await fetch(`http://localhost:5000/requests/allrequests`)
   setAllGlobalRequests( await requestResponse.json())
 
 }
+const allUserDetails = useSelector(
+  (state) => state.userDetails.userid
+)
+console.log(allUserDetails)
 
   return (
     <div className="globalRequestsPage">
