@@ -2,7 +2,7 @@ POST http://localhost:5000/Login/signup
 Content-Type: application/json
 
 {
-        "username":"arsalansheikh",
+        "username":"arsalanshaikh",
         "city":"karachi",
         "mobilenumber":"03343184497",
         "country":"Pakistan",
@@ -11,7 +11,7 @@ Content-Type: application/json
         "userrole":"user",
         "picture":"https://pixabay.com/photos/sun-water-clouds-reflection-3713835/",
         
-        "email":"arsalan@gmail.com",
+        "email":"arsalan1@gmail.com",
         "password":"123456",
         "fullname":"arsalansheikh"
 }
@@ -20,14 +20,37 @@ POST http://localhost:5000/Login/signin
 Content-Type: application/json
 
 {
-        "emailorname":"devil102030@gmail.com",
+        "emailorname":"arsalan1@gmail.com",
         "password":"123456"
 }
+#########
+GET http://localhost:5000/profile
 #########
 GET http://localhost:5000/Learn/
 
 #####
-GET http://localhost:5000/Learn/playlist
+POST http://localhost:5000/Learn/playlist
+Content-Type: application/json
+
+{
+        "playlisttitle":"Algorithms course"
+}
+
 
 #####
-GET http://localhost:5000/Learn/playlist/video
+POST http://localhost:5000/Learn/playlist/video
+Content-Type: application/json
+
+# Give the proper id after db entry
+{
+        "id":"1"
+}
+
+######
+
+POST http://localhost:5000/Learn/addingresource
+Content-Type: application/json
+
+{
+        "playlisttitle":"Algorithms course"
+}

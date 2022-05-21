@@ -1,27 +1,58 @@
 import { React, useState, useEffect } from "react";
 import SignUpHeaderDetails from "../../components/SignupDetailsHeader/SignUpHeader";
 import "./SignUp.scss";
+import { useNavigate } from "react-router-dom";
 import { storage } from "../../services/Firebase/Firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
+import { resetRegistrationDetails } from "../../Slice/registerUserSlice";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../../components/Footer/Footer";
 // import Input from "../../components/Input/Input";
-import { Form, Input, Button, Select, Upload, InputNumber, Anchor,Checkbox } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Select,
+  Upload,
+  InputNumber,
+  Anchor,
+  Checkbox,
+  message,
+} from "antd";
 import { Layout } from "antd";
+import axios from "axios";
 const { Content } = Layout;
 const { Option } = Select;
 const { TextArea } = Input;
 const { Link } = Anchor;
 const SignUp = () => {
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+  const moveToHomePage = () => {
+    navigate("/");
+  };
+  const registrationEmail = useSelector(
+    (state) => state.registrationDetails.useremail
+  );
+  const registrationPassword = useSelector(
+    (state) => state.registrationDetails.userpassword
+  );
+  console.log(registrationEmail, registrationPassword, "h");
+
   let registerAccount = {
-    userName: "",
+    username: "",
     city: "",
     gender: "",
-    profileImage: "",
-    ideaIndustry: "",
-    mobileNumber: "",
+    picture: "",
+    industry: "",
+    country: "Pakistan",
+    mobilenumber: "",
     resume: "",
-    role: "",
+    userrole: "",
+    email: registrationEmail,
+    password: registrationPassword,
+    fullname: "",
     isSubmit: false,
   };
   const [accountDetails, setAccountDetails] = useState(registerAccount);
@@ -43,7 +74,7 @@ const SignUp = () => {
 
       if (imageAsFile !== undefined) {
         const uploadTask = storage
-          .ref(`/images/${imageAsFile.name}`)
+          .ref(`/images/profileImage/${registrationEmail}-${imageAsFile.name}`)
           .put(imageAsFile);
         //initiates the firebase side uploading
         uploadTask.on(
@@ -61,8 +92,8 @@ const SignUp = () => {
             // gets the download url then sets the image from firebase as the value for the imgUrl key:
             // TODO: Reolve issue returns url on second submit look for solution. Issue with promise
             storage
-              .ref("images")
-              .child(imageAsFile.name)
+              .ref(`/images/profileImage/`)
+              .child(`${registrationEmail}-${imageAsFile.name}`)
               .getDownloadURL()
               .then(async (fireBaseUrl) => {
                 if (fireBaseUrl !== "") {
@@ -84,35 +115,54 @@ const SignUp = () => {
     if (imageAsFile !== "") {
       handleFireBaseUpload();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsFile]);
 
   useEffect(() => {
     if (imageAsUrl.imgUrl !== "") {
-      registerAccount.userName = accountDetails.userName;
+      registerAccount.username = accountDetails.username;
       registerAccount.city = accountDetails.city;
       registerAccount.gender = accountDetails.gender;
-      registerAccount.ideaIndustry = accountDetails.ideaIndustry;
-      registerAccount.mobileNumber = accountDetails.mobileNumber;
+      registerAccount.industry = accountDetails.industry;
+      registerAccount.mobilenumber = accountDetails.mobilenumber;
       registerAccount.resume = accountDetails.resume;
-      registerAccount.role = accountDetails.role;
+      registerAccount.userrole = accountDetails.userrole;
+      registerAccount.country = "Pakistan";
+      registerAccount.email = registrationEmail;
+      registerAccount.password = registrationPassword;
+      registerAccount.fullname = accountDetails.username;
       registerAccount.isSubmit = true;
-      registerAccount.profileImage = imageAsUrl.imgUrl;
+      registerAccount.picture = imageAsUrl.imgUrl;
       setAccountDetails(registerAccount);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
 
   useEffect(() => {
+    console.log(accountDetails);
     if (accountDetails.isSubmit) {
       console.log(accountDetails);
+      axios
+        .post("http://localhost:5000/Login/signup", { accountDetails })
+        .then((result) => {
+          console.log(result, "2");
+          if (result.data === "Error") {
+              message.error("Account already registered with this email")
+          }
+          moveToHomePage();
+          dispatch(resetRegistrationDetails()); 
+        });
+      // dispatch(resetRegistrationDetails());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountDetails]);
 
   const onFinish = (values) => {
+    // TODO: Value is erasing details that are not part of form so need to handle this
     registerAccount = values;
     console.log(values);
     setAccountDetails(registerAccount);
-    handleSubmission(registerAccount.profileImage);
+    handleSubmission(registerAccount.picture);
   };
 
   const handleSubmission = (profileImage) => {
@@ -132,13 +182,13 @@ const SignUp = () => {
 
               <div className="getting-input-container">
                 <Form layout="horizontal" onFinish={onFinish}>
-                  <Form.Item name="userName" label="User name" required>
+                  <Form.Item name="username" label="User name" required>
                     <Input placeholder="Enter User name" required />
                   </Form.Item>
                   <Form.Item required name="city" label="City">
                     <Input placeholder="Enter City" required />
                   </Form.Item>
-                  <Form.Item required name="mobileNumber" label="Mobile Number">
+                  <Form.Item required name="mobilenumber" label="Mobile Number">
                     <InputNumber placeholder="Enter Mobile Number" required />
                   </Form.Item>
                   <Form.Item label="Gender" name="gender" required>
@@ -158,7 +208,7 @@ const SignUp = () => {
                       </Option>
                     </Select>
                   </Form.Item>
-                  <Form.Item label="Industry" name="ideaIndustry" required>
+                  <Form.Item label="Industry" name="industry" required>
                     <Select
                       required
                       allowClear
@@ -187,7 +237,7 @@ const SignUp = () => {
                       </Option>
                     </Select>
                   </Form.Item>
-                  <Form.Item label="Role" name="role" required>
+                  <Form.Item label="Role" name="userrole" required>
                     <Select allowClear placeholder="Select your role" required>
                       <Option value="Trainer" label="Trainer">
                         Trainer
@@ -215,7 +265,7 @@ const SignUp = () => {
                       required
                     />
                   </Form.Item>
-                  <Form.Item label="Attach Image" name="profileImage" required>
+                  <Form.Item label="Attach Image" name="picture" required>
                     <Upload.Dragger
                       required
                       listType="picture"
@@ -239,7 +289,7 @@ const SignUp = () => {
 
                   <div className="form-instruction">
                     <Form.Item>
-                    <Checkbox style={{marginRight:"10px"}} required/>
+                      <Checkbox style={{ marginRight: "10px" }} required />
                       Team Innovah has the right to decline your Account
                       Creation Request If your details do not meet our criteria.{" "}
                       <br />
