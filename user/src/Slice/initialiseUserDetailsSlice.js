@@ -4,12 +4,13 @@ export const userDetailsSlice = createSlice({
   name: "userDetails",
   initialState: {
     userid: "",
-    password: "",
     username: "",
     userrole: "",
     industry: "",
     picture: "",
     isLogin: false,
+    phoneNumber:"",
+    resumeDesc:"",
   },
   reducers: {
     setIsLogin: (state, action) => {
@@ -21,6 +22,8 @@ export const userDetailsSlice = createSlice({
       state.userrole = action.payload.userrole;
       state.industry = action.payload.industry;
       state.picture = action.payload.picture;
+      state.phoneNumber = action.payload.phoneNumber;
+      state.resumeDesc = action.payload.resumeDesc;
     },
     resetUserDetails: (state, action) => {
       state.userid = "";
@@ -28,6 +31,9 @@ export const userDetailsSlice = createSlice({
       state.userrole = "";
       state.industry = "";
       state.picture = "";
+      state.resumeDesc = "";
+      state.phoneNumber = "";
+      state.isLogin= false;
     },
   },
 });

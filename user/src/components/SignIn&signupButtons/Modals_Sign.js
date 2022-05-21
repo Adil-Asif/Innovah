@@ -51,7 +51,6 @@ const LoginModals = (props) => {
         form.resetFields();
       } else {
         dispatch(setIsLogin({ isLogin: true }));
-        message.success(result.data);
         moveToProfilePage();
       }
     });
