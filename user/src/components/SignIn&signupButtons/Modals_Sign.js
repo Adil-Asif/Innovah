@@ -3,7 +3,8 @@ import "./Modals_Sign.scss";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setRegistrationDetails } from "../../Slice/registerUserSlice";
-import { Modal, Button, Form, Input, Alert } from "antd";
+import { setIsLogin } from "../../Slice/initialiseUserDetailsSlice";
+import { Modal, Button, Form, Input, message } from "antd";
 
 import axios from "axios";
 
@@ -11,6 +12,7 @@ import axios from "axios";
 
 const LoginModals = (props) => {
   console.log(props);
+  const [form] = Form.useForm();
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -18,9 +20,13 @@ const LoginModals = (props) => {
   const [isModalVisible, setIsModalVisible] = useState("");
   // const [emailInput, setEmail] = useState(false);
   // const [passwordInput, setPassword] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [typeOfLogin, setTypeOfLogin] = useState(props.typeOfLogin);
   const moveToRegisterPage = () => {
     navigate("/register");
+  };
+  const moveToProfilePage = () => {
+    navigate("/profilepage");
   };
 
   // const onFinish = (values) => {
@@ -32,14 +38,21 @@ const LoginModals = (props) => {
   // };
 
   const onFinish = (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
 
     const obj = {
       emailorname: values.email,
       password: values.password,
     };
-    axios.post("http://localhost:5000/Login/signin", obj).then((result) => {
+    axios.post("http://localhost:5000/Login/signin", { obj }).then((result) => {
       console.log(result);
+      if (result.data === "Invalid Email" || result.data === "Invalid Password") {
+        message.error(result.data);
+        form.resetFields();
+      } else {
+        dispatch(setIsLogin({ isLogin: true }));
+        moveToProfilePage();
+      }
     });
 
     setIsModalVisible(false);
@@ -56,16 +69,17 @@ const LoginModals = (props) => {
 
     if (values.password === values.rePassword) {
       console.log("success");
+      const useremail = values.email;
+      const userpassword = values.password;
+      dispatch(setRegistrationDetails({ useremail, userpassword }));
+      moveToRegisterPage();
     } else {
       onFinishFailed("Passwords donot match");
+      form.resetFields();
+      message.error("Passwords donot match");
     }
-    console.log("Success:", values);
+    // console.log("Success:", values);
 
-    const useremail = values.email;
-    const userpassword = values.password;
-
-    dispatch(setRegistrationDetails({ useremail, userpassword }));
-    moveToRegisterPage();
     // axios.post('http://localhost:5000/Login/signup',obj)
     // .then((result)=>{
     //   console.log(result);
@@ -154,6 +168,7 @@ const LoginModals = (props) => {
           </Form.Item>
         </Form> */}
           <Form
+            form={form}
             name="basic"
             labelCol={{
               span: 8,
@@ -215,6 +230,7 @@ const LoginModals = (props) => {
           onCancel={() => setIsModalVisible(false)}
         >
           <Form
+            form={form}
             name="basic"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}

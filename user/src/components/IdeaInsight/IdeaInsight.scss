@@ -1,5 +1,5 @@
 .ideaInsightLayout{
-    width: fit-content;
+    width: 835px ;
     
     .title{
         display: flex;
@@ -21,6 +21,7 @@
     .description{
         display: flex;
         justify-content: center;
+        text-align: justify;
         background-color: var(--white);
         font-size: 20px;
         font-family: var(--font-family-description);
