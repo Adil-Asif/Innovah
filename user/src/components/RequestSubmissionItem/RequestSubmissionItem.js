@@ -2,10 +2,17 @@ import { React,useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RequestSubmissionItem.scss";
 import { List, Avatar, Button, message } from "antd";
+import { useSelector } from "react-redux";
 
-const RequestSubmissionItem = () => {
+
+const RequestSubmissionItem = (props) => {
   let navigate = useNavigate();
-  
+ 
+console.log(props.requestID.requestid , "What is this")
+  const userId = useSelector(
+    (state) => state.userDetails.userid
+  )
+  console.log(userId)
   const [mySubmissions, setMySubmissions] = useState([])
   
 useEffect(() => {
@@ -17,7 +24,7 @@ console.log(mySubmissions)
 
 
   const fetchingAllSubmissions = async ()=>{
-let response = await fetch(`http://localhost:5000/requests/getallyoursubmissions`)
+let response = await fetch(`http://localhost:5000/requests/getallyoursubmissions/${userId}/${props.requestID.requestid}`)
 setMySubmissions(await response.json())  
 
 }
@@ -51,7 +58,7 @@ setMySubmissions(await response.json())
 
   const info = async(requestedby,submittedby,requestid,postid) => {
     //data[id].isHired = true;
-    message.success("Hired! Details Shared via Email");
+   
     let response = await fetch(
       `http://localhost:5000/requests/sendinghiringmail`,
       {
@@ -73,7 +80,7 @@ setMySubmissions(await response.json())
     response = await response.json()
     console.log(response)
 
-
+    message.success("Hired! Details Shared via Email");
     moveToMyRequests();
   };
   return (

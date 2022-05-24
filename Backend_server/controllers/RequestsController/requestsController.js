@@ -2,6 +2,8 @@ const model = require('./../../models/database')
 const session = require('sessionstorage')
 const nodemailer = require("nodemailer");
 exports.addNewRequest = async (req, res) => {
+    userid =  req.params.userid
+    console.log(userid)
     let currentID
     console.log(req.body)
     console.log("######################################################")
@@ -20,8 +22,8 @@ exports.addNewRequest = async (req, res) => {
                 console.log(currentID, "currentID 2")
             }
 
-            sql = `insert into posting_request(requestid, requesttitle, request_description, userid,image,isHired) values ('${currentID}','${req.body.requestTitle}','${req.body.requestDescription}','50cc2100-a79a-11ec-a453-c3c9e76e527c','${req.body.requestImage}',${false});`
-            console.log(currentID)
+            sql = `insert into posting_request(requestid, requesttitle, request_description, userid,image,isHired) values ('${currentID}','${req.body.requestTitle}','${req.body.requestDescription}','${userid}','${req.body.requestImage}',${false});`
+            console.log(currentID,"is current ID prinintg")
             model.query(sql, (err, result) => {
                 try {
                     console.log(result)
@@ -48,9 +50,10 @@ exports.addNewRequest = async (req, res) => {
 }
 
 exports.gettAllYourRequests = (req, res) => {
-    userid = '50cc2100-a79a-11ec-a453-c3c9e76e527c'
+   let userid =  req.params.userid
     console.log(userid)
-    let sql = "select  requestid, requesttitle, request_description,image,isHired from posting_request where userid= '" + (userid).toString() + "'";
+
+    let sql = `select  requestid, requesttitle, request_description,image,isHired from posting_request where userid= '${userid}' `;
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2)); //
@@ -65,6 +68,7 @@ exports.gettAllYourRequests = (req, res) => {
 exports.gettAllRequests = (req, res) => {
     // userid ='50cc2100-a79a-11ec-a453-c3c9e76e527c'
     //console.log(userid)
+ 
     let sql = "select  requestid, requesttitle, request_description,image,isHired,userid from posting_request where isHired = false ";
     model.query(sql, (err, result) => {
         if (err) {
@@ -89,7 +93,7 @@ exports.postRequestSubmittion = (req, res) => {
         try {
             console.log(result, "result", typeof result, Object.keys(result).length)
 console.log("Before if and checking condition")
-            if (Object.keys(result).length !== 0 || Object.values(JSON.parse(JSON.stringify(result))).length!==0) {
+            if (Object.keys(result).length !== 0 || Object.values(JSON.parse(JSON.stringify(result))).length!==0 || result.length!==0) {
                var errorInfo = {"ErrorInfo":"User already present"}
                session.setItem('ErroInfo',"User already present");
                 console.log("Sending error info",errorInfo)
@@ -164,7 +168,11 @@ console.log("Before if and checking condition")
 }
 
 exports.gettAllYourSubmissions=(req,res)=>{
-    let sql = "SELECT requesttitle,proposal_content,submission_id,submitted_by,userid,requestid FROM `submission_table` inner JOIN  posting_request on submission_table.request_id = posting_request.requestid  WHERE userid = '50cc2100-a79a-11ec-a453-c3c9e76e527c' and isHired = false;";
+   let userid =  req.params.userid
+    console.log(userid)
+    let requestid =  req.params.requestid
+    console.log(requestid)
+    let sql = `SELECT requesttitle,proposal_content,submission_id,submitted_by,userid,requestid FROM submission_table inner JOIN  posting_request on submission_table.request_id = posting_request.requestid  WHERE userid = '${userid}' and requestid ='${requestid}' and isHired = false;`
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2)); //
@@ -206,6 +214,19 @@ let sql = `SELECT fullname,email FROM user_details where userid = '${req.body.su
         }
     });
     sql = `Update posting_request set isHired = true  where requestid = '${req.body.postid}'` ;
+    model.query(sql, (err, result) => {
+        if (err) {
+            console.log(JSON.stringify(err, undefined, 2)); //
+        }
+        else {
+           
+            console.log("mails sent")
+         
+
+           
+        }
+    });
+    sql = `DELETE FROM submission_table where request_id = '${req.body.postid}'` ;
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2)); //

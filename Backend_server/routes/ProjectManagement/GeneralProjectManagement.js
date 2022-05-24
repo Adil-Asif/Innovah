@@ -1,8 +1,10 @@
 const express = require('express')
-const projectManagemet = require('./../../controllers/ProjectManagement/GeneralProjectManagementController')
+const projectManagemetController = require('./../../controllers/ProjectManagement/GeneralProjectManagementController')
 const router = express.Router()
-router.get('/:userid', projectManagemet.returnAllData)
-router.get('/:userid/:projectid', projectManagemet.returnSpecificRecord)
-router.get('/getideas',projectManagemet.getAllIdeas)
+router.get('/:userid', projectManagemetController.returnAllData)
+router.get('/:userid/:projectid', projectManagemetController.returnSpecificRecord)
+router.get('/newProject/projectform/getideas', projectManagemetController.getAllIdeasData)
+router.get('/newProject/projectform/getAllPeople', projectManagemetController.getAllPeople)
+router.post('/newProject/projectsubmission/storingtodb', projectManagemetController.savingProjectInfo)
 
 module.exports=router

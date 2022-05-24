@@ -7,8 +7,8 @@ const router = express.Router()
 
 router.get('/getboard/:id', boardController.getAllIBoards)
 router.post('/:id/addnewtask',boardController.addNewBoard)
-// router.post('/getboard/:id/filter',inventoryController.getFilteredBoard)
+router.get('/getboard/:id/filter',boardController.getFilteredBoard)
 // router.post('/deleteboard',inventoryController.deleteinventory)
-// router.post("/updateboard",inventoryController.updateInventory)
+router.post("/updateboard",boardController.updateBoard)
 
 module.exports=router

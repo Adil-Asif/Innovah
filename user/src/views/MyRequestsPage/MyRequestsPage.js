@@ -8,6 +8,7 @@ import Footer from "../../components/Footer/Footer";
 import MyRequest from "../../assests/Images/MyRequests.svg";
 import RequestsItem from "../../components/RequestsItem/RequestsItem";
 import { useEffect,useState } from "react";
+import { useSelector } from "react-redux";
 
 const { Content } = Layout;
 
@@ -17,9 +18,12 @@ const [myRequests, setmyRequests] = useState([])
   getData()
     
   }, [])
-  
+  const userId = useSelector(
+    (state) => state.userDetails.userid
+  )
+  console.log(userId)
 const getData = async()=>{
-let response = await fetch(`http://localhost:5000/requests/yourrequests`)
+let response = await fetch(`http://localhost:5000/requests/yourrequests/${userId}`)
 setmyRequests( await response.json())
 console.log(myRequests);
 }
@@ -53,6 +57,7 @@ console.log(myRequests);
                           imageUrl={currentRequest.image}
                           global={false}
                           isHired={currentRequest.isHired}
+                          requestid={currentRequest.requestid}
                         />
                       </div>
                     </Col>)

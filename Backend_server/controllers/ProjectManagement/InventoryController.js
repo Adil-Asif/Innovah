@@ -2,13 +2,13 @@ const model = require('../../models/database')
 
 exports.getAllInventory = (req, res) => {
     projectID = req.params.id
-    let sql = "SELECT inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription,inventoryname	 FROM inventory where projectid=" + (projectID) ;
+    let sql = "SELECT inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription,inventoryname	 FROM inventory where projectid=" + (projectID) + " ORDER BY CAST(inventoryid AS SIGNED) DESC" ;
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2));
         }
         else {
-            console.log(result);
+         //   console.log(result);
             res.send(result);
         }
     });
@@ -34,7 +34,7 @@ exports.addNewInventory = async (req, res) => {
                 console.log(currentID, "currentID 2")
             }
 
-            sql = `insert into inventory(inventoryname,inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription) values ('${req.body.Item_Name}','${currentID}','${req.body.projectid}','unutilized',${req.body.quantity},${req.body.inventoryvalue},'${req.body.addedby}','${req.body.itemdescription}');`
+            sql = `insert into inventory(inventoryname,inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription) values ('${req.body.Item_Name}','${currentID}','${req.body.projectid}','Added',${req.body.quantity},${req.body.inventoryvalue},'${req.body.addedby}','${req.body.itemdescription}');`
             console.log(currentID)
             model.query(sql, (err, result) => {
                 try {
@@ -65,9 +65,9 @@ exports.addNewInventory = async (req, res) => {
 }
 
 exports.getFilteredInventory =(req,res)=>{
-    let getFilter= req.body.status
+   
     let projectID = req.params.id
-    let sql = `SELECT inventoryid,projectid,itemstatus,quantity,inventoryvalue,addedby,itemdescription,inventoryname FROM inventory where projectid= '${projectID}' and itemstatus='${getFilter}'`;
+    let sql = `SELECT count(inventoryid) as itemcount,itemstatus FROM inventory where projectid= '${projectID}' GROUP BY itemstatus`;
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2));
@@ -79,6 +79,7 @@ exports.getFilteredInventory =(req,res)=>{
     });
 
 }
+//
 
 exports.deleteinventory=(req,res)=>{
     let projectID = req.params.id
@@ -97,8 +98,9 @@ exports.deleteinventory=(req,res)=>{
 }
 
 exports.updateInventory=(req,res)=>{
-    let inventoryid = req.body.id
-    let updateStatus = req.body.status
+    let inventoryid = req.body.inventoryid
+    let updateStatus = req.body.updateStatus
+    console.log(inventoryid,updateStatus)
     let sql = `UPDATE inventory SET itemstatus='${updateStatus}' WHERE inventoryid ='${inventoryid}'`
     model.query(sql, (err, result) => {
         if (err) {
@@ -109,4 +111,7 @@ exports.updateInventory=(req,res)=>{
             res.send({"Delete":"Sucess"});
         }
     });
+}
+exports.groupInventory=(req,res)=>{
+
 }

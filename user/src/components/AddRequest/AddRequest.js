@@ -4,6 +4,7 @@ import { storage } from "../../services/Firebase/Firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { Button, Form, Input, Upload,message } from "antd";
+import { useSelector } from "react-redux";
 const { TextArea } = Input;
 
 const AddRequest = () => {
@@ -92,10 +93,15 @@ const AddRequest = () => {
       console.log(requestDetails);
     }
   }, [requestDetails]);
-
+  const userId = useSelector(
+    (state) => state.userDetails.userid
+  )
+console.log(userId)
   const sendDataToDB = async(object)=>{
+  
 let response = await fetch(
-  `http://localhost:5000/requests/addnewrequest`,
+  
+  `http://localhost:5000/requests/addnewrequest/${userId}`,
   {
     // Adding method type
     method: "POST",

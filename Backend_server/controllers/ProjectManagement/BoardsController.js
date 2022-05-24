@@ -8,7 +8,7 @@ exports.getAllIBoards = (req, res) => {
             console.log(JSON.stringify(err, undefined, 2));
         }
         else {
-            console.log(result);
+          //  console.log(result);
             res.send(result);
         }
     });
@@ -17,7 +17,7 @@ exports.getAllIBoards = (req, res) => {
 exports.addNewBoard = async (req, res) => {
 
     let currentID
-    console.log(req.body)
+    console.log(req.body,"addnewBoard")
     let sql = `SELECT MAX( CAST(boardid AS SIGNED)) FROM boards;`
     await model.query(sql, (err, result) => {
         try {
@@ -33,7 +33,7 @@ exports.addNewBoard = async (req, res) => {
                 console.log(currentID, "currentID 2")
             }
 
-            sql = `insert into boards(projectid,boardid,taskstatus,taskname,tasktype,assignedto,taskdescription) values ('${req.body.projectid}','${currentID}','todo','${req.body.taskname}','${req.body.tasktype}','${req.body.assignedto}','${req.body.taskdescription}');`
+            sql = `insert into boards(projectid,boardid,taskstatus,taskname,tasktype,assignedto,taskdescription) values ('${req.body.projectid}','${currentID}','To Do','${req.body.taskname}','${req.body.tasktype}','${req.body.assignedto}','${req.body.taskdescription}');`
             console.log(currentID)
             model.query(sql, (err, result) => {
                 try {
@@ -64,9 +64,9 @@ exports.addNewBoard = async (req, res) => {
 }
 
 exports.getFilteredBoard =(req,res)=>{
-    let getFilter= req.body.status
+   
     let projectID = req.params.id
-    let sql = `SELECT boardid,projectid,taskstatus,taskname,tasktype,assignedto,taskdescription FROM boards where projectid= '${projectID}' and taskstatus='${getFilter}'`;
+    let sql = `SELECT count(boardid ) as itemcount,taskstatus FROM boards where projectid= '${projectID}' GROUP BY taskstatus`;
     model.query(sql, (err, result) => {
         if (err) {
             console.log(JSON.stringify(err, undefined, 2));
@@ -77,4 +77,22 @@ exports.getFilteredBoard =(req,res)=>{
         }
     });
 
+}
+
+
+exports.updateBoard=(req,res)=>{
+    let taskid = req.body.taskid
+    console.log("in updateboard")
+    let updateStatus = req.body.updateStatus
+    console.log(taskid,updateStatus,req.body)
+    let sql = `UPDATE boards SET taskstatus='${updateStatus}' WHERE boardid ='${taskid}'`
+    model.query(sql, (err, result) => {
+        if (err) {
+            console.log(JSON.stringify(err, undefined, 2));
+        }
+        else {
+            console.log(result);
+            res.send({"Delete":"Sucess"});
+        }
+    });
 }

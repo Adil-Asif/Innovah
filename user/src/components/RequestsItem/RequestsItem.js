@@ -5,14 +5,19 @@ import { storage } from "../../services/Firebase/Firebase";
 import { Modal, Button, Form, Input, Upload } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+
 const { TextArea } = Input;
 
 const RequestsItem = (props) => {
   let navigate = useNavigate();
   const moveToRequestSubmissions = () => {
-    navigate("/myrequests/submissions");
+    navigate(`/myrequests/submissions/${props.requestid}`);
   };
-
+  const userId = useSelector(
+    (state) => state.userDetails.userid
+  )
+  console.log(userId)
   let request = {
     requestID: "",
     requestName: props.RequestName,
@@ -111,7 +116,7 @@ const RequestsItem = (props) => {
     // when redux is implemented get logged in ID
     if (Proposal !== "") {
       console.log("Received values of form: ", Proposal,props);
-      sendDataToDB({submitted_by:'7b92e770-a79a-11ec-a453-c3c9e76e527c',
+      sendDataToDB({submitted_by:userId,
       request_id:props.requestId,
       proposal_content:Proposal})
     }
