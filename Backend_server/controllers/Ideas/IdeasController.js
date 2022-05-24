@@ -55,32 +55,104 @@ exports.addidea = (req,res)=>{
 }
 exports.edititem = (req,res)=>{
     //eheyyy
-}
-exports.getallitems = (req,res) =>{
     if(session.getItem('signin')==true){
-        var userinfo = session.getItem('useridinfo');
-        let sql = "select * from idea where userid=?";
-        model.query(sql,userinfo,(err,result)=>{
+        // var userinfo = session.getItem('useridinfo');
+        // req.body.ideaName,req.body.ideaDescription,req.body.image
+        let sql3="update idea set title=?, description=?, image=? where ideaid=?";
+        model.query(sql3,[req.body.ideaName,req.body.ideaDescription,req.body.image,req.body.ideaID],(err,result)=>{
             if(err){
                 // console.log(user_id)
                 console.log( JSON.stringify(err,undefined,2));
                 // console.log("error")
             }
             else{
-                console.log(result)
-                Object.keys(result).forEach(function(key) {
-                    // var row = result[key];
-                    var ideaid = result[key].ideaid;
-                    var ideatitle=result[key].title;
-                    var ideadesc=result[key].description;
-                    var ideaimage=result[key].image;
-                    var ideavisibility=result[key].visibility;
-                    var ideaindustry=result[key].ideaindustry;
-                    var ideadomain=result[key].domain;
-                    var isapproved=result[key].isapproved;
-                    res.json({"ideaid":ideaid,"ideatitle":ideatitle,"ideadescription":ideadesc,"ideaimage":ideaimage,"ideavisibility":ideavisibility,"ideaindustry":ideaindustry,"ideadomain":ideadomain,"isapproved":isapproved})
-                    // console.log(row.name)
-                });
+                console.log("the data has been updated");
+            }
+        });
+    
+    }
+}
+exports.addjuryresponse = (req,res)=>{
+    if(session.getItem('signin')==true){
+        let idea_comment={
+            ideaid:req.body.ideaID,
+            ideacomment:req.body.ideaComment,
+            commentby:req.body.commentBY
+        }
+        let sql = "insert into idea_comment set ?";
+        model.query(sql,idea_comment,(err,result)=>{
+            if(err){
+                // console.log(user_id)
+                console.log( JSON.stringify(err,undefined,2));
+                // console.log("error")
+            }
+            else{
+                console.log("response added");
+            }
+        })
+    }
+}
+exports.getidea = (req,res)=>{
+    if(session.getItem('signin')==true){
+        let sql = "select * from idea JOIN idea_comment ON idea.ideaid=idea_comment.ideaid where idea.ideaid=?";
+        model.query(sql,req.body.ideaID,(err,result)=>{
+            if(err){
+                // console.log(user_id)
+                console.log( JSON.stringify(err,undefined,2));
+                // console.log("error")
+            }
+            else{
+                console.log(result);
+                res.json({"result":result});
+            }
+        })
+    
+    }
+}
+exports.getallitems = (req,res) =>{
+    if(session.getItem('signin')==true){
+        var userinfo = session.getItem('useridinfo');
+        
+        let sql2 = "select * from idea where userid=?";
+        
+        
+        
+        
+        
+        model.query(sql2,userinfo,(err,result)=>{
+            if(err){
+                // console.log(user_id)
+                console.log( JSON.stringify(err,undefined,2));
+                // console.log("error")
+            }
+            else{
+                // model.query(sql2,userinfo,(err,result)=>{
+                //     if(err){
+                // // console.log(user_id)
+                // console.log( JSON.stringify(err,undefined,2));
+                // // console.log("error")
+                //     }
+                //     else{
+                        
+                //     }    
+                // });
+                console.log(result);
+                return res.status(200).json({"result":result});
+                // resultjuryremarks
+                
+                // Object.keys(result).forEach(function(key) {
+                //     // var row = result[key];
+                //     var ideaid = result[key].ideaid;
+                //     var ideatitle=result[key].title;
+                //     var ideadesc=result[key].description;
+                //     var ideaimage=result[key].image;
+                //     var ideavisibility=result[key].visibility;
+                //     var ideaindustry=result[key].ideaindustry;
+                //     var ideadomain=result[key].domain;
+                //     var isapproved=result[key].isapproved;
+                //    return res.status(200).json({"ideaid":ideaid,"ideatitle":ideatitle,"ideadescription":ideadesc,"ideaimage":ideaimage,"ideavisibility":ideavisibility,"ideaindustry":ideaindustry,"ideadomain":ideadomain,"isapproved":isapproved})
+                //     // console.log(row.name)
+                // });
             }
         })
     }

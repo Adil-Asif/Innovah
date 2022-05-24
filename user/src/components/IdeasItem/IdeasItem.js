@@ -5,6 +5,7 @@ import { storage } from "../../services/Firebase/Firebase";
 import { Button, Input, Upload, Modal, Form } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import axios from 'axios';
 const { TextArea } = Input;
 
 const IdeasItem = (props) => {
@@ -105,11 +106,17 @@ const IdeasItem = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
-
+  const func = async (obj)=>{
+    await axios.post('http://localhost:5000/ideas/myideas',obj)
+      .then((result)=>{
+        console.log(result);
+      })
+  }
   useEffect(() => {
-    // get request to retrieve the data 
+    
     if (ideaDetails.isUpdated) {
       console.log(ideaDetails);
+      func(ideaDetails);
       // Post request for updated idea details
     }
   }, [ideaDetails]);
