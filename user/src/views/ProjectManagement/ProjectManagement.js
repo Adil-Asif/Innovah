@@ -13,6 +13,7 @@ import Stream from "./../../assests/Images/IdeasImage/Stream.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+
 const { Content } = Layout;
 const { TextArea } = Input;
 const { Option } = Select;
@@ -24,7 +25,8 @@ const ProjectManagement = () => {
     projectTitle: "",
     projectDescription: "",
     projectImage: "",
-    projectMembers: "",
+    TeamMembers: "",
+    Idea:"",
     isSubmitted: false,
   };
   const email = [
@@ -43,6 +45,9 @@ const ProjectManagement = () => {
   const [imageAsUrl, setImageAsUrl] = useState(allInputs);
   const [projectDetails, setProjectDetails] = useState(project);
   const [projectResponse, setProjectResponse] = useState();
+  const [myIdeasoptions, setmyIdeasoptions] = useState([])
+  const [myTeamOptions, setmyTeamOptions] = useState([])
+  const[reloadnow,setReloadnow]=useState(true)
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
@@ -112,9 +117,11 @@ const ProjectManagement = () => {
     if (imageAsUrl.imgUrl !== "") {
       project.projectTitle = projectDetails.projectTitle;
       project.projectDescription = projectDetails.projectDescription;
-      project.projectMembers = projectDetails.projectMembers;
+      project.TeamMembers = projectDetails.TeamMembers;
       project.projectImage = imageAsUrl.imgUrl;
+      project.Idea = projectDetails.Idea;
       project.isSubmitted = true;
+      console.log(project)
       setProjectDetails(project);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -123,11 +130,37 @@ const ProjectManagement = () => {
   useEffect(() => {
     if (projectDetails.isSubmitted) {
       console.log(projectDetails);
+      sendDataToDB()
     }
   }, [projectDetails]);
 
+
+  const sendDataToDB =async ()=>{
+    let response = await fetch(
+      `http://localhost:5000/generalproject/newProject/projectsubmission/storingtodb`,
+      {
+        // Adding method type
+        method: "POST",
+    
+        // Adding body or contents to send
+        body: JSON.stringify(
+        projectDetails
+         
+        ),
+    
+        // Adding headers to the request
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    response = await response.json()
+    console.log(response)
+    setReloadnow(!reloadnow)
+  }
   const onSubmit = (values) => {
     project = values;
+    console.log(values)
     setProjectDetails(project);
     handleSubmission(values.projectImage);
   };
@@ -140,13 +173,22 @@ const ProjectManagement = () => {
   };
 
   let getprojects = async () => {
-    let response = await fetch("http://localhost:5000/generalproject/1");
+    let response = await fetch("http://localhost:5000/generalproject/50cc2100-a79a-11ec-a453-c3c9e76e527c");
     setProjectResponse(await response.json());
   };
   console.log(projectResponse);
   useEffect(() => {
     getprojects();
-  }, []);
+  }, [reloadnow]);
+  
+
+const getformData=async()=>{
+ let ideas =  await fetch("http://localhost:5000/generalproject/newProject/projectform/getideas");
+setmyIdeasoptions( await ideas.json());
+let people =  await fetch("http://localhost:5000/generalproject/newProject/projectform/getAllPeople");
+setmyTeamOptions( await people.json());
+
+}
 
   return (
     <div className="projectManagementPage">
@@ -175,7 +217,10 @@ const ProjectManagement = () => {
                         className="left"
                         style={{ marginRight: "4%", borderRadius: "8px" }}
                         onClick={() => {
+                          getformData();
+                          console.log(myIdeasoptions);
                           setIsModalVisible(true);
+                        
                         }}
                       >
                         Add Project
@@ -233,21 +278,38 @@ const ProjectManagement = () => {
                           >
                             <TextArea showCount maxLength={3000} />
                           </Form.Item>
-                          <Form.Item name="projectMembers" label="Project Tile">
+                          <Form.Item name="Idea" label="Corresponding Idea">
                             <Select
-                              mode="multiple"
+                             
                               style={{ width: "100%" }}
-                              placeholder="select Members"
+                              placeholder="select Ideas"
                               optionLabelProp="label"
                             >
                               {/* TODO: Registered Users Names and Email Addresses required here those who are not admin */}
-                              {email.map((emailId) => (
-                                <Option value={emailId} label={emailId}>
-                                  <div>Name: {emailId}</div>
+                              {myIdeasoptions.map((ideas) => (
+                                <Option value={ideas.ideaid} label={ideas.title}>
+                                  <div>{ideas.ideaid}: {ideas.title}</div>
                                 </Option>
                               ))}
                             </Select>
                           </Form.Item>
+
+                          <Form.Item name="TeamMembers" label="Team Members">
+                            <Select
+                              mode="multiple"
+                              style={{ width: "100%" }}
+                              placeholder="select Ideas"
+                              optionLabelProp="label"
+                            >
+                              {/* TODO: Registered Users Names and Email Addresses required here those who are not admin */}
+                              {myTeamOptions.map((teams) => (
+                                <Option value={teams.userid} label={teams.fullname}>
+                                  <div>{teams.email}: {teams.fullname}</div>
+                                </Option>
+                              ))}
+                            </Select>
+                          </Form.Item>
+                         
                           <Form.Item name="projectImage">
                             <Upload.Dragger
                               listType="picture"
@@ -293,7 +355,7 @@ const ProjectManagement = () => {
                       className="projects"
                     >
                       <div className="projectHeader">
-                        <img src={Stream} alt="" />
+                        <img src={project.projectimage} alt="" />
                         <div className="name-description">
                           <span className="project-name">
                             {" "}

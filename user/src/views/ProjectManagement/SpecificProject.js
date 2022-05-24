@@ -26,7 +26,8 @@ const SpecificProject = () => {
   console.log(params.projectid);
   const fetchProjectDetails = async () => {
     let response = await fetch(
-      `http://localhost:5000/generalproject/1/${params.projectid}`
+      //get API =  URL / generalproject/userid/projectid
+      `http://localhost:5000/generalproject/50cc2100-a79a-11ec-a453-c3c9e76e527c/${params.projectid}`
     );
     setProjectDetails(await response.json());
   };

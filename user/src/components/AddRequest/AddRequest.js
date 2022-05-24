@@ -4,6 +4,7 @@ import { storage } from "../../services/Firebase/Firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { Button, Form, Input, Upload,message } from "antd";
+import { useSelector } from "react-redux";
 const { TextArea } = Input;
 
 const AddRequest = () => {
@@ -87,11 +88,39 @@ const AddRequest = () => {
 
   useEffect(() => {
     if (requestDetails.isSubmit) {
+      sendDataToDB(requestDetails)
       message.success("Request Posted");
       console.log(requestDetails);
     }
   }, [requestDetails]);
+  const userId = useSelector(
+    (state) => state.userDetails.userid
+  )
+console.log(userId)
+  const sendDataToDB = async(object)=>{
+  
+let response = await fetch(
+  
+  `http://localhost:5000/requests/addnewrequest/${userId}`,
+  {
+    // Adding method type
+    method: "POST",
 
+    // Adding body or contents to send
+    body: JSON.stringify(
+      object
+     
+    ),
+
+    // Adding headers to the request
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  }
+);
+response = await response.json()
+console.log(response)
+  }
   const onFinish = (values) => {
     request = values;
     setRequestDetails(request);

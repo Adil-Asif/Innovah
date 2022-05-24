@@ -7,10 +7,13 @@ import Footer from "../../components/Footer/Footer";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import RequestSubmission from "../../assests/Images/RequestSubmission.svg";
 import RequestSubmissionItem from "../../components/RequestSubmissionItem/RequestSubmissionItem";
+import { useParams } from "react-router-dom";
 
 const { Content } = Layout;
 
 const RequestSubmissionPage = () => {
+  let params = useParams();
+  console.log(params.requestid , "What is this")
   return (
     <div className="requestsSubmissionPage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -25,7 +28,7 @@ const RequestSubmissionPage = () => {
               <img src={RequestSubmission} alt="Request Submission" />
             </div>
             <div className="requestSubmissionDashboard">
-            <RequestSubmissionItem/>
+            <RequestSubmissionItem requestID ={params}/>
             </div>
             
           </Content>
