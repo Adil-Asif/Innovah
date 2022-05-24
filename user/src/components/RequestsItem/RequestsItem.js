@@ -5,14 +5,19 @@ import { storage } from "../../services/Firebase/Firebase";
 import { Modal, Button, Form, Input, Upload } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+
 const { TextArea } = Input;
 
 const RequestsItem = (props) => {
   let navigate = useNavigate();
   const moveToRequestSubmissions = () => {
-    navigate("/myrequests/submissions");
+    navigate(`/myrequests/submissions/${props.requestid}`);
   };
-
+  const userId = useSelector(
+    (state) => state.userDetails.userid
+  )
+  console.log(userId)
   let request = {
     requestID: "",
     requestName: props.RequestName,
@@ -107,10 +112,44 @@ const RequestsItem = (props) => {
     }
   }, [requestDetails]);
   useEffect(() => {
+
+    // when redux is implemented get logged in ID
     if (Proposal !== "") {
-      console.log("Received values of form: ", Proposal);
+      console.log("Received values of form: ", Proposal,props);
+      sendDataToDB({submitted_by:userId,
+      request_id:props.requestId,
+      proposal_content:Proposal})
     }
   }, [Proposal]);
+
+  const sendDataToDB = async(object)=>{
+    let response = await fetch(
+      `http://localhost:5000/requests/submitrequest`,
+      {
+        // Adding method type
+        method: "POST",
+    
+        // Adding body or contents to send
+        body: JSON.stringify(
+          object
+         
+        ),
+    
+        // Adding headers to the request
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    response = await response.json()
+    console.log(response)
+      }
+
+
+
+
+
+
   const onApply = (values) => {
     setProposal(values.Proposal);
     setIsModalVisible(false);
@@ -138,6 +177,7 @@ const RequestsItem = (props) => {
   return props.global ? (
     <div className="requestItemGlobal">
       <div className="img">
+        {/* {console.log(props.imageUrl)} */}
         <img src={props.imageUrl} alt={props.title} />
       </div>
       <div className="information">

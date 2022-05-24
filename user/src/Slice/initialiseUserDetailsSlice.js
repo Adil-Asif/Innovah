@@ -15,7 +15,7 @@ export const userDetailsSlice = createSlice({
   reducers: {
     setIsLogin: (state, action) => {
       state.isLogin = action.payload.isLogin;
-    },
+    }, 
     setUserDetails: (state, action) => {
       state.userid = action.payload.userid;
       state.username = action.payload.username;

@@ -15,10 +15,13 @@ const { Content } = Layout;
 const { Option } = Select;
 
 const InventoryManagement = () => {
+  const [reloadneed, setReloadneed] = useState(false)
   const [inventoryID, setInventoryID] = useState("");
   const [isEdit, setISEdit] = useState(false);
   const [inventoryStatus, setInventoryStatus] = useState("");
   const [isModalVisible2, setIsModalVisible2] = useState(false);
+  const [groupbyItems, setGroupbyItems] = useState([])
+  const [counts, setCounts] = useState({})
   let params = useParams();
   console.log(params.projectid);
   const [fetchInventoryITems, setFetchInventoryITems] = useState([]);
@@ -27,22 +30,64 @@ const InventoryManagement = () => {
       `http://localhost:5000/projectinventory/getinventory/${params.projectid}`
     );
     setFetchInventoryITems(await response.json());
+
+    response = await fetch(
+      `http://localhost:5000/projectinventory/getinventory/${params.projectid}/filter`
+    );
+    setGroupbyItems(await response.json());
+
+
+
+
+
   };
   useEffect(() => {
     fetchInventory();
-
+    console.log(groupbyItems)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setCounts(returnCount())
+  }, [reloadneed]);
 
   const updateStatus = (values) => {
     // console.log(values, "hhh");
     setInventoryStatus(values.inventorystatus);
-    setISEdit(false);
-    console.log(inventoryStatus);
-  };
-  useEffect(() => {console.log(inventoryStatus)}, [inventoryStatus]);
 
-  console.log(fetchInventoryITems);
+    console.log(values, "ab yeh kiya hai")
+    console.log(inventoryStatus, inventoryID, values.inventorystatus, "what is happening");
+    sendingChangetoDB(inventoryID, values.inventorystatus)
+    setISEdit(false);
+  };
+
+  const sendingChangetoDB = async (inventoryid, updateStatus) => {
+    let response = await fetch(
+      `http://localhost:5000/projectinventory/updateitem`,
+      {
+        // Adding method type
+        method: "POST",
+
+        // Adding body or contents to send
+        body: JSON.stringify(
+          { inventoryid, updateStatus }
+
+        ),
+
+        // Adding headers to the request
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    response = await response.json()
+    console.log(response)
+    setReloadneed(!reloadneed)
+  }
+
+
+
+
+  useEffect(() => { console.log(inventoryStatus) }, [inventoryStatus]);
+
+  console.log(groupbyItems);
   const showModal2 = () => {
     setIsModalVisible2(true);
   };
@@ -81,6 +126,7 @@ const InventoryManagement = () => {
         }
       );
       setIsModalVisible2(false);
+      setReloadneed(true)
       console.log("Success:", values);
     } else {
       onFinishFailed("Value of qunatity and value not in number");
@@ -90,6 +136,32 @@ const InventoryManagement = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  const returnCount = () => {
+    let object = {}
+    groupbyItems.forEach((element) => {
+      console.log(element)
+      switch (element.itemstatus) {
+        case "Added":
+       object.Added=element.itemcount;
+          break;
+        case "Not In Use":
+          object.notUsed=element.itemcount
+          break;
+        case "In Use":
+          object.inUse=element.itemcount
+          break;
+        case "Utilised":
+          object.utilised=element.itemcount 
+          break;
+
+        default:
+          break;
+      }
+    })
+   
+    return (object);
+  }
 
   return (
     <div className="inventoryManagementPage">
@@ -207,20 +279,20 @@ const InventoryManagement = () => {
 
             <div className="total-work-items">
               <div className="work-items">
-                <img src={AI_image} alt="" />
-                <span className="work-high-level"> Items Added</span>
+                {/* <img src={AI_image} alt="" /> */}
+                <span className="work-high-level">{(counts.Added)!==undefined ? counts.Added : 0}   Items Added</span>
               </div>
               <div className="work-items">
-                <img src={AI_image} alt="" />
-                <span className="work-high-level"> Items Not Used</span>
+                {/* <img src={AI_image} alt="" /> */}
+                <span className="work-high-level">{(counts.notUsed)!==undefined ? counts.notUsed : 0}  Items Not Used</span>
               </div>
               <div className="work-items">
-                <img src={AI_image} alt="" />
-                <span className="work-high-level"> Items In Use</span>
+                {/* <img src={AI_image} alt="" /> */}
+                <span className="work-high-level">{(counts.inUse)!==undefined ? counts.inUse : 0}  Items In Use</span>
               </div>
               <div className="work-items">
-                <img src={AI_image} alt="" />
-                <span className="work-high-level"> Items Utilised</span>
+                {/* <img src={AI_image} alt="" /> */}
+                <span className="work-high-level">{(counts.utilised)!==undefined ? counts.utilised : 0}  Items Utilised</span>
               </div>
             </div>
             <div className="specific-inventory-heading">
@@ -236,7 +308,7 @@ const InventoryManagement = () => {
               fetchInventoryITems.map((inventory) => (
                 <div className="specific-inventory-description">
                   <div className="ID-inventory"> {inventory.inventoryid}</div>
-                  <div className="inventory-name"> cash</div>
+                  <div className="inventory-name"> {inventory.inventoryname}</div>
                   <div className="type"> {inventory.quantity}</div>
                   <div className="assigned-to"> {inventory.inventoryvalue}</div>
                   <div className="added-by"> {inventory.addedby}</div>

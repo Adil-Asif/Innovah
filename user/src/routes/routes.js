@@ -32,7 +32,7 @@ const Routers = () => {
       <Route exact path="/globalideas" element={<GlobalIdeasPage />} />
       <Route exact path="/addrequest" element={<AddRequestPage />} />
       <Route exact path="/myrequests" element={<MyRequestsPage />} />
-      <Route exact path="/myrequests/submissions" element={<RequestSubmissionPage />} />
+      <Route exact path="/myrequests/submissions/:requestid" element={<RequestSubmissionPage />} />
       <Route exact path="/globalrequests" element={<GlobalRequestsPage />} />
       <Route
         exact

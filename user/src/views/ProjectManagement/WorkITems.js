@@ -11,16 +11,20 @@ import { Modal, Button, Spin, Form, Input, Select } from "antd";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faCheck } from "@fortawesome/free-solid-svg-icons";
+
 const { Content } = Layout;
 const { Option } = Select;
 
 const WorkItems = () => {
   const [taskID, setTaskID] = useState("");
   const [isEdit, setISEdit] = useState(false);
-  const [entrySucess, setEntrySucess] = useState(false);
+  const [reloadneed, setReloadneed] = useState(false);
   const [isModalVisible2, setIsModalVisible2] = useState(false);
   const [fetchBoardItems, setFetchBoardItems] = useState([]);
   const [taskStatus, setTaskStatus] = useState("");
+  const [groupbyItems, setGroupbyItems] = useState([])
+  const [counts, setCounts] = useState({})
+
 
   let params = useParams();
   console.log(params.projectid);
@@ -29,23 +33,31 @@ const WorkItems = () => {
       `http://localhost:5000/projectboards/getboard/${params.projectid}`
     );
     setFetchBoardItems(await response.json());
-    setFetchBoardItems((fetchBoardItems) => {
-      return fetchBoardItems.sort((a, b) => {
-        return a.boardid - b.boardid;
-      });
-    });
+   
   };
+  const fetchCounts = async()=>{
+    let response = await fetch(
+      `http://localhost:5000/projectboards/getboard/${params.projectid}/filter`
+    );
+    setGroupbyItems(await response.json());
+    console.log(groupbyItems)
+    returnCount()
+  }
 
   const updateStatus = (values) => {
     console.log(values);
     setTaskStatus(values.taskstatus);
     setISEdit(false);
+    sendingChangetoDB(taskID,values.taskstatus)
   };
 
   useEffect(() => {
     fetchBoards();
+    fetchCounts()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entrySucess]);
+  
+    
+  }, [reloadneed]);
 
   const showModal2 = () => {
     setIsModalVisible2(true);
@@ -82,14 +94,67 @@ const WorkItems = () => {
         },
       }
     );
-    setEntrySucess(true);
+    setReloadneed(true);
     console.log("Success:", values);
     setIsModalVisible2(false);
   };
 
+
+  const sendingChangetoDB= async(taskid,updateStatus)=>{
+    let response = await fetch(
+      `http://localhost:5000/projectboards/updateboard`,
+      {
+        // Adding method type
+        method: "POST",
+    
+        // Adding body or contents to send
+        body: JSON.stringify(
+          {taskid,updateStatus}
+         
+        ),
+    
+        // Adding headers to the request
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    response = await response.json()
+    console.log(response)
+    setReloadneed(!reloadneed)
+    }
+  
+
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  const returnCount = () => {
+    let object = {}
+    groupbyItems.forEach((element) => {
+      console.log(element)
+      switch (element.taskstatus) {
+        case "Created":
+       counts.created=element.itemcount;
+          break;
+        case "To Do":
+          counts.todo=element.itemcount
+          break;
+        case "Doing":
+          counts.doing=element.itemcount
+          break;
+        case "Completed":
+          counts.completed=element.itemcount 
+          break;
+
+        default:
+          break;
+      }
+    })
+ 
+    return (object);
+  }
 
   return (
     <div className="workItemsPage">
@@ -189,20 +254,20 @@ const WorkItems = () => {
 
             <div className="total-work-items">
               <div className="work-items">
-                <img src={AI_image} alt="" />
-                <span className="work-high-level"> Tasks created</span>
+                {/* <img src={AI_image} alt="" /> */}
+                <span className="work-high-level"> {(counts.created)!==undefined ? counts.created : 0} Tasks created</span>
               </div>
               <div className="work-items">
-                <img src={AI_image} alt="" />
-                <span className="work-high-level"> Tasks To Do</span>
+                {/* <img src={AI_image} alt="" /> */}
+                <span className="work-high-level"> {(counts.todo)!==undefined ? counts.todo : 0} Tasks To Do</span>
               </div>
               <div className="work-items">
-                <img src={AI_image} alt="" />
-                <span className="work-high-level"> Tasks Doing</span>
+                {/* <img src={AI_image} alt="" /> */}
+                <span className="work-high-level"> {(counts.doing)!==undefined ? counts.doing : 0} Tasks Doing</span>
               </div>
               <div className="work-items">
-                <img src={AI_image} alt="" />
-                <span className="work-high-level"> Tasks Completed</span>
+                {/* <img src={AI_image} alt="" /> */}
+                <span className="work-high-level"> {(counts.completed)!==undefined ? counts.completed : 0} Tasks Completed</span>
               </div>
             </div>
             <div className="specific-task-heading">

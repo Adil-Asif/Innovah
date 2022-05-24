@@ -7,9 +7,29 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import GlobalRequests from "../../assests/Images/PostRequest.svg";
 import RequestsItem from "../../components/RequestsItem/RequestsItem";
+
+
+
+import {useEffect, useState} from 'react'
 const { Content } = Layout;
 
 const GlobalRequestsPage = () => {
+  const [allGlobalRequests, setAllGlobalRequests] = useState([])
+  useEffect(() => {
+    
+  getRequestsAPI()
+  
+  
+  }, [])
+  ///////////////
+ 
+const getRequestsAPI = async()=>{
+  let requestResponse = await fetch(`http://localhost:5000/requests/allrequests`)
+  setAllGlobalRequests( await requestResponse.json())
+
+}
+
+
   return (
     <div className="globalRequestsPage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -62,6 +82,25 @@ const GlobalRequestsPage = () => {
                   imageUrl={require("../../assests/Images/IdeasImage/uiux.jpg")}
                   global={true}
                 />
+
+                {allGlobalRequests.map((request)=>
+                  (
+                  <div key={request.requestid}>
+                    <RequestsItem 
+                    title={request.requesttitle}
+                    description={request.request_description}
+                    isapplicants={true}
+                    applicants="2"
+                    imageUrl={request.image}
+                    global={true}
+                    requestId = {request.requestid}
+                    postedby = {request.userid}
+                  />
+                  </div>
+                  )
+                )}
+
+
               </div>
             </div>
           </Content>

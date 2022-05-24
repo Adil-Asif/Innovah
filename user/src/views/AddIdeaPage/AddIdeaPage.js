@@ -112,6 +112,7 @@ const AddIdeaPage = () => {
   useEffect(() => {
     if (ideaDetails.isSubmit) {
       console.log(ideaDetails);
+
       message.success("Idea Posted");
       axios.post('http://localhost:5000/ideas/addidea',ideaDetails)
       .then((result)=>{
@@ -121,6 +122,7 @@ const AddIdeaPage = () => {
     }
   }, [ideaDetails]);
 
+  
   const onFinish = (values) => {
     idea = values;
     setIdeaDetails(idea);
