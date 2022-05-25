@@ -1,5 +1,5 @@
-import { useState, useEffect} from "react";
-import React from "react";
+import { React, useState, useEffect} from "react";
+
 import "./ViewIdeasPage.scss";
 import { Layout, Row, Col, Avatar, Form, Input, Button } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";

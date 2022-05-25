@@ -74,6 +74,42 @@ exports.edititem = (req,res)=>{
     
     }
 }
+exports.globalideaupdatestatus = (req,res)=>{
+    if(session.getItem('signin')==true){
+        let sql = "update idea set isapproved=1 where ideaid=?";
+        model.query(sql,req.body.ideaID,(err,result)=>{
+            if (err) {
+              // console.log(user_id)
+              console.log(JSON.stringify(err, undefined, 2));
+              // console.log("error")
+            }
+            else{
+                console.log(result);
+            }
+        })
+    }
+}
+exports.viewglobalidea = (req,res)=>{
+    if(session.getItem('signin')==true){
+        var userinfo = session.getItem("useridinfo");
+        let sql = "select * from idea";
+        model.query(sql,(err,result)=>{
+            if (err) {
+              // console.log(user_id)
+              console.log(JSON.stringify(err, undefined, 2));
+              // console.log("error")
+            }
+            else{
+                console.log(result);
+                res.json({"result":result});
+                // if(result[0].userrole=="admin"){
+                //     let sql2 = "select * from idea";
+                    
+                
+            }
+        })
+    }
+}
 exports.addjuryresponse = (req,res)=>{
     if(session.getItem('signin')==true){
         let idea_comment={
