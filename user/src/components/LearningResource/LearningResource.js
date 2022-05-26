@@ -1,7 +1,7 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-// import axios from 'axios';
+import axios from "axios";
 import {
   faCheckCircle,
   faCheck,
@@ -10,21 +10,33 @@ import {
 import "./LearningResource.scss";
 import { Button } from "antd";
 const LearningResourcesTitle1 = (props) => {
+  const [updateIsEnrolled, setUpdateIsEnrolled] = useState(false);
+
   let navigate = useNavigate();
   const movetoplaylist = () => {
     navigate("/learningresources/playlist");
   };
+  useEffect(() => {
+    if (updateIsEnrolled) {
+      axios
+        .post("http://localhost:5000/Learn/", {
+          playlistid: props.playlistId,
+          trainerid: props.trainerid,
+        })
+        .then((response) => {
+          console.log(response);
+          if (props.isUpdate) {
+            props.statusUpdate(false);
+          } else {
+            props.statusUpdate(true);
+          }
+        });
+    }
+  }, [updateIsEnrolled]);
   return (
     <div className="learningResourceItemLayout">
-      {props.iscompleted ? (
-        <div className="incomplete">
-          <FontAwesomeIcon icon={faCheckCircle} />
-        </div>
-      ) : (
-        <div className="completed">
-          <FontAwesomeIcon icon={faCheck} />
-        </div>
-      )}
+      <div className="serialNumber">{props.i}</div>
+
       <div className="playlistImage">
         <img src={props.imageUrl} alt={props.title} />
       </div>
@@ -36,11 +48,15 @@ const LearningResourcesTitle1 = (props) => {
       {props.isenrolled ? (
         <>
           <Button type="primary" shape="round" onClick={movetoplaylist}>
-            View <FontAwesomeIcon icon={faAngleDoubleRight} className=""/>
+            View <FontAwesomeIcon icon={faAngleDoubleRight} className="" />
           </Button>
         </>
       ) : (
-        <Button type="primary" shape="round">
+        <Button
+          type="primary"
+          shape="round"
+          onClick={() => setUpdateIsEnrolled(true)}
+        >
           Enroll Now <FontAwesomeIcon icon={faAngleDoubleRight} className="" />
         </Button>
       )}

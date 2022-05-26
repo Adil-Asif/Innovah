@@ -11,6 +11,7 @@ export const userDetailsSlice = createSlice({
     isLogin: false,
     phoneNumber:"",
     resumeDesc:"",
+    innovahPoints: 0,
   },
   reducers: {
     setIsLogin: (state, action) => {
@@ -24,6 +25,7 @@ export const userDetailsSlice = createSlice({
       state.picture = action.payload.picture;
       state.phoneNumber = action.payload.phoneNumber;
       state.resumeDesc = action.payload.resumeDesc;
+      state.innovahPoints = action.payload.innovahPoints;
     },
     resetUserDetails: (state, action) => {
       state.userid = "";
@@ -34,6 +36,7 @@ export const userDetailsSlice = createSlice({
       state.resumeDesc = "";
       state.phoneNumber = "";
       state.isLogin= false;
+      state.innovahPoints = 0;
     },
   },
 });

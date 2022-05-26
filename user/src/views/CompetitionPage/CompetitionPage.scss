@@ -102,3 +102,30 @@
     }
   }
 }
+.addCompetitionForm {
+  .ant-modal-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family-heading);
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .competitionForm {
+    h3 {
+      font-family: var(--font-family-title);
+      font-weight: bold;
+    }
+    li {
+      font-family: var(--font-family-description);
+      h4 {
+        font-weight: bold;
+      }
+    }
+  }
+  textarea {
+    width: 90%;
+    height: 200px !important;
+   
+  }
+}
