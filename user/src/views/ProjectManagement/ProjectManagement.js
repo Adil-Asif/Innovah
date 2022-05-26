@@ -13,6 +13,7 @@ import Stream from "./../../assests/Images/IdeasImage/Stream.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const { Content } = Layout;
 const { TextArea } = Input;
@@ -171,9 +172,11 @@ const ProjectManagement = () => {
   const navigationToSpecificProject = (projectnumber = 1) => {
     navigate(`/projectmanagement/${projectnumber}`);
   };
-
+  const userId = useSelector(
+    (state) => state.userDetails.userid
+  )
   let getprojects = async () => {
-    let response = await fetch("http://localhost:5000/generalproject/50cc2100-a79a-11ec-a453-c3c9e76e527c");
+    let response = await fetch(`http://localhost:5000/generalproject/${userId}`);
     setProjectResponse(await response.json());
   };
   console.log(projectResponse);
@@ -183,7 +186,7 @@ const ProjectManagement = () => {
   
 
 const getformData=async()=>{
- let ideas =  await fetch("http://localhost:5000/generalproject/newProject/projectform/getideas");
+ let ideas =  await fetch(`http://localhost:5000/generalproject/newProject/projectform/getideas/${userId}`);
 setmyIdeasoptions( await ideas.json());
 let people =  await fetch("http://localhost:5000/generalproject/newProject/projectform/getAllPeople");
 setmyTeamOptions( await people.json());

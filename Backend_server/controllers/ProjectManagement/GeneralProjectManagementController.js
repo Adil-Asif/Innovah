@@ -181,7 +181,7 @@ const checkIfelementExists = (twodimarray, tofind) => {
 }
 
 exports.getAllIdeasData =(req, res) => {
-   const userid ='50cc2100-a79a-11ec-a453-c3c9e76e527c'
+   const userid = req.params.userid
    console.log(userid)
    try {
     let sql = `SELECT ideaid,title FROM idea where userid='${userid}'`;

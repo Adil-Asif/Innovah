@@ -11,9 +11,14 @@ import specificprojectimg from "./../../assests/Images/specificproject.svg";
 import taskImage from "./../../assests/Images/ProjectManagement/Daco_219372.png";
 import Inventory from "./../../assests/Images/ProjectManagement/production.png";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 const { Content } = Layout;
 
 const SpecificProject = () => {
+  const userId = useSelector(
+    (state) => state.userDetails.userid
+  )
   const [projectDetails, setProjectDetails] = useState([{}]);
   let params = useParams();
   let navigate = useNavigate();
@@ -27,7 +32,7 @@ const SpecificProject = () => {
   const fetchProjectDetails = async () => {
     let response = await fetch(
       //get API =  URL / generalproject/userid/projectid
-      `http://localhost:5000/generalproject/50cc2100-a79a-11ec-a453-c3c9e76e527c/${params.projectid}`
+      `http://localhost:5000/generalproject/${userId}/${params.projectid}`
     );
     setProjectDetails(await response.json());
   };

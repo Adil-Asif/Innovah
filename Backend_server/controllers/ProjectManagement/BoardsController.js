@@ -18,12 +18,13 @@ exports.addNewBoard = async (req, res) => {
 
     let currentID
     console.log(req.body,"addnewBoard")
-    let sql = `SELECT MAX( CAST(boardid AS SIGNED)) FROM boards;`
+    let sql = `SELECT MAX( CAST(boardid AS SIGNED)) as maxkey FROM boards;`
     await model.query(sql, (err, result) => {
         try {
              console.log(result);
-            if (result.length === 0) {
+            if (result[0].maxkey === null) {
                 currentID = 1
+                console.log(currentID,"TRUE")
             } else {
                 currentID = Object.values(JSON.parse(JSON.stringify(result)))
                 console.log(currentID, "currentID 1 in else block")
