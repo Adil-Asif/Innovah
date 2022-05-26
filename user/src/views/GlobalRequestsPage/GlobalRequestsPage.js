@@ -44,7 +44,7 @@ const getRequestsAPI = async()=>{
               <img src={GlobalRequests} alt="Global Requests" />
             </div>
             <div className="requestItemsDashboard">
-              <div>
+              {/* <div>
                 <RequestsItem
                   title="Hiring a UI/UX designer"
                   description="We need a UI/UX designer for our application"
@@ -81,7 +81,7 @@ const getRequestsAPI = async()=>{
                   applicants="2"
                   imageUrl={require("../../assests/Images/IdeasImage/uiux.jpg")}
                   global={true}
-                />
+                /> */}
 
                 {allGlobalRequests.map((request)=>
                   (
@@ -101,7 +101,7 @@ const getRequestsAPI = async()=>{
                 )}
 
 
-              </div>
+              {/* </div> */}
             </div>
           </Content>
           <Footer />

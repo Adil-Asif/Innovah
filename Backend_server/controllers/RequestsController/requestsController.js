@@ -7,11 +7,11 @@ exports.addNewRequest = async (req, res) => {
     let currentID
     console.log(req.body)
     console.log("######################################################")
-    let sql = `SELECT MAX(CAST(requestid AS SIGNED)) FROM posting_request;`
+    let sql = `SELECT MAX(CAST(requestid AS SIGNED)) as maxkey FROM posting_request;`
     await model.query(sql, (err, result) => {
         try {
             console.log(result, "result");
-            if (Object.keys(result)[0] === 0) {
+            if (result[0].maxkey === null) {
                 currentID = 1
             } else {
                 currentID = Object.values(JSON.parse(JSON.stringify(result)))

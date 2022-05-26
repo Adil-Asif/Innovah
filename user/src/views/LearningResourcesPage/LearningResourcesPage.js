@@ -114,6 +114,7 @@ const LearningResourcesPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
+<<<<<<< HEAD
 
 
 const updateStatus = (data) =>
@@ -128,6 +129,14 @@ const updateStatus = (data) =>
       setLearningresourcesList(response.data);
     });
   }, [learnigResourceUpdate]);
+=======
+  // const func = async (obj)=>{
+  //   await axios.post('http://localhost:5000/ideas/addidea',obj)
+  //     .then((result)=>{
+  //       console.log(result);
+  //     })
+  // }
+>>>>>>> 63c2b385c097b7f4f2aea75bc895f03a9e484fab
   useEffect(() => {
     if (playlistDetails.isSubmitted) {
       // TODO: handle post request
@@ -147,6 +156,7 @@ const updateStatus = (data) =>
           }
         });
       console.log(playlistDetails);
+      // func(playlistDetails);
     }
   }, [playlistDetails]);
 
