@@ -104,10 +104,16 @@ const LearningResourcesPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
-
+  // const func = async (obj)=>{
+  //   await axios.post('http://localhost:5000/ideas/addidea',obj)
+  //     .then((result)=>{
+  //       console.log(result);
+  //     })
+  // }
   useEffect(() => {
     if (playlistDetails.isSubmitted) {
       console.log(playlistDetails);
+      // func(playlistDetails);
     }
   }, [playlistDetails]);
 

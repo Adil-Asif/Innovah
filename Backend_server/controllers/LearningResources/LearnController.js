@@ -134,18 +134,19 @@ exports.getallitems=(req,res)=>{
                 // session.setItem('playlistname',result[0].title);
                 // console.log(result)
                 // var trainerid =
-                Object.keys(result).forEach(function(key) {
-                    // var row = result[key];
-                    var trainerid =result[key].trainerid;
-                    var playlistid = result[key].playlistid; 
-                    var pic = result[key].imageurl;
-                    var title = result[key].title;
-                    var desc = result[key].description;
-                    var completedstatus = result[key].completedstatus;
-                    var enrolledstatus = result[key].enrolledstatus;
-                    res.json({"pic":pic,"title":title,"trainerid":trainerid,"playlistid":playlistid,"desc":desc,"completedstatus":completedstatus,"enrolledstatus":enrolledstatus})
-                    // console.log(row.name)
-                });
+                res.json({"result":result});
+                // Object.keys(result).forEach(function(key) {
+                //     // var row = result[key];
+                //     var trainerid =result[key].trainerid;
+                //     var playlistid = result[key].playlistid; 
+                //     var pic = result[key].imageurl;
+                //     var title = result[key].title;
+                //     var desc = result[key].description;
+                //     var completedstatus = result[key].completedstatus;
+                //     var enrolledstatus = result[key].enrolledstatus;
+                //     res.json({"pic":pic,"title":title,"trainerid":trainerid,"playlistid":playlistid,"desc":desc,"completedstatus":completedstatus,"enrolledstatus":enrolledstatus})
+                //     // console.log(row.name)
+                // });
                 
                 // session.setItem("enrollstatus",enrolledstatus)
                 
@@ -181,22 +182,23 @@ exports.getplaylist=(req,res)=>{
             else{
                 console.log("query executed properly");
                 if(result.length>0){
-                    Object.keys(result).forEach(function(key) {
-                    // var row = result[key];
-                    var videoid =result[key].id;
-                    var playlisttitle = result[key].playlisttitle;
-                    var trainerid = result[key].trainerid;
-                    var status = result[key].status;
-                    // var desc = result[key].description;
+                    res.json({"result":result});
+                //     Object.keys(result).forEach(function(key) {
+                //     // var row = result[key];
+                //     var videoid =result[key].id;
+                //     var playlisttitle = result[key].playlisttitle;
+                //     var trainerid = result[key].trainerid;
+                //     var status = result[key].status;
+                //     // var desc = result[key].description;
                      
-                    // var pic = result[key].imageurl;
-                    var title = result[key].videotitle;
-                    var desc = result[key].description;
-                    // var completedstatus = result[key].completedstatus;
-                    // var enrolledstatus = result[key].enrolledstatus;
-                    res.json({"title":title,"trainerid":trainerid,"playlisttitle":playlisttitle,"desc":desc,"status":status,"videoid":videoid})
-                    // console.log(row.name)
-                });
+                //     // var pic = result[key].imageurl;
+                //     var title = result[key].videotitle;
+                //     var desc = result[key].description;
+                //     // var completedstatus = result[key].completedstatus;
+                //     // var enrolledstatus = result[key].enrolledstatus;
+                //     res.json({"title":title,"trainerid":trainerid,"playlisttitle":playlisttitle,"desc":desc,"status":status,"videoid":videoid})
+                //     // console.log(row.name)
+                // });
                     // session.setItem('videotitle',result[0].videotitle);
                     // session.setItem('videodesc',result[0].description);
                     // res.json({"playlistname":playlistname,"title":result[0].videotitle,"desc":result[0].description,"status":result[0].status});    

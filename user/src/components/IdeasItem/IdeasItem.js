@@ -5,6 +5,7 @@ import { storage } from "../../services/Firebase/Firebase";
 import { Button, Input, Upload, Modal, Form } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 const { TextArea } = Input;
 
 const IdeasItem = (props) => {
@@ -15,7 +16,7 @@ const IdeasItem = (props) => {
     ideaImage: props.imageUrl,
     isUpdated: false,
   };
-  const role = "";
+  const role = "admin";
   const allInputs = { imgUrl: "" };
   const [imageAsFile, setImageAsFile] = useState("");
   const [imageAsUrl, setImageAsUrl] = useState(allInputs);
@@ -23,6 +24,25 @@ const IdeasItem = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isApproved, setISApproved] = useState(false);
   const [form] = Form.useForm();
+  const fun = async (obj) => {
+    // await axios.get("http://localhost:5000/ideas/myideas")
+    //   .then((result)=>{
+    //     console.log(result);
+    //   })
+    await axios.post("http://localhost:5000/ideas/myideas/globalidea/updatestatus",obj)
+      .then((result) => {
+        console.log(result);
+      });
+  };
+  useEffect(() => {
+    if (isApproved) {
+      //TODO: Handle Admin Approval
+      console.log(isApproved);
+      // fun must have obj as argument and obj must have ideaid
+      fun()
+      
+    }
+  }, [isApproved]);
 
   const handleSubmission = async (ideaImage) => {
     setImageAsFile(ideaImage.file);
@@ -105,11 +125,17 @@ const IdeasItem = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
-
+  const func = async (obj) => {
+    await axios
+      .post("http://localhost:5000/ideas/myideas", obj)
+      .then((result) => {
+        console.log(result);
+      });
+  };
   useEffect(() => {
-    // get request to retrieve the data 
     if (ideaDetails.isUpdated) {
       console.log(ideaDetails);
+      func(ideaDetails);
       // Post request for updated idea details
     }
   }, [ideaDetails]);
@@ -156,10 +182,8 @@ const IdeasItem = (props) => {
           </>
         ) : isApproved ? (
           <>
-          <div className="approved">
-            Approved
-          </div>
-        </>
+            <div className="approved">Approved</div>
+          </>
         ) : (
           <>
             {" "}
@@ -171,7 +195,9 @@ const IdeasItem = (props) => {
                 borderBottomLeftRadius: "8px",
                 borderBottomRightRadius: "8px",
               }}
-              onClick = {() => {setISApproved(true);}}
+              onClick={() => {
+                setISApproved(true);
+              }}
             >
               Approve
             </Button>
