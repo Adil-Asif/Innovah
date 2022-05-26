@@ -19,11 +19,11 @@ exports.addNewInventory = async (req, res) => {
     let currentID
     console.log(req.body)
     console.log("######################################################")
-    let sql = `SELECT MAX( CAST(inventoryid AS SIGNED)) FROM inventory;`
+    let sql = `SELECT MAX( CAST(inventoryid AS SIGNED)) as maxkey FROM inventory;`
     await model.query(sql, (err, result) => {
         try {
             console.log(result,result.length, "result");
-            if (result.length===0) {
+            if (result[0].maxkey===null) {
                 currentID = 1
             } else {
                 currentID = Object.values(JSON.parse(JSON.stringify(result)))
