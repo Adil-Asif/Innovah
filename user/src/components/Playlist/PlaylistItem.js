@@ -12,19 +12,11 @@ import { Button } from "antd";
 const PlaylistItem = (props) => {
   let navigate = useNavigate();
   const movetovideo = () => {
-    navigate("/learningresources/playlist/video");
+    navigate(`/learningresources/${props.playlistid}/${props.id}`);
   };
   return (
     <div className="playlistItem">
-      {props.iscompleted ? (
-        <div className="incomplete">
-          <FontAwesomeIcon icon={faCheckCircle} />
-        </div>
-      ) : (
-        <div className="completed">
-          <FontAwesomeIcon icon={faCheck} />
-        </div>
-      )}
+     <div className="serialNumber">{props.i}</div>
 
       <div className="information">
         <div className="title">{props.title}</div>

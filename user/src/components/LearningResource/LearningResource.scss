@@ -64,4 +64,24 @@
       margin-left: 5px;
     }
   }
+  .viewButton {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    padding: 5px 30px 5px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: 160px;
+    text-align: center;
+    margin-left: 5%;
+    font-size: 16px;
+    font-family: var(--font-family-button);
+    &:hover {
+      box-shadow: 0px 10px 10px var(--textbox-shadow);
+    }
+    .icon {
+      margin-left: 5px;
+    }
+  }
 }

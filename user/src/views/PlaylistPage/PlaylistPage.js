@@ -1,6 +1,6 @@
 import React from "react";
 import "./PlaylistPage.scss";
-import { Layout, Spin, Button, Modal, Form, Input } from "antd";
+import { Layout, Spin, Button, Modal, Form, Input, message } from "antd";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
@@ -8,6 +8,7 @@ import Footer from "../../components/Footer/Footer";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import playlist from "../../assests/Images/Playlist.svg";
 import playlistItem from "../../components/Playlist/PlaylistItem";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import PlaylistItem from "../../components/Playlist/PlaylistItem";
@@ -15,16 +16,19 @@ const { Content } = Layout;
 const { TextArea } = Input;
 
 const PLayListPage = () => {
+  const [params, setParams] = useState(useParams());
+  console.log(params);
   let video = {
-    videoID: "",
     videoTitle: "",
     videoDescription: "",
     videoiframe: "",
-    iscompleted: false,
     isSubmitted: false,
   };
 
   const userRole = "trainer";
+  const [isUpdate, setIsUpdate] = useState(true);
+  const [title, setTitle] = useState("");
+  const [videolist, setVideoList] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [videoDetails, setvideoDetails] = useState(video);
 
@@ -33,6 +37,23 @@ const PLayListPage = () => {
   useEffect(() => {
     if (videoDetails.isSubmitted) {
       console.log(videoDetails);
+      axios
+        .post("http://localhost:5000/Learn/addingvideo", {
+          playlistid: params.playlistid,
+          description: videoDetails.videoDescription,
+          videoiframe: videoDetails.videoiframe,
+          videotitle: videoDetails.videoTitle,
+        })
+        .then((response) => {
+          console.log(response);
+
+          message.success("Video Uploaded");
+          if (isUpdate) {
+            setIsUpdate(false);
+          } else {
+            setIsUpdate(true);
+          }
+        });
     }
   }, [videoDetails]);
 
@@ -43,14 +64,17 @@ const PLayListPage = () => {
     setvideoDetails(video);
   };
 
-  // var [Response, setResponse] = useState(null);
-  // useEffect(() => {
-  //   const responseFunction = async () => {
-  //     var response = await axios.get("http://localhost:5000/Learn/video");
-  //     setResponse(await response);
-  //   };
-  //   responseFunction();
-  // }, []);
+  useEffect(() => {
+    axios
+      .post("http://localhost:5000/Learn/playlist", {
+        playlistid: params.playlistid,
+      })
+      .then((response) => {
+        console.log(response);
+        setTitle(response.data[1].title);
+        setVideoList(response.data[0]);
+      });
+  }, [isUpdate]);
 
   return (
     <div className="playListPage">
@@ -58,12 +82,12 @@ const PLayListPage = () => {
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">
           <Header />
-          <Content style={{ margin: "0 16px" }}>
+          <Content style={{ margin: "0 16px 60px 16px" }}>
             <div className="titleSection">
               {/* {Response?*/}
               <div>
                 <div className="pageTitle">
-                  <PageTitle title="abc" />
+                  <PageTitle title={title} />
                 </div>
                 {userRole === "trainer" ? (
                   <>
@@ -128,11 +152,7 @@ const PLayListPage = () => {
                               },
                             ]}
                           >
-                            <Input
-                              placeholder="Enter Video Title"
-                              showCount
-                              maxLength={50}
-                            />
+                            <Input placeholder="Enter Video Title" />
                           </Form.Item>
                           <Form.Item
                             name="videoDescription"
@@ -156,11 +176,7 @@ const PLayListPage = () => {
                               },
                             ]}
                           >
-                            <Input
-                              placeholder="Enter Video iframe"
-                              showCount
-                              maxLength={50}
-                            />
+                            <Input placeholder="Enter Video iframe" />
                           </Form.Item>
                         </Form>
                       </div>
@@ -173,42 +189,42 @@ const PLayListPage = () => {
               {/* :<Spin/>} */}
               <img src={playlist} alt="video" />
             </div>
-            {/* {Response ? (
-              <div className="lectures">
-                <div className="lectureItem">
-                  <playlistItem
-                    title={Response.data.title}
-                    description={Response.data.desc}
-                    className="lectureItem"
-                    iscompleted={Response.data.status > 0 ? true : false}
-                  />
-                </div>
-                <hr />
-                <playlistItem
-                  title="Characteristics of Algorithm"
-                  description=" Algorithms are very important to the way computers process information, because a computer program is basically an algorithm that tells computer what specific tasks to perform in what specific order to accomplish a specific task. The same problem can be solved with different methods. So, for solving the same problem, different algorithms can be designed. In these algorithms, number of steps, time and efforts may vary more or less."
-                  className="lectureItem"
-                  iscompleted={false}
-                />
-              </div>
-            ) : (
-              <></>
-            )} */}
             <div className="lectures">
               <div className="lectureItem">
-                <PlaylistItem
-                  title="Characteristics of Algorithm"
-                  description=" Algorithms are very important to the way computers process information, because a computer program is basically an algorithm that tells computer what specific tasks to perform in what specific order to accomplish a specific task. The same problem can be solved with different methods. So, for solving the same problem, different algorithms can be designed. In these algorithms, number of steps, time and efforts may vary more or less."
-                  className="lectureItem"
-                  iscompleted={false}
-                />
-                <hr/>
-                <PlaylistItem
-                  title="Characteristics of Algorithm"
-                  description=" Algorithms are very important to the way computers process information, because a computer program is basically an algorithm that tells computer what specific tasks to perform in what specific order to accomplish a specific task. The same problem can be solved with different methods. So, for solving the same problem, different algorithms can be designed. In these algorithms, number of steps, time and efforts may vary more or less."
-                  className="lectureItem"
-                  iscompleted={false}
-                />
+                {videolist.map((videoItem, i, videolist) =>
+                  i + 1 !== videolist.length ? (
+                    <>
+                      <PlaylistItem
+                        id={videoItem.id}
+                        title={videoItem.videotitle}
+                        description={videoItem.description}
+                        className="lectureItem"
+                        playlistid={videoItem.playlistid}
+                        i={i + 1}
+                      />
+                      <hr
+                        style={{
+                          marginLeft: "-12px",
+                          marginRight: "-12px",
+                          height: "1px",
+                          borderRadius: "0",
+                          backgroundColor: "var(-textbox-border)",
+                        }}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <PlaylistItem
+                        id={videoItem.id}
+                        title={videoItem.videotitle}
+                        description={videoItem.description}
+                        className="lectureItem"
+                        playlistid={videoItem.playlistid}
+                        i={i + 1}
+                      />
+                    </>
+                  )
+                )}
               </div>
             </div>
           </Content>

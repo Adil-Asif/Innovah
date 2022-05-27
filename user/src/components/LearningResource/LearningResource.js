@@ -13,8 +13,8 @@ const LearningResourcesTitle1 = (props) => {
   const [updateIsEnrolled, setUpdateIsEnrolled] = useState(false);
 
   let navigate = useNavigate();
-  const movetoplaylist = () => {
-    navigate("/learningresources/playlist");
+  const movetoplaylist = (playlistid) => {
+    navigate(`/learningresources/${playlistid}`);
   };
   useEffect(() => {
     if (updateIsEnrolled) {
@@ -47,7 +47,14 @@ const LearningResourcesTitle1 = (props) => {
 
       {props.isenrolled ? (
         <>
-          <Button type="primary" shape="round" onClick={movetoplaylist}>
+          <Button
+            className="viewButton"
+            type="primary"
+            shape="round"
+            onClick={() => {
+              movetoplaylist(props.playlistId);
+            }}
+          >
             View <FontAwesomeIcon icon={faAngleDoubleRight} className="" />
           </Button>
         </>

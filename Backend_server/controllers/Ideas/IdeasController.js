@@ -41,17 +41,17 @@ exports.addidea = (req,res)=>{
                 res.json(ideadetails)
             }
         });
-        model.query(sql1,deliverables,(err,result)=>{
-            if(err){
-                // console.log(user_id)
-                console.log( JSON.stringify(err,undefined,2));
-                // console.log("error")
-            }
-            else{
-                console.log(result);
-                // res.JSON(ideadetails)
-            }
-        });
+        // model.query(sql1,deliverables,(err,result)=>{
+        //     if(err){
+        //         // console.log(user_id)
+        //         console.log( JSON.stringify(err,undefined,2));
+        //         // console.log("error")
+        //     }
+        //     else{
+        //         console.log(result);
+        //         // res.JSON(ideadetails)
+        //     }
+        // });
     }
     
 }

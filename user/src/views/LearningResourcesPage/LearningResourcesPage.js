@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import "./LearningResourcesPage.scss";
 import { storage } from "../../services/Firebase/Firebase";
-import { Layout, Spin, Button, Modal, Form, Input, Upload } from "antd";
+import { Layout, Button, Modal, Form, Input, Upload } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -114,7 +114,6 @@ const LearningResourcesPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
-<<<<<<< HEAD
 
 
 const updateStatus = (data) =>
@@ -129,14 +128,6 @@ const updateStatus = (data) =>
       setLearningresourcesList(response.data);
     });
   }, [learnigResourceUpdate]);
-=======
-  // const func = async (obj)=>{
-  //   await axios.post('http://localhost:5000/ideas/addidea',obj)
-  //     .then((result)=>{
-  //       console.log(result);
-  //     })
-  // }
->>>>>>> 63c2b385c097b7f4f2aea75bc895f03a9e484fab
   useEffect(() => {
     if (playlistDetails.isSubmitted) {
       // TODO: handle post request
@@ -181,10 +172,11 @@ const updateStatus = (data) =>
                 <div className="pageTitle">
                   <PageTitle title="Learning Resources" />
                 </div>
-                {userrole === "trainer" || "Administrator" ? (
+                {userrole === "Trainer" || "Administrator" ? (
                   <>
                     <div>
                       {" "}
+
                       <Button
                         type="primary"
                         className="left"

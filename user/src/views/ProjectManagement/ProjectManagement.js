@@ -27,7 +27,7 @@ const ProjectManagement = () => {
     projectDescription: "",
     projectImage: "",
     TeamMembers: "",
-    Idea:"",
+    Idea: "",
     isSubmitted: false,
   };
   const email = [
@@ -38,7 +38,7 @@ const ProjectManagement = () => {
     "hasaan.malik@nu.edu.pk",
     "syedabdurraffay@gmail.com",
   ];
-  const userRole = "admin";
+  const userrole = useSelector((state) => state.userDetails.userrole);
   const [options, setOptions] = useState(email);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const allInputs = { imgUrl: "" };
@@ -46,9 +46,9 @@ const ProjectManagement = () => {
   const [imageAsUrl, setImageAsUrl] = useState(allInputs);
   const [projectDetails, setProjectDetails] = useState(project);
   const [projectResponse, setProjectResponse] = useState();
-  const [myIdeasoptions, setmyIdeasoptions] = useState([])
-  const [myTeamOptions, setmyTeamOptions] = useState([])
-  const[reloadnow,setReloadnow]=useState(true)
+  const [myIdeasoptions, setmyIdeasoptions] = useState([]);
+  const [myTeamOptions, setmyTeamOptions] = useState([]);
+  const [reloadnow, setReloadnow] = useState(true);
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
@@ -122,7 +122,7 @@ const ProjectManagement = () => {
       project.projectImage = imageAsUrl.imgUrl;
       project.Idea = projectDetails.Idea;
       project.isSubmitted = true;
-      console.log(project)
+      console.log(project);
       setProjectDetails(project);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -131,37 +131,33 @@ const ProjectManagement = () => {
   useEffect(() => {
     if (projectDetails.isSubmitted) {
       console.log(projectDetails);
-      sendDataToDB()
+      sendDataToDB();
     }
   }, [projectDetails]);
 
-
-  const sendDataToDB =async ()=>{
+  const sendDataToDB = async () => {
     let response = await fetch(
       `http://localhost:5000/generalproject/newProject/projectsubmission/storingtodb`,
       {
         // Adding method type
         method: "POST",
-    
+
         // Adding body or contents to send
-        body: JSON.stringify(
-        projectDetails
-         
-        ),
-    
+        body: JSON.stringify(projectDetails),
+
         // Adding headers to the request
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
       }
     );
-    response = await response.json()
-    console.log(response)
-    setReloadnow(!reloadnow)
-  }
+    response = await response.json();
+    console.log(response);
+    setReloadnow(!reloadnow);
+  };
   const onSubmit = (values) => {
     project = values;
-    console.log(values)
+    console.log(values);
     setProjectDetails(project);
     handleSubmission(values.projectImage);
   };
@@ -172,26 +168,28 @@ const ProjectManagement = () => {
   const navigationToSpecificProject = (projectnumber = 1) => {
     navigate(`/projectmanagement/${projectnumber}`);
   };
-  const userId = useSelector(
-    (state) => state.userDetails.userid
-  )
+  const userId = useSelector((state) => state.userDetails.userid);
   let getprojects = async () => {
-    let response = await fetch(`http://localhost:5000/generalproject/${userId}`);
+    let response = await fetch(
+      `http://localhost:5000/generalproject/${userId}`
+    );
     setProjectResponse(await response.json());
   };
   console.log(projectResponse);
   useEffect(() => {
     getprojects();
   }, [reloadnow]);
-  
 
-const getformData=async()=>{
- let ideas =  await fetch(`http://localhost:5000/generalproject/newProject/projectform/getideas/${userId}`);
-setmyIdeasoptions( await ideas.json());
-let people =  await fetch("http://localhost:5000/generalproject/newProject/projectform/getAllPeople");
-setmyTeamOptions( await people.json());
-
-}
+  const getformData = async () => {
+    let ideas = await fetch(
+      `http://localhost:5000/generalproject/newProject/projectform/getideas/${userId}`
+    );
+    setmyIdeasoptions(await ideas.json());
+    let people = await fetch(
+      "http://localhost:5000/generalproject/newProject/projectform/getAllPeople"
+    );
+    setmyTeamOptions(await people.json());
+  };
 
   return (
     <div className="projectManagementPage">
@@ -214,21 +212,25 @@ setmyTeamOptions( await people.json());
                     <div className="Project-heading">
                       <PageTitle title="Projects" />
                     </div>
-                    <div>
-                      <Button
-                        type="primary"
-                        className="left"
-                        style={{ marginRight: "4%", borderRadius: "8px" }}
-                        onClick={() => {
-                          getformData();
-                          console.log(myIdeasoptions);
-                          setIsModalVisible(true);
-                        
-                        }}
-                      >
-                        Add Project
-                      </Button>
-                    </div>
+                    {userrole === "Administrator" ? (
+                      <div>
+                        <Button
+                          type="primary"
+                          className="left"
+                          style={{ marginRight: "4%", borderRadius: "8px" }}
+                          onClick={() => {
+                            getformData();
+                            console.log(myIdeasoptions);
+                            setIsModalVisible(true);
+                          }}
+                        >
+                          Add Project
+                        </Button>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+
                     <Modal
                       centered
                       title="Add Project"
@@ -283,15 +285,19 @@ setmyTeamOptions( await people.json());
                           </Form.Item>
                           <Form.Item name="Idea" label="Corresponding Idea">
                             <Select
-                             
                               style={{ width: "100%" }}
                               placeholder="select Ideas"
                               optionLabelProp="label"
                             >
                               {/* TODO: Registered Users Names and Email Addresses required here those who are not admin */}
                               {myIdeasoptions.map((ideas) => (
-                                <Option value={ideas.ideaid} label={ideas.title}>
-                                  <div>{ideas.ideaid}: {ideas.title}</div>
+                                <Option
+                                  value={ideas.ideaid}
+                                  label={ideas.title}
+                                >
+                                  <div>
+                                    {ideas.ideaid}: {ideas.title}
+                                  </div>
                                 </Option>
                               ))}
                             </Select>
@@ -306,13 +312,18 @@ setmyTeamOptions( await people.json());
                             >
                               {/* TODO: Registered Users Names and Email Addresses required here those who are not admin */}
                               {myTeamOptions.map((teams) => (
-                                <Option value={teams.userid} label={teams.fullname}>
-                                  <div>{teams.email}: {teams.fullname}</div>
+                                <Option
+                                  value={teams.userid}
+                                  label={teams.fullname}
+                                >
+                                  <div>
+                                    {teams.email}: {teams.fullname}
+                                  </div>
                                 </Option>
                               ))}
                             </Select>
                           </Form.Item>
-                         
+
                           <Form.Item name="projectImage">
                             <Upload.Dragger
                               listType="picture"

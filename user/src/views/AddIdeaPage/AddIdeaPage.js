@@ -117,13 +117,13 @@ const AddIdeaPage = () => {
   useEffect(() => {
     if (ideaDetails.isSubmit) {
       console.log(ideaDetails);
-
+      func(ideaDetails);
       message.success("Idea Posted");
       // axios.post('http://localhost:5000/ideas/addidea',ideaDetails)
       // .then((result)=>{
       //   console.log(result);
       // })
-      func(ideaDetails);
+  
       // Post request for adding idea
     }
   }, [ideaDetails]);
