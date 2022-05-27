@@ -23,6 +23,9 @@ const ProfileDetails = (props) => {
         <div className="description">
           Mobile Number: <span>{props.userMobileNumber}</span>
         </div>
+        <div className="description">
+         Innovah Point: <span>{props.innovahPoints}</span>
+        </div>
       </div>
     </div>
   );
