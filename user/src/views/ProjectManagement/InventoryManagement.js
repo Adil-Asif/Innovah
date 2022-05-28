@@ -30,7 +30,7 @@ const InventoryManagement = () => {
       `http://localhost:5000/projectinventory/getinventory/${params.projectid}`
     );
     setFetchInventoryITems(await response.json());
-
+    setCounts(returnCount())
     response = await fetch(
       `http://localhost:5000/projectinventory/getinventory/${params.projectid}/filter`
     );
@@ -45,7 +45,7 @@ const InventoryManagement = () => {
     fetchInventory();
     console.log(groupbyItems)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    setCounts(returnCount())
+    
   }, [reloadneed]);
 
   const updateStatus = (values) => {
@@ -159,7 +159,6 @@ const InventoryManagement = () => {
           break;
       }
     })
-   
     return (object);
   }
 
