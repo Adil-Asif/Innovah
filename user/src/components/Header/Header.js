@@ -12,7 +12,7 @@ const CustomHeader = () => {
   return (
       <Header className="headerLayout">
         <Space direction="horizontal">
-          <Search placeholder="Search Ideas" size="large" enterButton />
+          {/* <Search placeholder="Search Ideas" size="large" enterButton /> */}
         </Space>
 
         <Avatar
@@ -20,11 +20,11 @@ const CustomHeader = () => {
           className="profilePicture"
           size={45}
         />
-        <Badge size="default" count={5} className="notificationIcon">
+        {/* <Badge size="default" count={5} className="notificationIcon">
           <FontAwesomeIcon
             icon={faBell}
           />
-        </Badge>
+        </Badge> */}
       </Header>
   );
 };

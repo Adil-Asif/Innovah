@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./MyIdeasPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { Layout, Row, Col } from "antd";
@@ -7,10 +7,21 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import MyIdea from "../../assests/Images/MyIdeas.svg";
 import IdeasItem from "../../components/IdeasItem/IdeasItem";
-
+import axios from 'axios';
 const { Content } = Layout;
 
 const MyIdeasPage = () => {
+  const func = async ()=>{
+    await axios.get("http://localhost:5000/ideas/myideas")
+      .then((result)=>{
+        console.log(result);
+      })
+  }
+  useEffect(() => {
+    //TODO: Need to get response of API here
+    func();
+  
+  }, []);
   return (
     <div className="myIdeasPage">
       <Layout style={{ minHeight: "100vh" }}>

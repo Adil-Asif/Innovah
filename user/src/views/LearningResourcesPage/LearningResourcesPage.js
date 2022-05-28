@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import "./LearningResourcesPage.scss";
 import { storage } from "../../services/Firebase/Firebase";
-import { Layout, Spin, Button, Modal, Form, Input, Upload } from "antd";
+import { Layout, Button, Modal, Form, Input, Upload } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -11,25 +11,28 @@ import LearningRescources from "../../assests/Images/LearningResources.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useSelector } from "react-redux";
 const { Content } = Layout;
 const { TextArea } = Input;
 
 const LearningResourcesPage = () => {
   let playlist = {
-    playlistID: "",
+    trainerid: "",
+    userid: "",
     playlistTitle: "",
     playlistDescription: "",
     playlistImage: "",
-    isSubmitted: false,
+    isSubmitted: false, 
   };
-
-  const userRole = "trainer";
+  const [learningresourcesList, setLearningresourcesList] = useState([]);
+  const [learnigResourceUpdate, setLearnigResourceUpdate] = useState([false]);
+  const userrole = useSelector((state) => state.userDetails.userrole);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const allInputs = { imgUrl: "" };
   const [imageAsFile, setImageAsFile] = useState("");
   const [imageAsUrl, setImageAsUrl] = useState(allInputs);
   const [playlistDetails, setPlaylistDetails] = useState(playlist);
-
+  const userid = useSelector((state) => state.userDetails.userid);
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -38,6 +41,13 @@ const LearningResourcesPage = () => {
   }, [playlistDetails, form]);
 
   useEffect(() => {
+    const currentdate = new Date();
+    const date =
+      currentdate.getHours() +
+      ":" +
+      currentdate.getMinutes() +
+      ":" +
+      currentdate.getSeconds();
     const handleFireBaseUpload = () => {
       console.log("start of upload");
       // async magic goes here...
@@ -50,7 +60,7 @@ const LearningResourcesPage = () => {
 
       if (imageAsFile !== undefined) {
         const uploadTask = storage
-          .ref(`/images/${imageAsFile.name}`)
+          .ref(`/images/learningresources/${userid}${date}${imageAsFile.name}`)
           .put(imageAsFile);
         //initiates the firebase side uploading
         uploadTask.on(
@@ -67,8 +77,8 @@ const LearningResourcesPage = () => {
             // gets the functions from storage refences the image storage in firebase by the children
             // gets the download url then sets the image from firebase as the value for the imgUrl key:
             storage
-              .ref("images")
-              .child(imageAsFile.name)
+              .ref(`images/learningresources/`)
+              .child(`${userid}${date}${imageAsFile.name}`)
               .getDownloadURL()
               .then(async (fireBaseUrl) => {
                 if (fireBaseUrl !== "") {
@@ -105,14 +115,44 @@ const LearningResourcesPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
 
+
+const updateStatus = (data) =>
+{
+  setLearnigResourceUpdate()
+}
+
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/Learn/").then((response) => {
+      console.log(response);
+      setLearningresourcesList(response.data);
+    });
+  }, [learnigResourceUpdate]);
   useEffect(() => {
     if (playlistDetails.isSubmitted) {
+      // TODO: handle post request
+      axios
+        .post("http://localhost:5000/Learn/addingplaylist/", {
+          trainerid: userid,
+          playlistname: playlistDetails.playlistTitle,
+          description: playlistDetails.playlistDescription,
+          pic: playlistDetails.playlistImage,
+        })
+        .then((response) => {
+          console.log(response);
+          if (learnigResourceUpdate) {
+            setLearnigResourceUpdate(false);
+          } else {
+            setLearnigResourceUpdate(true);
+          }
+        });
       console.log(playlistDetails);
+      // func(playlistDetails);
     }
   }, [playlistDetails]);
 
   const onSubmit = (values) => {
-    playlist  = values;
+    playlist = values;
     setPlaylistDetails(playlist);
     handleSubmission(values.playlistImage);
   };
@@ -120,39 +160,23 @@ const LearningResourcesPage = () => {
     setImageAsFile(playlistImage.file);
   };
 
-  // var Response;
-  // var [Response, setResponse] = useState(null);
-  // useEffect(() => {
-  //   const responseFunction = async () => {
-  //     var response = await axios.get("http://localhost:5000/Learn/");
-  //     setResponse(await response);
-  //   };
-  //   responseFunction();
-  // }, []);
-  // console.log(Response);
-  // let getdata = async () => {
-  //   let response = await axios.get("http://localhost:5000/Learn/");
-  //   setResponse(await response);
-  //   console.log(Response);
-  // };
-  // getdata();
-  // console.log(Response);
   return (
     <div className="learningResourcesPage">
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">
           <Header />
-          <Content style={{ margin: "0 16px" }}>
+          <Content style={{ margin: "0 16px 60px 0px" }}>
             <div className="titleSection">
               <div>
                 <div className="pageTitle">
                   <PageTitle title="Learning Resources" />
                 </div>
-                {userRole === "trainer" ? (
+                {userrole === "Trainer" || "Administrator" ? (
                   <>
                     <div>
                       {" "}
+
                       <Button
                         type="primary"
                         className="left"
@@ -201,7 +225,6 @@ const LearningResourcesPage = () => {
                             <Input
                               placeholder="Enter Playlist Title"
                               showCount
-                              maxLength={50}
                             />
                           </Form.Item>
                           <Form.Item
@@ -214,7 +237,7 @@ const LearningResourcesPage = () => {
                               },
                             ]}
                           >
-                            <TextArea showCount maxLength={3000} />
+                            <TextArea showCount maxLength={5000} />
                           </Form.Item>
                           <Form.Item name="playlistImage">
                             <Upload.Dragger
@@ -250,33 +273,24 @@ const LearningResourcesPage = () => {
 
               <img src={LearningRescources} alt="Learning Resources" />
             </div>
-            {/* {Response ? ( */}
-              <div className="resources">
+
+            <div className="resources">
+              {learningresourcesList.map((resourceItem, i) => (
                 <LearningResourcesItem
-                  title="Mastering Data Structures and Algorithms using C and C++"
-                  // title={Response.data.title}
-                  description="You may be new to Data Structure or you have already Studied and Implemented Data Structures but still you feel you need to learn more about Data Structure in detail so that it helps you solve challenging problems and used Data Structure efficiently. This 53 hours of course covers each topic in greater details, every topic is covered on Whiteboard which will improve your Problem Solving and Analytical Skills. Every Data Structure is discussed, analysed and implemented with a Practical line-by-line coding."
-                  // description={Response.data.desc}
-                  imageUrl={require("../../assests/Images/ResourcesImage/Algorithms.jpg")}
-                  // imageUrl={Response.data.pic}
+                  i = {i+1}
+                  isUpdate = {learnigResourceUpdate}
+                  statusUpdate = {updateStatus}
+                  title={resourceItem.title}
+                  description={resourceItem.description}
+                  imageUrl={resourceItem.imageurl}
+                  playlistId={resourceItem.playlistid}
+                  trainerid={resourceItem.trainerid}
                   className="resourceItem"
-                  isenrolled={false}
-                  iscompleted = {false}
-                  // isenrolled={Response.data.enrolledstatus > 0 ? true : false}
-                  // iscompleted={Response.data.completedstatus > 0 ? true : false}
+                  isenrolled={resourceItem.enrolledstatus}
+                  iscompleted={resourceItem.completedstatus}
                 />
-                <LearningResourcesItem
-                  title="React - The Complete Guide (incl Hooks, React Router, Redux)"
-                  description="This course will teach you React.js in a practice-oriented way, using all the latest patterns and best practices you need. You will learn all the key fundamentals as well as advanced concepts and related topics to turn you into a React.js developer."
-                  imageUrl={require("../../assests/Images/ResourcesImage/React.jpg")}
-                  className="resourceItem"
-                  isenrolled={true}
-                  iscompleted={true}
-                />
-              </div>
-            {/* ) : (
-              <Spin />
-            )} */}
+              ))}
+            </div>  
           </Content>
           <Footer />
         </Layout>

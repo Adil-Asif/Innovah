@@ -1,4 +1,5 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
+// import React from "react";
 import "./GlobalIdeasPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { Layout, Row, Col } from "antd";
@@ -7,9 +8,25 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import GlobalIdeas from "../../assests/Images/GlobalIdeas.svg";
 import IdeasItem from "../../components/IdeasItem/IdeasItem";
+import axios from 'axios';
 const { Content } = Layout;
 
 const GlobalIdeasPage = () => {
+  const func = async () => {
+    // await axios.get("http://localhost:5000/ideas/myideas")
+    //   .then((result)=>{
+    //     console.log(result);
+    //   })
+    await axios.get("http://localhost:5000/ideas/myideas/globalidea")
+      .then((result) => {
+        console.log(result);
+      });
+  };
+  
+  useEffect(() => {
+    //TODO: Handle get request Global Ideas
+    func()
+  }, []);
   return (
     <div className="globalIdeasPage">
       <Layout style={{ minHeight: "100vh" }}>

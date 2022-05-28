@@ -7,11 +7,12 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import RewardItem from "../../components/RewardItem/RewardItem";
 import RewardImage from "../../assests/Images/Rewards.svg";
+import { useSelector } from "react-redux";
 const { Content } = Layout;
 const { TextArea } = Input;
 
 const RewardPage = () => {
-  const userRole = "user";
+  const userrole = useSelector((state) => state.userDetails.userrole);
   const [rewardItem, setRewardItem] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
@@ -29,13 +30,13 @@ const RewardPage = () => {
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">
           <Header />
-          <Content style={{ margin: "0 16px" }}>
+          <Content style={{ margin: "0 16px 70px 0px" }}>
             <div className="titleSection">
               <div>
                 <div className="pageTitle">
                   <PageTitle title="Reward Shop" />
                 </div>
-                {userRole === "admin" ? (
+                {userrole === "Administrator" ? (
                   <>
                     <div>
                       {" "}
@@ -122,7 +123,7 @@ const RewardPage = () => {
                   </>
                 ) : (
                   <>
-                    {console.log(userRole)}
+                    {console.log(userrole)}
                     <div className="innovahPoints">
                       Your IP Points: <span className="points">1150</span>
                     </div>

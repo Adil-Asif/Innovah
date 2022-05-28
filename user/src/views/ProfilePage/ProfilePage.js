@@ -30,6 +30,7 @@ const ProfilePage = () => {
           picture: result.data.picture,
           phoneNumber: result.data.phnum,
           resumeDesc: result.data.resume_desc,
+          innovahPoints: result.data.innovahPoints,
         })
       );
     });
@@ -42,6 +43,8 @@ const ProfilePage = () => {
   const picture = useSelector((state) => state.userDetails.picture);
   const phoneNumber = useSelector((state) => state.userDetails.phoneNumber);
   const resumeDesc = useSelector((state) => state.userDetails.resumeDesc);
+  const innovahPoints = useSelector((state) => state.userDetails.innovahPoints);
+  console.log(innovahPoints);
   return (
     <div className="profilePage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -65,6 +68,7 @@ const ProfilePage = () => {
                     userRole={userrole}
                     userMobileNumber={phoneNumber}
                     imageUrl={picture}
+                    innovahPoints = {innovahPoints}
                   />
                 </Col>
                 <Col className="gutter-row rightSection" span={17}>

@@ -31,10 +31,11 @@ exports.getalldetails = (req,res)=>{
                 var password = pass;
                 var fullname = result[0].fullname;
                 var resume_desc = result[0].resume_desc;
+                var innovahPoints = result[0].innovahPoints;
                 
                 console.log(result);
                 // res.send(pic)
-                res.json({"username":username,"city":city,"phnum":phnum,"country":country,"gender":gender,"industry":industry,"role":role,"picture":picture,"userid":userid,"email":email,"password":password,"fullname":fullname,"resume_desc":resume_desc})
+                res.json({"username":username,"city":city,"phnum":phnum,"country":country,"gender":gender,"industry":industry,"role":role,"picture":picture,"userid":userid,"email":email,"password":password,"fullname":fullname,"resume_desc":resume_desc, "innovahPoints": innovahPoints})
             }
         })
     }

@@ -41,12 +41,12 @@ const Routers = () => {
       />
       <Route
         exact
-        path="/learningresources/playlist"
+        path="/learningresources/:playlistid"
         element={<PLayListPage />}
       />
       <Route
         exact
-        path="/learningresources/playlist/video"
+        path="/learningresources/:playlistid/:videoid"
         element={<LectureVideoPage />}
       />
       <Route exact path="/projectmanagement" element={<ProjectManagement />} />
