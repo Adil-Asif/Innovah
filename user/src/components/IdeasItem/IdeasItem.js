@@ -10,7 +10,7 @@ const { TextArea } = Input;
 
 const IdeasItem = (props) => {
   let idea = {
-    ideaID: "",
+    ideaid: props.ideaid,
     ideaName: props.ideaName,
     ideaDescription: props.description,
     ideaImage: props.imageUrl,
@@ -29,7 +29,8 @@ const IdeasItem = (props) => {
     //   .then((result)=>{
     //     console.log(result);
     //   })
-    await axios.post("http://localhost:5000/ideas/myideas/globalidea/updatestatus",obj)
+    await axios
+      .post("http://localhost:5000/ideas/myideas/globalidea/updatestatus", obj)
       .then((result) => {
         console.log(result);
       });
@@ -39,8 +40,7 @@ const IdeasItem = (props) => {
       //TODO: Handle Admin Approval
       console.log(isApproved);
       // fun must have obj as argument and obj must have ideaid
-      fun()
-      
+      fun();
     }
   }, [isApproved]);
 
@@ -50,7 +50,7 @@ const IdeasItem = (props) => {
 
   let navigate = useNavigate();
   const moveToIdea = () => {
-    navigate("/myideas/idea");
+    navigate(`/myideas/${props.ideaid}`);
   };
 
   useEffect(() => {
@@ -117,6 +117,7 @@ const IdeasItem = (props) => {
 
   useEffect(() => {
     if (imageAsUrl.imgUrl !== "") {
+      idea.ideaid = ideaDetails.ideaid;
       idea.ideaName = ideaDetails.ideaName;
       idea.ideaDescription = ideaDetails.ideaDescription;
       idea.ideaImage = imageAsUrl.imgUrl;
@@ -125,22 +126,30 @@ const IdeasItem = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
-  const func = async (obj) => {
-    await axios
-      .post("http://localhost:5000/ideas/myideas", obj)
-      .then((result) => {
-        console.log(result);
-      });
-  };
+
   useEffect(() => {
     if (ideaDetails.isUpdated) {
       console.log(ideaDetails);
-      func(ideaDetails);
+      axios
+        .post("http://localhost:5000/ideas/myideas", ideaDetails)
+        .then((result) => {
+          console.log(result);
+          idea = ideaDetails;
+          idea.isUpdated = false;
+          props.updateIdeas();
+          setIdeaDetails(idea);
+        });
       // Post request for updated idea details
     }
   }, [ideaDetails]);
 
   const onEdit = (values) => {
+    console.log(ideaDetails, "h");
+    idea.ideaImage =
+      values.ideaImage !== undefined
+        ? (values.ideaImage, handleSubmission(values.ideaImage))
+        : ideaDetails.ideaImage;
+
     idea.ideaName =
       values.ideaName !== undefined ? values.ideaName : ideaDetails.ideaName;
     idea.ideaDescription =
@@ -148,13 +157,11 @@ const IdeasItem = (props) => {
         ? values.ideaDescription
         : ideaDetails.ideaDescription;
 
-    ideaDetails.ideaImage =
-      values.ideaImage !== undefined
-        ? (values.ideaImage, handleSubmission(values.ideaImage))
-        : ((ideaDetails.ideaImage = idea.ideaImage), (idea.isUpdated = true));
+    idea.ideaid = ideaDetails.ideaid;
+
+    idea.isUpdated = true;
     setIdeaDetails(idea);
   };
-
   return (
     <div className="ideaItemLayout">
       <img src={props.imageUrl} alt={props.ideaName} />
@@ -294,7 +301,7 @@ const IdeasItem = (props) => {
         </>
       )}
     </div>
-  );
+  )
 };
 
 export default IdeasItem;

@@ -28,7 +28,7 @@ const Routers = () => {
       <Route exact path="/profilepage" element = {<ProfilePage/>}/>
       <Route exact path="/addidea" element={<AddIdeaPage />} />
       <Route exact path="/myideas" element={<MyIdeasPage />} />
-      <Route exact path="myideas/idea" element={<ViewIdeasPage />} />
+      <Route exact path="myideas/:ideaid" element={<ViewIdeasPage />} />
       <Route exact path="/globalideas" element={<GlobalIdeasPage />} />
       <Route exact path="/addrequest" element={<AddRequestPage />} />
       <Route exact path="/myrequests" element={<MyRequestsPage />} />
