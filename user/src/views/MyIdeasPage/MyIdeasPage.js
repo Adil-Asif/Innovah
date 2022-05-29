@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./MyIdeasPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { Layout, Row, Col } from "antd";
@@ -7,21 +7,24 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import MyIdea from "../../assests/Images/MyIdeas.svg";
 import IdeasItem from "../../components/IdeasItem/IdeasItem";
-import axios from 'axios';
+import axios from "axios";
 const { Content } = Layout;
 
 const MyIdeasPage = () => {
-  const func = async ()=>{
-    await axios.get("http://localhost:5000/ideas/myideas")
-      .then((result)=>{
-        console.log(result);
-      })
-  }
+  const [ideaList, setIdeaList] = useState([]);
+  const [updateIdea, setUpdateIdea] = useState(false);
+  const updateStatus = () => {
+    if (updateIdea) {
+      setUpdateIdea(false);
+    } else {
+      setUpdateIdea(true);
+    }
+  };
   useEffect(() => {
-    //TODO: Need to get response of API here
-    func();
-  
-  }, []);
+    axios.get("http://localhost:5000/ideas/myideas").then((result) => {
+      setIdeaList(result.data);
+    });
+  }, [updateIdea]);
   return (
     <div className="myIdeasPage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -39,16 +42,20 @@ const MyIdeasPage = () => {
               <div className="ideaItemsDashboard">
                 <div className="ideaItems">
                   <Row gutter={32}>
-                    <Col className="gutter-row" span={8}>
-                      <div style={{ paddingTop: "40px" }}>
-                        <IdeasItem
-                          ideaName="Stream.io"
-                          description="It is video streaming platform where content creators can upload their videos and monetize them. These videos will be available to watch all around the globe based on user watch history and preferences."
-                          imageUrl={require("../../assests/Images/IdeasImage/Stream.jpg")}
-                          global={false}
-                        />
-                      </div>
-                    </Col>
+                    {ideaList.map((ideasIteam) => (
+                      <Col className="gutter-row" span={8}>
+                        <div style={{ paddingTop: "40px" }}>
+                          <IdeasItem
+                            ideaName={ideasIteam.title}
+                            description={ideasIteam.description}
+                            imageUrl={ideasIteam.image}
+                            ideaid={ideasIteam.ideaid}
+                            updateIdeas={updateStatus}
+                            global={false}
+                          />
+                        </div>
+                      </Col>
+                    ))}
                   </Row>
                 </div>
               </div>

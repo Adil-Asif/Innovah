@@ -1,11 +1,12 @@
-import { React, useState, useEffect} from "react";
+import { React, useState, useEffect } from "react";
 
 import "./ViewIdeasPage.scss";
-import { Layout, Row, Col, Avatar, Form, Input, Button } from "antd";
+import { Layout, Row, Col, Avatar, Form, Input, Button, Image } from "antd";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import IdeaInfo from "../../components/IdeaInfo/IdeaInfo";
+import emptyChat from "../../assests/Images/emptyChat.svg";
 import IdeaInsight from "../../components/IdeaInsight/IdeaInsight";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,47 +14,80 @@ import {
   faSquareCaretRight,
 } from "@fortawesome/free-solid-svg-icons";
 import Remarks from "../../components/Remarks/Remarks";
-import axios from 'axios';
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 const { Content } = Layout;
 
 const ViewIdeasPage = () => {
-  // paste the code here 
+  // paste the code here
   // const ideaReview = (values) => {
   //   console.log(values);
   // };
+  const [form] = Form.useForm();
+  const [commentLength, setCommentLength] = useState(0);
+  const username = useSelector((state) => state.userDetails.username);
+  const picture = useSelector((state) => state.userDetails.picture);
+  const ideaDetail = {
+    comments: null,
+    author: "",
+    ideaDetails: {
+      title: "",
+      ideaindustry: "",
+      domain: "",
+      isapproved: "",
+      visibility: "",
+      image: "",
+    },
+  };
+  const [ideaDetails, setIdeaDetails] = useState(ideaDetail);
+  const [params, setParams] = useState(useParams());
+  const [isUpdate, setIsUpdate] = useState(false);
+  console.log(params);
   const [juryFeedback, setJuryFeedback] = useState("");
+
   const ideaReview = (values) => {
     console.log(values);
-    setJuryFeedback(values.comment);
+    setJuryFeedback({
+      ideaid: params.ideaid,
+      ideacomment: values.comment,
+      commentby: username,
+      imageUrl: picture,
+    });
+    form.resetFields();
   };
-  const ideafunc = async (obj)=>{
-    // await axios.get("http://localhost:5000/ideas/myideas")
-    //   .then((result)=>{
-    //     console.log(result);
-    //   })
-    await axios.post("http://localhost:5000/ideas/myideas/viewidea",obj)
-    .then((result)=>{
-        console.log(result);
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:5000/ideas/myideas/viewidea", {
+        ideaid: params.ideaid,
       })
-  }
-  useEffect(()=>{
-  //TODO: please place the ideaID object in brackets as argument
-    ideafunc();
-  
-  },[])
-  const addjuryresponse = async (obj)=>{
-    
-    await axios.post("http://localhost:5000/ideas/myideas/viewidea/juryresponse",obj)
-    .then((result)=>{
+      .then((result) => {
         console.log(result);
-      })
-  }
-  useEffect(()=>{
-  if(juryFeedback !==""){
-  //TODO: place the jury comments as an object along with the ideaid
-    addjuryresponse()
-  }
-  },[juryFeedback])
+        if (result.data.comments != null) {
+          setCommentLength(result.data.comments);
+        }
+        setIdeaDetails(result.data);
+      });
+  }, [isUpdate]);
+
+  useEffect(() => {
+    if (juryFeedback !== "") {
+      axios
+        .post(
+          "http://localhost:5000/ideas/myideas/viewidea/juryresponse",
+          juryFeedback
+        )
+        .then((result) => {
+          console.log(result);
+          if (isUpdate) {
+            setIsUpdate(false);
+          } else {
+            setIsUpdate(true);
+          }
+        });
+    }
+  }, [juryFeedback]);
 
   return (
     <div className="viewIdeasPage">
@@ -66,11 +100,17 @@ const ViewIdeasPage = () => {
               <Row gutter={32}>
                 <Col className="gutter-row" span={6}>
                   <IdeaInfo
-                    ideaName="Stream.io"
-                    ideaAuthor="Adil Asif"
-                    ideaStatus="Approved"
-                    ideaVisibility="Private"
-                    imageUrl={require("../../assests/Images/IdeasImage/Stream.jpg")}
+                    ideaName={ideaDetails.ideaDetails.title}
+                    ideaAuthor={ideaDetails.author}
+                    ideaindustry={ideaDetails.ideaDetails.ideaindustry}
+                    domain={ideaDetails.ideaDetails.domain}
+                    ideaStatus={
+                      ideaDetails.ideaDetails.isapproved !== 0
+                        ? "Approved"
+                        : "Pending"
+                    }
+                    ideaVisibility={ideaDetails.ideaDetails.visibility}
+                    imageUrl={ideaDetails.ideaDetails.image}
                   />
                 </Col>
                 <Col className="gutter-row rightSection" span={16}>
@@ -78,7 +118,7 @@ const ViewIdeasPage = () => {
                     <Col className="gutter-row ideaDescription" span={20}>
                       <IdeaInsight
                         icon={<FontAwesomeIcon icon={faFileLines} />}
-                        description="It is video streaming platform where content creators can upload their videos and monetize them. These videos will be available to watch all around the globe based on user watch history and preferences."
+                        description={ideaDetails.ideaDetails.description}
                         title="Description"
                       />
                     </Col>
@@ -88,68 +128,80 @@ const ViewIdeasPage = () => {
             </div>
             {/* TODO: Convert it to role for jury and add comment option below */}
             <div className="feedback">
-              <Row gutter={32}>
-                <Col className="gutter-row" span={20}>
-                  <div className="title">Jury Remarks</div>
+              <div className="title">Jury Remarks</div>
 
-                  <div className="comments">
-                    <Row className="feedbackRow">
-                      <Remarks
-                        name="Adil Asif"
-                        description="Scope of idea needs to be re-defined"
-                        imageUrl={require("../../assests/Images/HomepageImages/Adil.jpg")}
-                      />
-                    </Row>
-                    <Row className="feedbackRow">
-                      <Remarks
-                        name="Adil Asif"
-                        description="Scope of idea needs to be re-defined"
-                        imageUrl={require("../../assests/Images/HomepageImages/Adil.jpg")}
-                      />
-                    </Row>
+              <div className="comments">
+                <div className="feedbackRow">
+                  {ideaDetails.comments != null ? (
+                    ideaDetails.comments.map(
+                      (commentDetails, i, commentLength) =>
+                    
+                        i + 1 !== commentLength.length ? (
+                          
+                          <>
+                            <Remarks
+                              name={commentDetails.commentby}
+                              description={commentDetails.ideacomment}
+                              imageUrl={commentDetails.imageUrl}
+                            />
+                            <hr className="hr"/>
+                          </>
+                        ) : (
+                          console.log(commentLength.length),
+                          <>
+                            <Remarks
+                              name={commentDetails.commentby}
+                              description={commentDetails.ideacomment}
+                              imageUrl={commentDetails.imageUrl}
+                            />
+                          </>
+                        )
+                    )
+                  ) : (
+                    <div className="Image">
+                      <Image src={emptyChat} alt="empty chat" width={150} />
+                    </div>
+                  )}
+                </div>
 
-                    <Row>
-                      <div className="response">
-                        <div className="avatar">
-                          <Avatar
-                            shape="round"
-                            size={50}
-                            style={{
-                              backgroundColor: "var(--primary-color)",
-                              marginLeft: "10px",
-                            }}
-                          >
-                            Jury
-                          </Avatar>
-                        </div>
-                        <div className="responseForm">
-                          <Form onFinish={ideaReview}>
-                            <div>
-                              <Form.Item name="comment">
-                                <Input placeholder="Enter Your Response...." />
-                              </Form.Item>
-                            </div>
-                            <div>
-                              <Form.Item>
-                                <Button
-                                  htmlType="submit"
-                                  icon={
-                                    <FontAwesomeIcon
-                                      icon={faSquareCaretRight}
-                                      className="icon"
-                                      style={{ fontSize: "34px" }}
-                                    />
-                                  }
-                                ></Button>
-                              </Form.Item>
-                            </div>
-                          </Form>
-                        </div>
-                      </div>
-                    </Row>
+                <div className="response">
+                  <div className="avatar">
+                    <Avatar
+                      shape="round"
+                      size={50}
+                      style={{
+                        backgroundColor: "var(--primary-color)",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      Jury
+                    </Avatar>
                   </div>
-                </Col>
-              </Row>
+                  <div className="responseForm">
+                    <Form onFinish={ideaReview} form={form}>
+                      <div>
+                        <Form.Item name="comment">
+                          <Input placeholder="Enter Your Response...." />
+                        </Form.Item>
+                      </div>
+                      <div>
+                        <Form.Item>
+                          <Button
+                            htmlType="submit"
+                            icon={
+                              <FontAwesomeIcon
+                                icon={faSquareCaretRight}
+                                className="icon"
+                                style={{ fontSize: "34px" }}
+                              />
+                            }
+                          ></Button>
+                        </Form.Item>
+                      </div>
+                    </Form>
+                  </div>
+                </div>
+              </div>
             </div>
           </Content>
           <Footer />

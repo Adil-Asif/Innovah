@@ -18,11 +18,12 @@ import Footer from "../../components/Footer/Footer";
 import AddIdea from "../../assests/Images/AddIdea.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
-import axios from 'axios';
+import axios from "axios";
 const { Content } = Layout;
 const { Option } = Select;
 
 const AddIdeaPage = () => {
+  const [form] = Form.useForm();
   let idea = {
     ideaID: "",
     ideaTitle: "",
@@ -98,37 +99,44 @@ const AddIdeaPage = () => {
     if (imageAsUrl.imgUrl !== "") {
       idea.ideaTitle = ideaDetails.ideaTitle;
       idea.ideaDescription = ideaDetails.ideaDescription;
-      idea.ideaDomain = ideaDetails.ideaDomain;
-      idea.ideaIndustry = ideaDetails.ideaIndustry;
+      idea.ideaDomain = ideaDetails.ideaDomain.toString();
+      idea.ideaDomain = idea.ideaDomain.replaceAll(",", ", ");
+      idea.ideaIndustry = ideaDetails.ideaIndustry.toString();
       idea.ideaVisibility = ideaDetails.ideaVisibility ? "private" : "public";
-      idea.ideaFinalDeliverables = ideaDetails.ideaFinalDeliverables;
+      idea.ideaFinalDeliverables = ideaDetails.ideaFinalDeliverables.toString();
+      idea.ideaFinalDeliverables = idea.ideaFinalDeliverables.replaceAll(
+        ",",
+        ", "
+      );
       idea.ideaImage = imageAsUrl.imgUrl;
       idea.isSubmit = true;
+      console.log(ideaDetails);
       setIdeaDetails(idea);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
-  const func = async (obj)=>{
-    await axios.post('http://localhost:5000/ideas/addidea',obj)
-      .then((result)=>{
+  const func = async (obj) => {
+    await axios
+      .post("http://localhost:5000/ideas/addidea", obj)
+      .then((result) => {
         console.log(result);
-      })
-  }
+      });
+  };
   useEffect(() => {
     if (ideaDetails.isSubmit) {
       console.log(ideaDetails);
       func(ideaDetails);
+      form.resetFields();
       message.success("Idea Posted");
       // axios.post('http://localhost:5000/ideas/addidea',ideaDetails)
       // .then((result)=>{
       //   console.log(result);
       // })
-  
+
       // Post request for adding idea
     }
   }, [ideaDetails]);
 
-  
   const onFinish = (values) => {
     idea = values;
     setIdeaDetails(idea);
@@ -159,6 +167,7 @@ const AddIdeaPage = () => {
             </div>
             <div className="addIdeaForm">
               <Form
+                form={form}
                 labelCol={{
                   span: 4,
                 }}
@@ -183,17 +192,17 @@ const AddIdeaPage = () => {
                     style={{ width: "100%" }}
                     placeholder="Please select the relevant tags that belong to your idea"
                   >
-                    <Option value=" WebDevelopment" label="WebDevelopment">
+                    <Option value="Web Development" label="WebDevelopment">
                       Web Development
                     </Option>
-                    <Option value="AppDevelopment" label="AppDevelopment">
+                    <Option value="App Development" label="AppDevelopment">
                       App Development
                     </Option>
-                    <Option value="DataScience" label="DataScience">
+                    <Option value="Data Science" label="DataScience">
                       Data Science
                     </Option>
                     <Option
-                      value="ArtifitialIntelligence"
+                      value="Artifitial Intelligence"
                       label="ArtifitialIntelligence"
                     >
                       Artifitial Intelligence
@@ -213,7 +222,7 @@ const AddIdeaPage = () => {
                     style={{ width: "100%" }}
                     placeholder="Please select the relevant industry your idea belong to"
                   >
-                    <Option value=" Technology" label="Technology">
+                    <Option value="Technology" label="Technology">
                       Technology
                     </Option>
                     <Option value="Health" label="Health">
@@ -248,19 +257,19 @@ const AddIdeaPage = () => {
                     style={{ width: "100%" }}
                     placeholder="Please select the relevant Final Deliverables you will provide"
                   >
-                    <Option value=" SRS" label="SRS">
+                    <Option value="SRS" label="SRS">
                       SRS
                     </Option>
                     <Option value="SDS" label="SDS">
                       SDS
                     </Option>
-                    <Option value="UserManual" label="UserManual">
+                    <Option value="User Manual" label="UserManual">
                       User Manual
                     </Option>
                     <Option value="Product" label="Product">
                       Product
                     </Option>
-                    <Option value="TestingDocuments" label="TestingDocuments">
+                    <Option value="Testing Documents" label="TestingDocuments">
                       Testing Documents
                     </Option>
                     <Option value="Contracts" label="Contracts">
