@@ -24,23 +24,20 @@ const IdeasItem = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isApproved, setISApproved] = useState(false);
   const [form] = Form.useForm();
-  const fun = async (obj) => {
-    // await axios.get("http://localhost:5000/ideas/myideas")
-    //   .then((result)=>{
-    //     console.log(result);
-    //   })
-    await axios
-      .post("http://localhost:5000/ideas/myideas/globalidea/updatestatus", obj)
-      .then((result) => {
-        console.log(result);
-      });
-  };
+
   useEffect(() => {
     if (isApproved) {
       //TODO: Handle Admin Approval
       console.log(isApproved);
       // fun must have obj as argument and obj must have ideaid
-      fun();
+      axios
+        .post(
+          "http://localhost:5000/ideas/myideas/globalidea/updatestatus",
+          {ideaid: props.ideaid}
+        )
+        .then((result) => {
+          console.log(result);
+        });
     }
   }, [isApproved]);
 
@@ -187,7 +184,7 @@ const IdeasItem = (props) => {
               View Item
             </Button>
           </>
-        ) : isApproved ? (
+        ) : props.isApproved ? (
           <>
             <div className="approved">Approved</div>
           </>
@@ -301,7 +298,7 @@ const IdeasItem = (props) => {
         </>
       )}
     </div>
-  )
+  );
 };
 
 export default IdeasItem;
