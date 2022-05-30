@@ -27,6 +27,9 @@ export const userDetailsSlice = createSlice({
       state.resumeDesc = action.payload.resumeDesc;
       state.innovahPoints = action.payload.innovahPoints;
     },
+    updateRewards: (state,action) => {
+      state.innovahPoints = action.payload.innovahPoints;
+    },
     resetUserDetails: (state, action) => {
       state.userid = "";
       state.username = "";
@@ -42,6 +45,6 @@ export const userDetailsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setIsLogin, setUserDetails, resetUserDetails } = userDetailsSlice.actions;
+export const { setIsLogin, setUserDetails,updateRewards ,resetUserDetails } = userDetailsSlice.actions;
 
 export default userDetailsSlice.reducer;

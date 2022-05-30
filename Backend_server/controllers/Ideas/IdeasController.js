@@ -5,7 +5,7 @@ const validator = require("email-validator");
 const session = require("sessionstorage");
 const model = require("../../models/database");
 const { param } = require("../../routes/Ideas/Ideas");
-
+// 
 //  for global ideas
 // if he is admin show all records
 // and if he is user so show him ideas regarding his industry
