@@ -47,20 +47,24 @@ const GlobalIdeasPage = () => {
               <div className="ideaItemsDashboard">
                 <div className="ideaItems">
                   <Row gutter={32}>
-                    {ideaList.map((ideaItem) => (
-                      <Col className="gutter-row" span={8}>
-                        <div>
-                          <IdeasItem
-                            ideaid={ideaItem.ideaid}
-                            ideaName={ideaItem.title}
-                            description={ideaItem.description}
-                            imageUrl={ideaItem.image}
-                            isApproved = {ideaItem.isapproved}
-                            global={true}
-                          />
-                        </div>
-                      </Col>
-                    ))}
+                    {ideaList.length > 0 ? (
+                      ideaList.map((ideaItem) => (
+                        <Col className="gutter-row" span={8}>
+                          <div>
+                            <IdeasItem
+                              ideaid={ideaItem.ideaid}
+                              ideaName={ideaItem.title}
+                              description={ideaItem.description}
+                              imageUrl={ideaItem.image}
+                              isApproved={ideaItem.isapproved}
+                              global={true}
+                            />
+                          </div>
+                        </Col>
+                      ))
+                    ) : (
+                      <></>
+                    )}
                   </Row>
                 </div>
               </div>
