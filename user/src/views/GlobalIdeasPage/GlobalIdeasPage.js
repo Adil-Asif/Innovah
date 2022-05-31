@@ -19,7 +19,7 @@ const GlobalIdeasPage = () => {
   const userrole = useSelector((state) => state.userDetails.userrole);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/ideas/myideas/globalidea", {
+      .get("https://innovah.herokuapp.com/ideas/myideas/globalidea", {
         params: {
           userrole: userrole,
           ideaindustry: industry.replace(" ", ""),

@@ -39,7 +39,7 @@ const PLayListPage = () => {
     if (videoDetails.isSubmitted) {
       console.log(videoDetails);
       axios
-        .post("http://localhost:5000/Learn/addingvideo", {
+        .post("https://innovah.herokuapp.com/Learn/addingvideo", {
           playlistid: params.playlistid,
           description: videoDetails.videoDescription,
           videoiframe: videoDetails.videoiframe,
@@ -67,7 +67,7 @@ const PLayListPage = () => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/Learn/playlist", {
+      .post("https://innovah.herokuapp.com/Learn/playlist", {
         playlistid: params.playlistid,
       })
       .then((response) => {

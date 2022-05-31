@@ -33,7 +33,7 @@ const IdeasItem = (props) => {
       // fun must have obj as argument and obj must have ideaid
       axios
         .post(
-          "http://localhost:5000/ideas/myideas/globalidea/updatestatus",
+          "https://innovah.herokuapp.com/ideas/myideas/globalidea/updatestatus",
           {ideaid: props.ideaid}
         )
         .then((result) => {
@@ -129,7 +129,7 @@ const IdeasItem = (props) => {
     if (ideaDetails.isUpdated) {
       console.log(ideaDetails);
       axios
-        .post("http://localhost:5000/ideas/myideas", ideaDetails)
+        .post("https://innovah.herokuapp.com/ideas/myideas", ideaDetails)
         .then((result) => {
           console.log(result);
           idea = ideaDetails;

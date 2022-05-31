@@ -101,7 +101,7 @@ console.log(userId)
   
 let response = await fetch(
   
-  `http://localhost:5000/requests/addnewrequest/${userId}`,
+  `https://innovah.herokuapp.com/requests/addnewrequest/${userId}`,
   {
     // Adding method type
     method: "POST",

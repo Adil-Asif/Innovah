@@ -1,4 +1,4 @@
-POST http://localhost:5000/Login/signup 
+POST https://innovah.herokuapp.com/Login/signup 
 Content-Type: application/json
 
 {
@@ -16,7 +16,7 @@ Content-Type: application/json
         "fullname":"arsalansheikh"
 }
 #####
-POST http://localhost:5000/Login/signin
+POST https://innovah.herokuapp.com/Login/signin
 Content-Type: application/json
 
 {
@@ -24,12 +24,12 @@ Content-Type: application/json
         "password":"123456"
 }
 #########
-GET http://localhost:5000/profile
+GET https://innovah.herokuapp.com/profile
 #########
-GET http://localhost:5000/Learn/
+GET https://innovah.herokuapp.com/Learn/
 
 #####
-POST http://localhost:5000/Learn/playlist
+POST https://innovah.herokuapp.com/Learn/playlist
 Content-Type: application/json
 
 {
@@ -38,7 +38,7 @@ Content-Type: application/json
 
 
 #####
-POST http://localhost:5000/Learn/playlist/video
+POST https://innovah.herokuapp.com/Learn/playlist/video
 Content-Type: application/json
 
 # Give the proper id after db entry
@@ -48,7 +48,7 @@ Content-Type: application/json
 
 ######
 
-POST http://localhost:5000/Learn/addingresource
+POST https://innovah.herokuapp.com/Learn/addingresource
 Content-Type: application/json
 
 {

@@ -14,7 +14,7 @@ const RewardItem = (props) => {
       let totalPoints = props.totalInnovahPoints - props.points;
       if (totalPoints >= 0) {
         axios
-          .post("http://localhost:5000/Rewards/claimreward", {
+          .post("https://innovah.herokuapp.com/Rewards/claimreward", {
             userrewardid: props.userrewardid,
             innovahPoints: totalPoints,
             userid: props.userid,
