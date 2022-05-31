@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 const { Content } = Layout;
 
 const GlobalIdeasPage = () => {
-  const [ideaList, setIdeaList] = useState([]);
+  const [ideaList, setIdeaList] = useState([{}]);
 
   const industry = useSelector((state) => state.userDetails.industry);
   const userrole = useSelector((state) => state.userDetails.userrole);
@@ -27,7 +27,7 @@ const GlobalIdeasPage = () => {
       })
       .then((result) => {
         console.log(result);
-        setIdeaList(result.data);
+        setIdeaList(result.data.result);
       });
   }, []);
   return (

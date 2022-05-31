@@ -13,6 +13,7 @@ const { Content } = Layout;
 const { TextArea } = Input;
 
 const RewardPage = () => {
+  
   const userid = useSelector((state) => state.userDetails.userid);
   const innovahPoints = useSelector((state) => state.userDetails.innovahPoints);
   const userrole = useSelector((state) => state.userDetails.userrole);

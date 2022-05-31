@@ -24,6 +24,7 @@ const LearningResourcesPage = () => {
     playlistImage: "",
     isSubmitted: false, 
   };
+  
   const [learningresourcesList, setLearningresourcesList] = useState([]);
   const [learnigResourceUpdate, setLearnigResourceUpdate] = useState([false]);
   const userrole = useSelector((state) => state.userDetails.userrole);
@@ -172,7 +173,7 @@ const updateStatus = (data) =>
                 <div className="pageTitle">
                   <PageTitle title="Learning Resources" />
                 </div>
-                {userrole === "Trainer" || "Administrator" ? (
+                {userrole === "Trainer" || userrole ==="Administrator" ? (
                   <>
                     <div>
                       {" "}
@@ -248,7 +249,7 @@ const updateStatus = (data) =>
                                 console.log({ file });
                                 return false;
                               }}
-                              action={"localhost:3000/"}
+                              action={"/"}
                             >
                               <Button
                                 icon={

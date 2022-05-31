@@ -16,11 +16,14 @@ import {
   faAngleDoubleRight,
   faArrowTurnDown,
 } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
 const { Content } = Layout;
 
 const LectureVideoPage = () => {
   const [params, setParams] = useState(useParams());
   const [videoDetails, setVideoDetails] = useState([]);
+  const innovahPoints = useSelector((state) => state.userDetails.innovahPoints);
+
   // console.log(params);
 
   // var [Response, setResponse] = useState(null);
@@ -40,6 +43,7 @@ const LectureVideoPage = () => {
       .post("http://localhost:5000/Learn/playlist/video", {
         playlistid: params.playlistid,
         id: params.videoid,
+        innovahPoints: innovahPoints,
       })
       .then((response) => {
         console.log(response.data, "h");

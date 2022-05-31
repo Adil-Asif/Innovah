@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import PlaylistItem from "../../components/Playlist/PlaylistItem";
+import { useSelector } from "react-redux";
 const { Content } = Layout;
 const { TextArea } = Input;
 
@@ -25,7 +26,7 @@ const PLayListPage = () => {
     isSubmitted: false,
   };
 
-  const userRole = "trainer";
+  const userrole = useSelector((state) => state.userDetails.userrole);
   const [isUpdate, setIsUpdate] = useState(true);
   const [title, setTitle] = useState("");
   const [videolist, setVideoList] = useState([]);
@@ -89,7 +90,7 @@ const PLayListPage = () => {
                 <div className="pageTitle">
                   <PageTitle title={title} />
                 </div>
-                {userRole === "trainer" ? (
+                {userrole === "Trainer" || userrole === "Administrator" ? (
                   <>
                     <div>
                       {" "}

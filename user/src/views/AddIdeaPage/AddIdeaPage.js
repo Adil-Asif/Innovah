@@ -19,11 +19,13 @@ import AddIdea from "../../assests/Images/AddIdea.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useSelector } from "react-redux";
 const { Content } = Layout;
 const { Option } = Select;
 
 const AddIdeaPage = () => {
   const [form] = Form.useForm();
+  const innovahPoints = useSelector((state) => state.userDetails.innovahPoints);
   let idea = {
     ideaID: "",
     ideaTitle: "",
@@ -34,6 +36,7 @@ const AddIdeaPage = () => {
     ideaImage: "",
     ideaVisibility: "",
     isSubmit: false,
+    innovahPoints: innovahPoints
   };
   const allInputs = { imgUrl: "" };
   const [imageAsFile, setImageAsFile] = useState("");
@@ -102,6 +105,7 @@ const AddIdeaPage = () => {
       idea.ideaDomain = ideaDetails.ideaDomain.toString();
       idea.ideaDomain = idea.ideaDomain.replaceAll(",", ", ");
       idea.ideaIndustry = ideaDetails.ideaIndustry.toString();
+      idea.innovahPoints =innovahPoints + 1000;
       idea.ideaVisibility = ideaDetails.ideaVisibility ? "private" : "public";
       idea.ideaFinalDeliverables = ideaDetails.ideaFinalDeliverables.toString();
       idea.ideaFinalDeliverables = idea.ideaFinalDeliverables.replaceAll(
@@ -287,7 +291,7 @@ const AddIdeaPage = () => {
                       console.log({ file });
                       return false;
                     }}
-                    action={"localhost:3000/"}
+                    action={"/"}
                   >
                     <Button
                       icon={

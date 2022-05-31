@@ -20,7 +20,7 @@ const { TextArea } = Input;
 const { Option } = Select;
 
 const ProjectManagement = () => {
-  const role = "admin";
+  
   let project = {
     projectID: "",
     projectTitle: "",
@@ -200,7 +200,7 @@ const ProjectManagement = () => {
 
           <Content style={{ margin: "0 16px" }}>
             <div className="titleSection">
-              {role !== "admin" ? (
+              {userrole !== "Administrator" ? (
                 <>
                   <div className="Project-heading">
                     <PageTitle title="Your Projects" />
@@ -333,7 +333,7 @@ const ProjectManagement = () => {
                                 console.log({ file });
                                 return false;
                               }}
-                              action={"localhost:3000/"}
+                              action={"/"}
                             >
                               <Button
                                 icon={

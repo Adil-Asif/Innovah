@@ -182,7 +182,7 @@ console.log(response)
               console.log({ file });
               return false;
             }}
-            action={"localhost:3000/"}
+            action={"/"}
           >
             <Button icon={<FontAwesomeIcon icon={faUpload} className="icon" />}>
               Upload Image

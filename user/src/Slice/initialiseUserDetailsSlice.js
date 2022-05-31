@@ -30,7 +30,7 @@ export const userDetailsSlice = createSlice({
     updateRewards: (state,action) => {
       state.innovahPoints = action.payload.innovahPoints;
     },
-    resetUserDetails: (state, action) => {
+    resetUserDetails: (state) => {
       state.userid = "";
       state.username = "";
       state.userrole = "";

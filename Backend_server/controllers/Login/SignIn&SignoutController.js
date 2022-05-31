@@ -162,7 +162,7 @@ exports.enterdata = (req, res) => {
     password: pass,
     fullname: userDetails.fullname,
     resume_desc: userDetails.resume,
-    innovahpoints:0
+    innovahpoints:5000
   };
   for (var key in userinfo) {
     console.log();
