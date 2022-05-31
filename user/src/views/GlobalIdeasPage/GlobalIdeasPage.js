@@ -27,7 +27,14 @@ const GlobalIdeasPage = () => {
       })
       .then((result) => {
         console.log(result);
-        setIdeaList(result.data.result);
+        if(result.data.length=== 0)
+        {
+          setIdeaList(result.data);
+        }
+        else{
+          setIdeaList(result.data.result);
+        }
+        
       });
   }, []);
   return (
