@@ -214,7 +214,7 @@ const SignUp = () => {
                       allowClear
                       placeholder="Please select the relevant industry of your expertise"
                     >
-                      <Option value=" Technology" label="Technology">
+                      <Option value="Technology" label="Technology">
                         Technology
                       </Option>
                       <Option value="Health" label="Health">

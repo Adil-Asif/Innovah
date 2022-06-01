@@ -8,24 +8,27 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import GlobalIdeas from "../../assests/Images/GlobalIdeas.svg";
 import IdeasItem from "../../components/IdeasItem/IdeasItem";
-import axios from 'axios';
+import axios from "axios";
+import { useSelector } from "react-redux";
 const { Content } = Layout;
 
 const GlobalIdeasPage = () => {
-  const func = async () => {
-    // await axios.get("http://localhost:5000/ideas/myideas")
-    //   .then((result)=>{
-    //     console.log(result);
-    //   })
-    await axios.get("http://localhost:5000/ideas/myideas/globalidea")
+  const [ideaList, setIdeaList] = useState([]);
+
+  const industry = useSelector((state) => state.userDetails.industry);
+  const userrole = useSelector((state) => state.userDetails.userrole);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/ideas/myideas/globalidea", {
+        params: {
+          userrole: userrole,
+          ideaindustry: industry.replace(" ", ""),
+        },
+      })
       .then((result) => {
         console.log(result);
+        setIdeaList(result.data);
       });
-  };
-  
-  useEffect(() => {
-    //TODO: Handle get request Global Ideas
-    func()
   }, []);
   return (
     <div className="globalIdeasPage">
@@ -44,46 +47,20 @@ const GlobalIdeasPage = () => {
               <div className="ideaItemsDashboard">
                 <div className="ideaItems">
                   <Row gutter={32}>
-                    <Col className="gutter-row" span={8}>
-                      <div>
-                        <IdeasItem
-                          ideaName="Dozti"
-                          description="Dozti is an online platform where users can by groceries. Dozti allows people to first check the recived order than pay. Customers can return the order without paying if they aren't happy with thier order. For online payments we have a 100% refund policy."
-                          imageUrl={require("../../assests/Images/IdeasImage/ECommerce.jpg")}
-                          global={true}
-                        />
-                      </div>
-                    </Col>
-                    <Col className="gutter-row" span={8}>
-                      <div>
-                        <IdeasItem
-                          ideaName="Edu Lane"
-                          description="Edu Lane is an online platforms where teachers can manage thier classes by adding students, co-teacher, uploading resources, and assignments. Students can download uploaded resources, check thier marks, and submit assignments"
-                          imageUrl={require("../../assests/Images/IdeasImage/EduLane.jpg")}
-                          global={true}
-                        />
-                      </div>
-                    </Col>
-                    <Col className="gutter-row" span={8}>
-                      <div>
-                        <IdeasItem
-                          ideaName="Facet"
-                          description="Facet is a proprietary videotelephony product which will allow users to have video calls with other users, conference calls. The app will be developed for web, android, and desktops."
-                          imageUrl={require("../../assests/Images/IdeasImage/Facet.jpg")}
-                          global={true}
-                        />
-                      </div>
-                    </Col>
-                    <Col className="gutter-row" span={8}>
-                      <div style={{ paddingTop: "40px" }}>
-                        <IdeasItem
-                          ideaName="Stream.io"
-                          description="It is video streaming platform where content creators can upload their videos and monetize them. These videos will be available to watch all around the globe based on user watch history and preferences."
-                          imageUrl={require("../../assests/Images/IdeasImage/Stream.jpg")}
-                          global={true}
-                        />
-                      </div>
-                    </Col>
+                    {ideaList.map((ideaItem) => (
+                      <Col className="gutter-row" span={8}>
+                        <div>
+                          <IdeasItem
+                            ideaid={ideaItem.ideaid}
+                            ideaName={ideaItem.title}
+                            description={ideaItem.description}
+                            imageUrl={ideaItem.image}
+                            isApproved = {ideaItem.isapproved}
+                            global={true}
+                          />
+                        </div>
+                      </Col>
+                    ))}
                   </Row>
                 </div>
               </div>

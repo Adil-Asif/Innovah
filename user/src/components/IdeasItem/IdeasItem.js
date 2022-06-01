@@ -10,7 +10,7 @@ const { TextArea } = Input;
 
 const IdeasItem = (props) => {
   let idea = {
-    ideaID: "",
+    ideaid: props.ideaid,
     ideaName: props.ideaName,
     ideaDescription: props.description,
     ideaImage: props.imageUrl,
@@ -24,23 +24,20 @@ const IdeasItem = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isApproved, setISApproved] = useState(false);
   const [form] = Form.useForm();
-  const fun = async (obj) => {
-    // await axios.get("http://localhost:5000/ideas/myideas")
-    //   .then((result)=>{
-    //     console.log(result);
-    //   })
-    await axios.post("http://localhost:5000/ideas/myideas/globalidea/updatestatus",obj)
-      .then((result) => {
-        console.log(result);
-      });
-  };
+
   useEffect(() => {
     if (isApproved) {
       //TODO: Handle Admin Approval
       console.log(isApproved);
       // fun must have obj as argument and obj must have ideaid
-      fun()
-      
+      axios
+        .post(
+          "http://localhost:5000/ideas/myideas/globalidea/updatestatus",
+          {ideaid: props.ideaid}
+        )
+        .then((result) => {
+          console.log(result);
+        });
     }
   }, [isApproved]);
 
@@ -50,7 +47,7 @@ const IdeasItem = (props) => {
 
   let navigate = useNavigate();
   const moveToIdea = () => {
-    navigate("/myideas/idea");
+    navigate(`/myideas/${props.ideaid}`);
   };
 
   useEffect(() => {
@@ -117,6 +114,7 @@ const IdeasItem = (props) => {
 
   useEffect(() => {
     if (imageAsUrl.imgUrl !== "") {
+      idea.ideaid = ideaDetails.ideaid;
       idea.ideaName = ideaDetails.ideaName;
       idea.ideaDescription = ideaDetails.ideaDescription;
       idea.ideaImage = imageAsUrl.imgUrl;
@@ -125,22 +123,30 @@ const IdeasItem = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageAsUrl]);
-  const func = async (obj) => {
-    await axios
-      .post("http://localhost:5000/ideas/myideas", obj)
-      .then((result) => {
-        console.log(result);
-      });
-  };
+
   useEffect(() => {
     if (ideaDetails.isUpdated) {
       console.log(ideaDetails);
-      func(ideaDetails);
+      axios
+        .post("http://localhost:5000/ideas/myideas", ideaDetails)
+        .then((result) => {
+          console.log(result);
+          idea = ideaDetails;
+          idea.isUpdated = false;
+          props.updateIdeas();
+          setIdeaDetails(idea);
+        });
       // Post request for updated idea details
     }
   }, [ideaDetails]);
 
   const onEdit = (values) => {
+    console.log(ideaDetails, "h");
+    idea.ideaImage =
+      values.ideaImage !== undefined
+        ? (values.ideaImage, handleSubmission(values.ideaImage))
+        : ideaDetails.ideaImage;
+
     idea.ideaName =
       values.ideaName !== undefined ? values.ideaName : ideaDetails.ideaName;
     idea.ideaDescription =
@@ -148,13 +154,11 @@ const IdeasItem = (props) => {
         ? values.ideaDescription
         : ideaDetails.ideaDescription;
 
-    ideaDetails.ideaImage =
-      values.ideaImage !== undefined
-        ? (values.ideaImage, handleSubmission(values.ideaImage))
-        : ((ideaDetails.ideaImage = idea.ideaImage), (idea.isUpdated = true));
+    idea.ideaid = ideaDetails.ideaid;
+
+    idea.isUpdated = true;
     setIdeaDetails(idea);
   };
-
   return (
     <div className="ideaItemLayout">
       <img src={props.imageUrl} alt={props.ideaName} />
@@ -180,7 +184,7 @@ const IdeasItem = (props) => {
               View Item
             </Button>
           </>
-        ) : isApproved ? (
+        ) : props.isApproved ? (
           <>
             <div className="approved">Approved</div>
           </>

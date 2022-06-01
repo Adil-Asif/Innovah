@@ -74,7 +74,7 @@
             margin-right: 5px;
           }
         }
-        .ant-btn-primary {
+        .participateButton {
           border: none;
           color: var(--white);
           padding: 6px 38px 6px 38px;
@@ -96,6 +96,23 @@
           &:hover {
             //background-color: var(--primary-color);
             background-position: left;
+          }
+        }
+        .adminButton {
+          border: none;
+          color: var(--white);
+          padding: 6px 38px 6px 38px;
+          background-color: var(--primary-color);
+          margin-top: 25px;
+          margin-left: 0px;
+          height: fit-content;
+          text-align: center;
+          width: 100%;
+          font-size: 16px;
+          font-family: var(--font-family-button);
+
+          &:hover {
+            box-shadow: 5px 5px 10px var(--textbox-shadow);
           }
         }
       }
@@ -126,6 +143,5 @@
   textarea {
     width: 90%;
     height: 200px !important;
-   
   }
 }

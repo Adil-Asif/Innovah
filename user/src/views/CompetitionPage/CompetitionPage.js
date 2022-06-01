@@ -10,11 +10,16 @@ import InnovahCup from "../../assests/Images/InnovahCup.svg";
 import hackathon from "../../assests/Images/hackathon.svg";
 import defend from "../../assests/Images/defend.svg";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const { TextArea } = Input;
 const { Content } = Layout;
 
 const CompetitionPage = () => {
   const { form } = Form;
+  let navigate = useNavigate();
+  const movetoCompetitionSubmissionPage = () => {
+    navigate("/competitons/submissions");
+  };
   const competitionRules = {
     description:
       "Teams will be judged on these four criteria. Judges will weigh the criteria equally. During judging, participants should try to describe what they did for each criterion in their project.",
@@ -113,7 +118,17 @@ const CompetitionPage = () => {
                   <div>
                     <Button
                       type="primary"
-                      className="left"
+                      shape="round"
+                      onClick={movetoCompetitionSubmissionPage}
+                      className="adminButton"
+                    >
+                      View Submissions
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      type="primary"
+                      className="left participateButton"
                       shape="round"
                       style={{
                         width: "100%",
@@ -172,7 +187,17 @@ const CompetitionPage = () => {
                   <div>
                     <Button
                       type="primary"
-                      className="left"
+                      shape="round"
+                      onClick={movetoCompetitionSubmissionPage}
+                      className="adminButton"
+                    >
+                      View Submissions
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      type="primary"
+                      className="left participateButton"
                       shape="round"
                       style={{
                         width: "100%",
@@ -234,7 +259,17 @@ const CompetitionPage = () => {
                   <div>
                     <Button
                       type="primary"
-                      className="left"
+                      shape="round"
+                      onClick={movetoCompetitionSubmissionPage}
+                      className="adminButton"
+                    >
+                      View Submissions
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      type="primary"
+                      className="left participateButton"
                       shape="round"
                       style={{
                         width: "100%",

@@ -17,6 +17,12 @@ const IdeaInfo = (props) => {
           Author: <span>{props.ideaAuthor}</span>
         </div>
         <div className="description">
+          Industry: <span>{props.ideaindustry}</span>
+        </div>
+        <div className="description">
+         Domain: <span>{props.domain}</span>
+        </div>
+        <div className="description">
           Status: <span>{props.ideaStatus}</span>
         </div>
         <div className="description">
