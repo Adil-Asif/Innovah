@@ -13,13 +13,13 @@ import { useSelector } from "react-redux";
 const { Content } = Layout;
 
 const GlobalIdeasPage = () => {
-  const [ideaList, setIdeaList] = useState([]);
+  const [ideaList, setIdeaList] = useState([{}]);
 
   const industry = useSelector((state) => state.userDetails.industry);
   const userrole = useSelector((state) => state.userDetails.userrole);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/ideas/myideas/globalidea", {
+      .get("https://innovah.herokuapp.com/ideas/myideas/globalidea", {
         params: {
           userrole: userrole,
           ideaindustry: industry.replace(" ", ""),
@@ -27,6 +27,7 @@ const GlobalIdeasPage = () => {
       })
       .then((result) => {
         console.log(result);
+
         setIdeaList(result.data);
       });
   }, []);
@@ -47,20 +48,24 @@ const GlobalIdeasPage = () => {
               <div className="ideaItemsDashboard">
                 <div className="ideaItems">
                   <Row gutter={32}>
-                    {ideaList.map((ideaItem) => (
-                      <Col className="gutter-row" span={8}>
-                        <div>
-                          <IdeasItem
-                            ideaid={ideaItem.ideaid}
-                            ideaName={ideaItem.title}
-                            description={ideaItem.description}
-                            imageUrl={ideaItem.image}
-                            isApproved = {ideaItem.isapproved}
-                            global={true}
-                          />
-                        </div>
-                      </Col>
-                    ))}
+                    {ideaList.length > 0 ? (
+                      ideaList.map((ideaItem) => (
+                        <Col className="gutter-row" span={8}>
+                          <div>
+                            <IdeasItem
+                              ideaid={ideaItem.ideaid}
+                              ideaName={ideaItem.title}
+                              description={ideaItem.description}
+                              imageUrl={ideaItem.image}
+                              isApproved={ideaItem.isapproved}
+                              global={true}
+                            />
+                          </div>
+                        </Col>
+                      ))
+                    ) : (
+                      <></>
+                    )}
                   </Row>
                 </div>
               </div>

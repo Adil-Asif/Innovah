@@ -4,8 +4,7 @@ const uuid = require("uuid");
 const validator = require("email-validator");
 const session = require("sessionstorage");
 const model = require("../../models/database");
-const bcrypt = require("bcrypt");
-const { compareSync } = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { json } = require("body-parser");
 // var db = mysql.createConnection({
 //     host: 'localhost',
@@ -162,7 +161,7 @@ exports.enterdata = (req, res) => {
     password: pass,
     fullname: userDetails.fullname,
     resume_desc: userDetails.resume,
-    innovahpoints:0
+    innovahpoints:5000
   };
   for (var key in userinfo) {
     console.log();
