@@ -98,7 +98,7 @@ exports.viewglobalidea = (req, res) => {
           // console.log("error")
         } else {
           console.log(result);
-          res.json({ result: result });
+          res.json(result);
           // if(result[0].userrole=="admin"){
           //     let sql2 = "select * from idea";
         }

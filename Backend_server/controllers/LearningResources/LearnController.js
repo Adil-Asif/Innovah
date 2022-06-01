@@ -182,11 +182,12 @@ exports.getplaylist = (req, res) => {
     // // trainerid="12";
     // userinfo = "6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb81";
     // title = "Algorithms course";
-    let sql = "select * from playlist where userid=? AND playlistid=?";
-    title = model.query(sql, [userinfo, playlistid], (err, result) => {
+    let sql = `select * from playlist where userid='${userinfo}' AND playlistid='${playlistid}'`;
+    model.query(sql, (err, result) => {
       if (err) {
         console.log(JSON.stringify(err, undefined, 2));
       } else {
+        console.log(sql);
         console.log("query executed properly");
         console.log(result);
         if (result.length > 0) {
