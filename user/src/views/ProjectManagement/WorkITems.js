@@ -41,7 +41,6 @@ const WorkItems = () => {
     );
     setGroupbyItems(await response.json());
     console.log(groupbyItems)
-    returnCount()
   }
 
   const updateStatus = (values) => {
@@ -136,23 +135,24 @@ const WorkItems = () => {
       console.log(element)
       switch (element.taskstatus) {
         case "Created":
-       counts.created=element.itemcount;
+       object.created=element.itemcount;
           break;
         case "To Do":
-          counts.todo=element.itemcount
+          object.todo=element.itemcount
           break;
         case "Doing":
-          counts.doing=element.itemcount
+          object.doing=element.itemcount
           break;
         case "Completed":
-          counts.completed=element.itemcount 
+          object.completed=element.itemcount 
           break;
 
         default:
           break;
       }
     })
- 
+    setReloadneed(!reloadneed)
+
     return (object);
   }
 
