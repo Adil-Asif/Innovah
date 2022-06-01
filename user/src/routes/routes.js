@@ -19,6 +19,7 @@ import InventoryManagement from "../views/ProjectManagement/InventoryManagement"
 import CompetitionPage from "../views/CompetitionPage/CompetitionPage";
 import RewardPage from "../views/RewardPage/RewardPage";
 import ProfilePage from "../views/ProfilePage/ProfilePage";
+import CompetitionSubmissionPage from "../views/CompetitionSubmissionPage/CompetitionSubmissionPage";
 
 const Routers = () => {
   return (
@@ -66,6 +67,7 @@ const Routers = () => {
         element={<InventoryManagement />}
       />
       <Route exact path="/competitons" element={<CompetitionPage />} />
+      <Route exact path="/competitons/submissions" element={<CompetitionSubmissionPage />} />
       <Route exact path="/rewards" element={<RewardPage />} />
     </Routes>
   );
