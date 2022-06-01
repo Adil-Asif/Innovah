@@ -238,7 +238,6 @@ exports.getplaylist = (req, res) => {
 
 exports.getvideo = (req, res) => {
   if (session.getItem("signin") == true) {
-    
     // var videotitle = session.getItem('videotitle');
     // var playlistname = session.getItem('playlistname');
     // var trainer = session.getItem('trainerid');
@@ -258,7 +257,20 @@ exports.getvideo = (req, res) => {
       } else {
         console.log("query executed properly");
         if (result.length > 0) {
-          console.log(result)
+          let sql1 =
+            "update user_details set innovahPoints = ? where userid = ?";
+          model.query(
+            sql1,
+            [req.body.innovahPoints, userinfo],
+            (err, result1) => {
+              if (err) {
+                console.log(JSON.stringify(err, undefined, 2));
+              } else {
+                console.log("Success");
+              }
+            }
+          );
+          console.log(result);
           res.send(result);
         }
       }
