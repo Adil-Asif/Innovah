@@ -3,14 +3,13 @@ const mysql = require('mysql')
 const app = express()
 require('dotenv').config()
 console.log(process.env.USER, process.env.PASSWORD,process.env.DATABASE_NAME)
-var db = mysql.createPool({
-    host: process.env.HOST,
+
+var db = mysql.createConnection({
+    host: 'localhost',
     user:process.env.USER,
     password: process.env.PASSWORD,
     database:process.env.DATABASE_NAME
 });
-
-
 
 
 // db.connect((err)=>{

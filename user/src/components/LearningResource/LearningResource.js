@@ -19,7 +19,7 @@ const LearningResourcesTitle1 = (props) => {
   useEffect(() => {
     if (updateIsEnrolled) {
       axios
-        .post("https://innovah.herokuapp.com/Learn/", {
+        .post("http://localhost:5000/Learn/", {
           playlistid: props.playlistId,
           trainerid: props.trainerid,
         })

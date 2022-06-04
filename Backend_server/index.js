@@ -34,6 +34,8 @@ const rewardroutes = require("./routes/Rewards/reward");
 const requestRoutes = require("./routes/Requests/requests");
 const profile = require("./routes/Profile/Profile");
 const ideas = require("./routes/Ideas/Ideas");
+
+const competitions = require("./routes/Competitions/Competitions")
 var cors = require("cors");
 
 const LearnRoutes = require("./routes/LearningResources/Learn.js");
@@ -48,15 +50,15 @@ app.use(fileupload());
 const port = process.env.PORT || 8000;
 console.log(process.env.USER);
 
-// databaseConnections.connect((err)=>{
-//     if(err){
-//         console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
+databaseConnections.connect((err)=>{
+    if(err){
+        console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
 
-//     }
-//     else{
-//         console.log("mysql connected");
-//     }
-// });
+    }
+    else{
+        console.log("mysql connected");
+    }
+});
 
 // this file will be used for basic routing which means high level routes like
 //if we have Login pages all routes of Login will be like "/Login/Something/Something" so base route
@@ -71,7 +73,7 @@ app.use("/Rewards", rewardroutes);
 app.use("/requests", requestRoutes);
 app.use("/profile", profile);
 app.use("/ideas", ideas);
-
+app.use("/competitions",competitions)
 app.listen(port, () => {
   console.log("Backend is up and running on port 5000");
 });

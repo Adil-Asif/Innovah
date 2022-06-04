@@ -137,7 +137,7 @@ const ProjectManagement = () => {
 
   const sendDataToDB = async () => {
     let response = await fetch(
-      `https://innovah.herokuapp.com/generalproject/newProject/projectsubmission/storingtodb`,
+      `http://localhost:5000/generalproject/newProject/projectsubmission/storingtodb`,
       {
         // Adding method type
         method: "POST",
@@ -171,7 +171,7 @@ const ProjectManagement = () => {
   const userId = useSelector((state) => state.userDetails.userid);
   let getprojects = async () => {
     let response = await fetch(
-      `https://innovah.herokuapp.com/generalproject/${userId}`
+      `http://localhost:5000/generalproject/${userId}`
     );
     setProjectResponse(await response.json());
   };
@@ -182,11 +182,11 @@ const ProjectManagement = () => {
 
   const getformData = async () => {
     let ideas = await fetch(
-      `https://innovah.herokuapp.com/generalproject/newProject/projectform/getideas/${userId}`
+      `http://localhost:5000/generalproject/newProject/projectform/getideas/${userId}`
     );
     setmyIdeasoptions(await ideas.json());
     let people = await fetch(
-      "https://innovah.herokuapp.com/generalproject/newProject/projectform/getAllPeople"
+      "http://localhost:5000/generalproject/newProject/projectform/getAllPeople"
     );
     setmyTeamOptions(await people.json());
   };

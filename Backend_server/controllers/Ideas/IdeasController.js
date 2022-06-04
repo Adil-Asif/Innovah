@@ -4,14 +4,14 @@ const uuid = require("uuid");
 const validator = require("email-validator");
 const session = require("sessionstorage");
 const model = require("../../models/database");
-const { param } = require("../../routes/Ideas/Ideas");
+//const { param } = require("../../routes/Ideas/Ideas");
 // 
 //  for global ideas
 // if he is admin show all records
 // and if he is user so show him ideas regarding his industry
 exports.addidea = (req, res) => {
   if (session.getItem("signin") == true) {
-    var ideaid1 = uuid.v1();
+    var ideaid1 = uuid.v1(); 
     var userinfo = session.getItem("useridinfo");
     let ideadetails = {
       ideaid: ideaid1,

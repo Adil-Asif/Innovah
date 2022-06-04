@@ -40,7 +40,7 @@ const LectureVideoPage = () => {
 
   useEffect(() => {
     axios
-      .post("https://innovah.herokuapp.com/Learn/playlist/video", {
+      .post("http://localhost:5000/Learn/playlist/video", {
         playlistid: params.playlistid,
         id: params.videoid,
         innovahPoints: innovahPoints,
@@ -79,7 +79,7 @@ const LectureVideoPage = () => {
               </div>
               <Button  type="primary" onClick={() =>{movetoplaylist(videoDetails.playlistid)}}>
                 <FontAwesomeIcon icon={faArrowTurnDown} className="icon"/>
-                Back to plalist</Button>
+                Back to playlist</Button>
             </div>
             {/* ) : (
               <Spin />

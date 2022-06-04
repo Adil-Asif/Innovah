@@ -67,7 +67,7 @@ const Routers = () => {
         element={<InventoryManagement />}
       />
       <Route exact path="/competitons" element={<CompetitionPage />} />
-      <Route exact path="/competitons/submissions" element={<CompetitionSubmissionPage />} />
+      <Route exact path="/competitons/submissions/:competittion_name" element={<CompetitionSubmissionPage />} />
       <Route exact path="/rewards" element={<RewardPage />} />
     </Routes>
   );

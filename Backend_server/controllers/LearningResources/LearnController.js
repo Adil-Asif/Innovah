@@ -140,10 +140,11 @@ exports.changeenrollstatus = (req, res) => {
 exports.getallitems = (req, res) => {
   if (session.getItem("signin") == true) {
     const userinfo = session.getItem("useridinfo");
+    console.log(userinfo)
     // userinfo = "6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb81";
     console.log(userinfo);
     // let sql = "select userid from user_details where userid="+mysql.escape(userinfo);
-    let sql = "select * from learning where userid=" + mysql.escape(userinfo);
+    let sql = `select * from learning where userid='${userinfo}'`;
     model.query(sql, (err, result) => {
       if (err) {
         console.log(JSON.stringify(err, undefined, 2));
@@ -153,6 +154,7 @@ exports.getallitems = (req, res) => {
         // session.setItem('playlistname',result[0].title);
         // console.log(result)
         // var trainerid =
+        console.log(result)
         res.send(result);
 
         // session.setItem("enrollstatus",enrolledstatus)
@@ -182,12 +184,12 @@ exports.getplaylist = (req, res) => {
     // // trainerid="12";
     // userinfo = "6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb81";
     // title = "Algorithms course";
-    let sql = "select * from playlist where userid=? AND playlistid=?";
-    title = model.query(sql, [userinfo, playlistid], (err, result) => {
+    let sql = `select * from playlist where userid = '${userinfo}' AND playlistid ='${playlistid}'`;
+    title = model.query(sql,(err, result) => {
       if (err) {
-        console.log(JSON.stringify(err, undefined, 2));
+        console.log(JSON.stringify(err, undefined));
       } else {
-        console.log("query executed properly");
+        console.log("query executed properly",err);
         console.log(result);
         if (result.length > 0) {
           let sql1 = "select title from learning where playlistid = ?";
@@ -196,6 +198,7 @@ exports.getplaylist = (req, res) => {
               console.log(JSON.stringify(err, undefined, 2));
             } else {
               //  session.p title = result[0];
+              console.log(err)
               res.send([result, result1[0]]);
             }
           });

@@ -42,7 +42,7 @@ const LoginModals = (props) => {
       emailorname: values.email,
       password: values.password,
     };
-    axios.post("https://innovah.herokuapp.com/Login/signin", { obj }).then((result) => {
+    axios.post("http://localhost:5000/Login/signin", { obj }).then((result) => {
       console.log(result);
       if (
         result.data === "Invalid Email" ||

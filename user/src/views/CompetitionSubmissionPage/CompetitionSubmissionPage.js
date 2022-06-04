@@ -12,8 +12,9 @@ import CompetitionSubmissionItem from "../../components/CompetitionSubmissionIte
 const { Content } = Layout;
 
 const CompetitionSubmissionPage = () => {
-  // let params = useParams();
-  // console.log(params.requestid , "What is this")
+  let params = useParams();
+  console.log(params.competittion_name);
+
   return (
     <div className="competitionSubmissionPage">
       <Layout style={{ minHeight: "100vh" }}>
@@ -23,13 +24,13 @@ const CompetitionSubmissionPage = () => {
           <Content style={{ margin: "0 16px" }}>
             <div className="titleSection">
               <div className="pageTitle">
-                <PageTitle title="Competition Name" />
+                <PageTitle title={((params.competittion_name).toUpperCase()).replace("_", " ")} />
               </div>
               <img src={Competition} alt="CompetitionImage" />
             </div>
             <div className="competitionSubmissionDashboard">
               {/* <CompetitionSubmissionItem requestID ={params}/> */}
-              <CompetitionSubmissionItem />
+              <CompetitionSubmissionItem competition = {params.competittion_name} />
             </div>
           </Content>
           <Footer />

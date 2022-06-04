@@ -6,28 +6,30 @@ import { useSelector } from "react-redux";
 
 const CompetitionSubmissionItem = (props) => {
   let navigate = useNavigate();
-
+console.log(props.competition)
   // console.log(props.requestID.requestid , "What is this")
   //   const userId = useSelector(
   //     (state) => state.userDetails.userid
   //   )
   //   console.log(userId)
-  //   const [mySubmissions, setMySubmissions] = useState([])
+    const [mySubmissions, setMySubmissions] = useState([])
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  // fetchingAllSubmissions()
-  // console.log(mySubmissions)
-  // }, [])
+  fetchingAllSubmissions()
+  console.log(mySubmissions)
+  }, [])
 
-  //   const fetchingAllSubmissions = async ()=>{
-  // let response = await fetch(`http://localhost:5000/requests/getallyoursubmissions/${userId}/${props.requestID.requestid}`)
-  // setMySubmissions(await response.json())
+    const fetchingAllSubmissions = async ()=>{
+  let response = await fetch(`http://localhost:5000/competitions/getAllsubmissions/${props.competition}`)
+  setMySubmissions(await response.json())
 
-  // }
-  //   const moveToMyRequests = () => {
-  //     navigate("/myrequests");
-  //   };
+  }
+
+  console.log(mySubmissions)
+    const moveToCompetitions = () => {
+      navigate("/competitons");
+    };
 
   let data = [
     {
@@ -56,59 +58,58 @@ const CompetitionSubmissionItem = (props) => {
     },
   ];
 
-  // const info = async (requestedby, submittedby, requestid, postid) => {
-  //data[id].isHired = true;
+  const info = async (submissionID, userid,compName) => {
 
-  //   let response = await fetch(
-  //     `http://localhost:5000/requests/sendinghiringmail`,
-  //     {
-  //       // Adding method type
-  //       method: "POST",
+    let response = await fetch(
+      `http://localhost:5000/competitions//addingpoints`,
+      {
+        // Adding method type
+        method: "POST",
 
-  //       // Adding body or contents to send
-  //       body: JSON.stringify(
-  //         {requestedby,submittedby,requestid,postid}
+        // Adding body or contents to send
+        body: JSON.stringify(
+          {submissionID,userid,compName}
 
-  //       ),
+        ),
 
-  //       // Adding headers to the request
-  //       headers: {
-  //         "Content-type": "application/json; charset=UTF-8",
-  //       },
-  //     }
-  //   );
-  //   response = await response.json()
-  //   console.log(response)
-
-  //   message.success("Hired! Details Shared via Email");
-  //   moveToMyRequests();
-  // };
+        // Adding headers to the request
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    response = await response.json()
+    console.log(response)
+    
+    message.success("Congrats! points added in users profile");
+    moveToCompetitions()
+    
+  };
   return (
     <div className="competitionSubmissionItemLayout">
       <div>
         <List
           itemLayout="horizontal"
-          dataSource={data}
+          dataSource={mySubmissions}
           renderItem={(item) => (
             <List.Item>
               {/* TODO: Replace Image with user image */}
               <List.Item.Meta
                 avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title={item.title}
+                title={`Submission ID: ${item.submissionID}`}
                 description={item.description}
               />
-              {/* {console.log(item.requestid)} */}
+            
               <Button
                 type="primary"
                 shape="round"
-                // onClick={() =>
-                //   info(
-                //     item.userid,
-                //     item.submitted_by,
-                //     item.submission_id,
-                //     item.requestid
-                //   )
-                // }
+                onClick={() =>
+                  info(
+                    item.submissionID,
+                    item.userid,
+                    item.competitionname
+                  )
+                }
               >
                 Send Rewards
               </Button>

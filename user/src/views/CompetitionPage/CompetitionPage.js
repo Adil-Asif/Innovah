@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import "./CompetitionPage.scss";
 import PageTitle from "../../components/PageTitle/PageTitle";
 import { Layout, Button, Spin, Modal, Form, Input } from "antd";
@@ -15,10 +16,13 @@ const { TextArea } = Input;
 const { Content } = Layout;
 
 const CompetitionPage = () => {
+  const userId = useSelector(
+    (state) => state.userDetails.userid
+  )
   const { form } = Form;
   let navigate = useNavigate();
-  const movetoCompetitionSubmissionPage = () => {
-    navigate("/competitons/submissions");
+  const movetoCompetitionSubmissionPage = (Competition_details) => {
+    navigate(`/competitons/submissions/${Competition_details}`);
   };
   const competitionRules = {
     description:
@@ -51,9 +55,49 @@ const CompetitionPage = () => {
   const [competitionDetails, setCompetitionDetails] = useState({
     rules: competitionRules,
   });
-  const onSubmit = (values) => {
-    console.log(values);
+  const [competitionData, setCompetitionData] = useState("")
+  const onSubmit = (values,competitionNAme) => {
+    console.log(values,competitionNAme);
+
+    const data = {
+      'userid' : userId,
+      'answer': values,
+      'competiton':((competitionNAme.toLowerCase()).replace(" ", "_"))
+    }
+    console.log(data)
+    sendDataToDB(data)
+    setIsModalVisible(false)
+    setCompetitionData("")
+
   };
+
+
+  const sendDataToDB = async(object)=>{
+  
+    let response = await fetch(
+      
+      `http://localhost:5000/competitions/submit/answer`,
+      {
+        // Adding method type
+        method: "POST",
+    
+        // Adding body or contents to send
+        body: JSON.stringify(
+          object
+         
+        ),
+    
+        // Adding headers to the request
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    );
+    response = await response.json()
+    console.log(response)
+      }
+  
+  
   useEffect(() => {
     if (showModal) {
       console.log(competitionDetails);
@@ -119,7 +163,7 @@ const CompetitionPage = () => {
                     <Button
                       type="primary"
                       shape="round"
-                      onClick={movetoCompetitionSubmissionPage}
+                      onClick={()=>{movetoCompetitionSubmissionPage(('Idea Hack'.toLowerCase()).replace(" ", "_"))}}
                       className="adminButton"
                     >
                       View Submissions
@@ -188,7 +232,7 @@ const CompetitionPage = () => {
                     <Button
                       type="primary"
                       shape="round"
-                      onClick={movetoCompetitionSubmissionPage}
+                      onClick={()=>{movetoCompetitionSubmissionPage(('Innovah Cup'.toLowerCase()).replace(" ", "_"))}}
                       className="adminButton"
                     >
                       View Submissions
@@ -260,7 +304,7 @@ const CompetitionPage = () => {
                     <Button
                       type="primary"
                       shape="round"
-                      onClick={movetoCompetitionSubmissionPage}
+                      onClick={()=>{movetoCompetitionSubmissionPage(('Proposal Defence'.toLowerCase()).replace(" ", "_"))}}
                       className="adminButton"
                     >
                       View Submissions
@@ -299,15 +343,10 @@ const CompetitionPage = () => {
                   setIsModalVisible(false);
                 }}
                 onOk={() => {
-                  form
-                    .validateFields()
-                    .then((values) => {
-                      form.resetFields();
-                      onSubmit(values);
-                    })
-                    .catch((info) => {
-                      console.log("Validate Failed:", info);
-                    });
+                  console.log(competitionData)
+                 
+                      onSubmit(competitionData,competitionDetails.competition);
+                   
                 }}
                 className="addCompetitionForm"
               >
@@ -365,7 +404,7 @@ const CompetitionPage = () => {
                       rules={[
                         {
                           required: true,
-                          message: "Please enter playlist description",
+                          message: "Please enter submission description",
                         },
                       ]}
                       style={{
@@ -378,6 +417,7 @@ const CompetitionPage = () => {
                         showCount
                         maxLength={3000}
                         placeholder="Enter Your Solution"
+                        onChange={(e)=>{setCompetitionData(e.target.value)} }
                       />
                     </Form.Item>
                   </Form>

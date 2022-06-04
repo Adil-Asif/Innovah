@@ -145,7 +145,7 @@ const SignUp = () => {
     if (accountDetails.isSubmit) {
       console.log(accountDetails);
       axios
-        .post("https://innovah.herokuapp.com/Login/signup", { accountDetails })
+        .post("http://localhost:5000/Login/signup", { accountDetails })
         .then((result) => {
           console.log(result, "2");
           if (result.data === "Error") {
