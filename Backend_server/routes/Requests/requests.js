@@ -7,6 +7,7 @@ router.get('/allrequests',requestController.gettAllRequests)
 router.post('/submitrequest',requestController.postRequestSubmittion)
 router.get('/getallyoursubmissions/:userid/:requestid',requestController.gettAllYourSubmissions)
 router.post('/sendinghiringmail',requestController.sendMailOfSubmission)
+router.post('/updaterequest',requestController.updateRequest)
 
 
 module.exports = router

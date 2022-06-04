@@ -64,10 +64,13 @@ const ViewIdeasPage = () => {
       })
       .then((result) => {
         console.log(result);
-        if (result.data.comments != null) {
-          setCommentLength(result.data.comments);
+        
+        if (result.data.comments === null) {
+        result.data.comments=[]  
+         
         }
         setIdeaDetails(result.data);
+        
       });
   }, [isUpdate]);
 
@@ -90,7 +93,9 @@ const ViewIdeasPage = () => {
   }, [juryFeedback]);
 
   return (
+    
     <div className="viewIdeasPage">
+    {console.log(ideaDetails)}
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">
@@ -132,7 +137,10 @@ const ViewIdeasPage = () => {
 
               <div className="comments">
                 <div className="feedbackRow">
-                  {ideaDetails.comments !== null ? (
+
+                  {console.log(ideaDetails)}
+                  {(ideaDetails  &&ideaDetails.comments !== null && ideaDetails.comments.length !== 0) ? (
+
                     ideaDetails.comments.map(
                       (commentDetails, i, commentLength) =>
                     

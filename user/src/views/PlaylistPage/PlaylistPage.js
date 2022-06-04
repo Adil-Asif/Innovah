@@ -18,7 +18,7 @@ const { TextArea } = Input;
 
 const PLayListPage = () => {
   const [params, setParams] = useState(useParams());
-  console.log(params);
+  console.log(params,"using params");
   let video = {
     videoTitle: "",
     videoDescription: "",
@@ -64,14 +64,14 @@ const PLayListPage = () => {
     video.isSubmitted = true;
     setvideoDetails(video);
   };
-
+console.log(params.playlistid)
   useEffect(() => {
     axios
       .post("http://localhost:5000/Learn/playlist", {
         playlistid: params.playlistid,
       })
       .then((response) => {
-        console.log(response);
+        console.log(response,"this is response");
         setTitle(response.data[1].title);
         setVideoList(response.data[0]);
       });

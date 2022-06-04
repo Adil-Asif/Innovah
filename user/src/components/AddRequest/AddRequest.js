@@ -88,6 +88,9 @@ const AddRequest = () => {
 
   useEffect(() => {
     if (requestDetails.isSubmit) {
+      requestDetails.requestDescription = requestDetails.requestDescription.replace("\n"," ")
+      requestDetails.requestDescription = requestDetails.requestDescription.replace("+"," ")
+      requestDetails.requestDescription = requestDetails.requestDescription.replace( " \" "," ")
       sendDataToDB(requestDetails)
       message.success("Request Posted");
       console.log(requestDetails);
