@@ -27,7 +27,6 @@ const GlobalIdeasPage = () => {
       })
       .then((result) => {
         console.log(result);
-
         setIdeaList(result.data);
       });
   }, []);

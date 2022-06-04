@@ -137,8 +137,10 @@ const ViewIdeasPage = () => {
 
               <div className="comments">
                 <div className="feedbackRow">
+
                   {console.log(ideaDetails)}
                   {(ideaDetails  &&ideaDetails.comments !== null && ideaDetails.comments.length !== 0) ? (
+
                     ideaDetails.comments.map(
                       (commentDetails, i, commentLength) =>
                     
