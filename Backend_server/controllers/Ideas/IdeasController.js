@@ -24,7 +24,6 @@ exports.addidea = (req, res) => {
       domain: req.body.ideaDomain,
       isapproved: 0,
       deliverables: req.body.ideaFinalDeliverables,
-      innovahPoints: req.body.innovahPoints,
     };
 
     let sql = "insert into idea set ?";

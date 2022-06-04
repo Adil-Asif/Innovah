@@ -59,15 +59,18 @@ const ViewIdeasPage = () => {
 
   useEffect(() => {
     axios
-      .post("https://innovah.herokuapp.com/ideas/myideas/viewidea", {
+      .post("http://localhost:5000/ideas/myideas/viewidea", {
         ideaid: params.ideaid,
       })
       .then((result) => {
         console.log(result);
-        if (result.data.comments != null) {
-          setCommentLength(result.data.comments);
+        
+        if (result.data.comments === null) {
+        result.data.comments=[]  
+         
         }
         setIdeaDetails(result.data);
+        
       });
   }, [isUpdate]);
 
@@ -75,7 +78,7 @@ const ViewIdeasPage = () => {
     if (juryFeedback !== "") {
       axios
         .post(
-          "https://innovah.herokuapp.com/ideas/myideas/viewidea/juryresponse",
+          "http://localhost:5000/ideas/myideas/viewidea/juryresponse",
           juryFeedback
         )
         .then((result) => {
@@ -90,7 +93,9 @@ const ViewIdeasPage = () => {
   }, [juryFeedback]);
 
   return (
+    
     <div className="viewIdeasPage">
+    {console.log(ideaDetails)}
       <Layout style={{ minHeight: "100vh" }}>
         <Sidebar />
         <Layout className="site-layout" data-theme="dark">
@@ -132,7 +137,8 @@ const ViewIdeasPage = () => {
 
               <div className="comments">
                 <div className="feedbackRow">
-                  {ideaDetails.comments.length !== 0 ? (
+                  {console.log(ideaDetails)}
+                  {(ideaDetails  &&ideaDetails.comments !== null && ideaDetails.comments.length !== 0) ? (
                     ideaDetails.comments.map(
                       (commentDetails, i, commentLength) =>
                     

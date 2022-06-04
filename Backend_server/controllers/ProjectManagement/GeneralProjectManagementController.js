@@ -28,7 +28,7 @@ exports.returnSpecificRecord = (req, res) => {
         else {
             console.log(result)
             totalresponse = result
-            //   console.log(result);
+           console.log(result);
             // res.send(result);
         }
     });

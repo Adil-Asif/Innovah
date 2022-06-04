@@ -19,7 +19,7 @@ const RequestsItem = (props) => {
   )
   console.log(userId)
   let request = {
-    requestID: "",
+    requestID: props.requestid,
     requestName: props.RequestName,
     requestDescription: props.description,
     requestImage: props.imageUrl,
@@ -101,6 +101,7 @@ const RequestsItem = (props) => {
       request.requestDescription = requestDetails.requestDescription;
       request.requestImage = imageAsUrl.imgUrl;
       request.isUpdated = true;
+      request.requestID=props.requestid
       setRequestDetails(request);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -108,23 +109,27 @@ const RequestsItem = (props) => {
 
   useEffect(() => {
     if (requestDetails.isUpdated) {
+      requestDetails.requestID=props.requestid
       console.log(requestDetails);
+      updateDataToDB(requestDetails)
+      
     }
   }, [requestDetails]);
+  console.log(props.requestid,"request ID")
   useEffect(() => {
 
     // when redux is implemented get logged in ID
     if (Proposal !== "") {
       console.log("Received values of form: ", Proposal,props);
       sendDataToDB({submitted_by:userId,
-      request_id:props.requestId,
+      request_id:props.requestid,
       proposal_content:Proposal})
     }
   }, [Proposal]);
 
   const sendDataToDB = async(object)=>{
     let response = await fetch(
-      `https://innovah.herokuapp.com/requests/submitrequest`,
+      `http://localhost:5000/requests/submitrequest`,
       {
         // Adding method type
         method: "POST",
@@ -145,7 +150,30 @@ const RequestsItem = (props) => {
     console.log(response)
       }
 
-
+      const updateDataToDB = async(object)=>{
+        let response = await fetch(
+          `http://localhost:5000/requests/updaterequest`,
+          {
+            // Adding method type
+            method: "POST",
+        
+            // Adding body or contents to send
+            body: JSON.stringify(
+              object
+             
+            ),
+        
+            // Adding headers to the request
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          }
+        );
+        response = await response.json()
+        console.log(response)
+          }
+    
+    
 
 
 
@@ -330,7 +358,7 @@ const RequestsItem = (props) => {
                   maxLength={3000}
                 />
               </Form.Item>
-              <Form.Item name="requestImage">
+              {/* <Form.Item name="requestImage">
                 <Upload.Dragger
                   listType="picture"
                   accept=".png,.jpg"
@@ -347,7 +375,7 @@ const RequestsItem = (props) => {
                     Upload Image
                   </Button>
                 </Upload.Dragger>
-              </Form.Item>
+              </Form.Item> */}
             </div>
           </Form>
         </div>

@@ -7,6 +7,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import ProjectDashboard from "../../assests/Images/ProjectDashboard.svg";
+import noProjects from "./../../assests/Images/noprojects.svg"
 import PageTitle from "../../components/PageTitle/PageTitle";
 import AI_image from "./../../assests/Images/ProjectManagement/AI_project.jpg";
 import Stream from "./../../assests/Images/IdeasImage/Stream.jpg";
@@ -358,7 +359,8 @@ const ProjectManagement = () => {
             </div>
 
             <div className="yourProjects">
-              {projectResponse ? (
+              {(projectResponse) ? (
+                (projectResponse && projectResponse.length===0)?(<div className="noprojectimage"> <img height="200" src={noProjects} alt="No Projects found" />   </div>) :(
                 projectResponse.map((project) => (
                   <>
                     <div
@@ -403,10 +405,12 @@ const ProjectManagement = () => {
                       </div>
                     </div>
                   </>
-                ))
+                )))
               ) : (
-                <Spin size="large" />
+                <img src={noProjects} alt="No Projects found" />
               )}
+
+             
             </div>
           </Content>
           <Footer />

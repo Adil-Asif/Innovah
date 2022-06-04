@@ -39,7 +39,7 @@ const PLayListPage = () => {
     if (videoDetails.isSubmitted) {
       console.log(videoDetails);
       axios
-        .post("https://innovah.herokuapp.com/Learn/addingvideo", {
+        .post("http://localhost:5000/Learn/addingvideo", {
           playlistid: params.playlistid,
           description: videoDetails.videoDescription,
           videoiframe: videoDetails.videoiframe,

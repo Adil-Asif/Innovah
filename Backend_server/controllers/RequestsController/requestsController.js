@@ -5,7 +5,7 @@ exports.addNewRequest = async (req, res) => {
     userid =  req.params.userid
     console.log(userid)
     let currentID
-    console.log(req.body)
+   // console.log(req.body)
     console.log("######################################################")
     let sql = `SELECT MAX(CAST(requestid AS SIGNED)) as maxkey FROM posting_request;`
     await model.query(sql, (err, result) => {
@@ -22,11 +22,11 @@ exports.addNewRequest = async (req, res) => {
                 console.log(currentID, "currentID 2")
             }
 
-            sql = `insert into posting_request(requestid, requesttitle, request_description, userid,image,isHired) values ('${currentID}','${req.body.requestTitle}','${req.body.requestDescription}','${userid}','${req.body.requestImage}',${false});`
+            sql = `insert into posting_request(requestid, requesttitle, request_description, userid,image,isHired) values ('${currentID}','${req.body.requestTitle}',"${req.body.requestDescription}",'${userid}','${req.body.requestImage}',${false});`
             console.log(currentID,"is current ID prinintg")
             model.query(sql, (err, result) => {
                 try {
-                    console.log(result)
+                    console.log(result,err)
                     res.send({ "DataEntry": true })
 
                 } catch (error) {
@@ -282,4 +282,21 @@ await transporter.sendMail(info,(err)=>{
     }
 })
 
+}
+
+exports.updateRequest=(req,res)=>{
+    console.log(req.body)
+    sql = `Update posting_request set requesttitle = '${req.body.requestName}',request_description='${req.body.requestDescription}'  where requestid = '${req.body.requestID}'` ;
+    model.query(sql, (err, result) => {
+        if (err) {
+            console.log(JSON.stringify(err, undefined, 2)); //
+        }
+        else {
+           
+            console.log(result)
+         
+
+           
+        }
+    });
 }

@@ -88,6 +88,9 @@ const AddRequest = () => {
 
   useEffect(() => {
     if (requestDetails.isSubmit) {
+      requestDetails.requestDescription = requestDetails.requestDescription.replace("\n"," ")
+      requestDetails.requestDescription = requestDetails.requestDescription.replace("+"," ")
+      requestDetails.requestDescription = requestDetails.requestDescription.replace( " \" "," ")
       sendDataToDB(requestDetails)
       message.success("Request Posted");
       console.log(requestDetails);
@@ -101,7 +104,7 @@ console.log(userId)
   
 let response = await fetch(
   
-  `https://innovah.herokuapp.com/requests/addnewrequest/${userId}`,
+  `http://localhost:5000/requests/addnewrequest/${userId}`,
   {
     // Adding method type
     method: "POST",

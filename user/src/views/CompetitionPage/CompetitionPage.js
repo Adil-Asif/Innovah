@@ -19,6 +19,10 @@ const CompetitionPage = () => {
   const userId = useSelector(
     (state) => state.userDetails.userid
   )
+  const userRole = useSelector(
+    (state)=>state.userDetails.userrole
+  )
+  console.log(userRole)
   const { form } = Form;
   let navigate = useNavigate();
   const movetoCompetitionSubmissionPage = (Competition_details) => {
@@ -160,6 +164,7 @@ const CompetitionPage = () => {
                     <div className="difficultyTitle">High</div>
                   </div>
                   <div>
+                    {(userRole==="Administrator")&&(
                     <Button
                       type="primary"
                       shape="round"
@@ -168,6 +173,7 @@ const CompetitionPage = () => {
                     >
                       View Submissions
                     </Button>
+                    )}
                   </div>
                   <div>
                     <Button
@@ -229,6 +235,7 @@ const CompetitionPage = () => {
                     <div className="difficultyTitle">High</div>
                   </div>
                   <div>
+                  {(userRole==="Administrator")&&(
                     <Button
                       type="primary"
                       shape="round"
@@ -236,7 +243,7 @@ const CompetitionPage = () => {
                       className="adminButton"
                     >
                       View Submissions
-                    </Button>
+                    </Button>)}
                   </div>
                   <div>
                     <Button
@@ -301,6 +308,7 @@ const CompetitionPage = () => {
                     <div className="difficultyTitle">High</div>
                   </div>
                   <div>
+                  {(userRole==="Administrator")&&(
                     <Button
                       type="primary"
                       shape="round"
@@ -309,6 +317,7 @@ const CompetitionPage = () => {
                     >
                       View Submissions
                     </Button>
+                  )}
                   </div>
                   <div>
                     <Button

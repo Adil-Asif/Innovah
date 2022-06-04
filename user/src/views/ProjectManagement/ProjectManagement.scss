@@ -52,6 +52,14 @@
     justify-content:space-between;
     flex-wrap: wrap;
     // padding-bottom: 10px;
+    .noprojectimage{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    
+    }
+      
   }
 
   .projects {
