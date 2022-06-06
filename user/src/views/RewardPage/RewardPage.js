@@ -35,7 +35,7 @@ const RewardPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/Rewards/", { params: { userid: userid } })
+      .get("https://innovah-backend.herokuapp.com/Rewards/", { params: { userid: userid } })
       .then((response) => {
         console.log(response);
         setRewardList(response.data);
@@ -46,7 +46,7 @@ const RewardPage = () => {
   useEffect(() => {
     if (rewardItem !== "") {
       axios
-        .post("http://localhost:5000/Rewards/postreward", {
+        .post("https://innovah-backend.herokuapp.com/Rewards/postreward", {
           rewardTitle: rewardItem.rewardTitle,
           rewardDescription: rewardItem.rewardDescription,
           rewardPoints: rewardItem.rewardPoints,

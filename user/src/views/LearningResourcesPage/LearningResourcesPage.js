@@ -124,7 +124,7 @@ const updateStatus = (data) =>
 
 
   useEffect(() => {
-    axios.get("http://localhost:5000/Learn/").then((response) => {
+    axios.get("https://innovah-backend.herokuapp.com/Learn/").then((response) => {
       console.log(response);
       setLearningresourcesList(response.data);
     });
@@ -133,7 +133,7 @@ const updateStatus = (data) =>
     if (playlistDetails.isSubmitted) {
       // TODO: handle post request
       axios
-        .post("http://localhost:5000/Learn/addingplaylist/", {
+        .post("https://innovah-backend.herokuapp.com/Learn/addingplaylist/", {
           trainerid: userid,
           playlistname: playlistDetails.playlistTitle,
           description: playlistDetails.playlistDescription,

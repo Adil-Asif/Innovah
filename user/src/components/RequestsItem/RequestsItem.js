@@ -124,7 +124,7 @@ const RequestsItem = (props) => {
 
   const sendDataToDB = async(object)=>{
     let response = await fetch(
-      `http://localhost:5000/requests/submitrequest`,
+      `https://innovah-backend.herokuapp.com/requests/submitrequest`,
       {
         // Adding method type
         method: "POST",

@@ -42,7 +42,7 @@ const LoginModals = (props) => {
       emailorname: values.email,
       password: values.password,
     };
-    axios.post("http://localhost:5000/Login/signin", { obj }).then((result) => {
+    axios.post("https://innovah-backend.herokuapp.com/Login/signin", { obj }).then((result) => {
       console.log(result);
       if (
         result.data === "Invalid Email" ||
@@ -81,7 +81,7 @@ const LoginModals = (props) => {
     }
     // console.log("Success:", values);
 
-    // axios.post('http://localhost:5000/Login/signup',obj)
+    // axios.post('https://innovah-backend.herokuapp.com/Login/signup',obj)
     // .then((result)=>{
     //   console.log(result);
     // })

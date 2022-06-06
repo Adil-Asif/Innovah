@@ -21,7 +21,7 @@ const MyIdeasPage = () => {
     }
   };
   useEffect(() => {
-    axios.get("http://localhost:5000/ideas/myideas").then((result) => {
+    axios.get("https://innovah-backend.herokuapp.com/ideas/myideas").then((result) => {
       setIdeaList(result.data);
     });
   }, [updateIdea]);

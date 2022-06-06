@@ -121,7 +121,7 @@ const AddIdeaPage = () => {
   }, [imageAsUrl]);
   const func = async (obj) => {
     await axios
-      .post("http://localhost:5000/ideas/addidea", obj)
+      .post("https://innovah-backend.herokuapp.com/ideas/addidea", obj)
       .then((result) => {
         console.log(result);
       });
@@ -132,7 +132,7 @@ const AddIdeaPage = () => {
       func(ideaDetails);
       form.resetFields();
       message.success("Idea Posted");
-      // axios.post('http://localhost:5000/ideas/addidea',ideaDetails)
+      // axios.post('https://innovah-backend.herokuapp.com/ideas/addidea',ideaDetails)
       // .then((result)=>{
       //   console.log(result);
       // })

@@ -30,7 +30,7 @@ const LectureVideoPage = () => {
   // useEffect(() => {
   //   const responseFunction = async () => {
   //     var response = await axios.get(
-  //       "http://localhost:5000/Learn/playlist/video"
+  //       "https://innovah-backend.herokuapp.com/Learn/playlist/video"
   //     );
   //     setResponse(await response);
   //   };
@@ -40,7 +40,7 @@ const LectureVideoPage = () => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/Learn/playlist/video", {
+      .post("https://innovah-backend.herokuapp.com/Learn/playlist/video", {
         playlistid: params.playlistid,
         id: params.videoid,
         innovahPoints: innovahPoints,
