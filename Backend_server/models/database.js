@@ -3,26 +3,28 @@ const mysql = require('mysql')
 const app = express()
 require('dotenv').config()
 console.log(process.env.USER, process.env.PASSWORD,process.env.DATABASE_NAME)
-var db = mysql.createConnection({
-    host: 'localhost',
+var db = mysql.createPool({
+    host: process.env.HOST,
     user:process.env.USER,
     password: process.env.PASSWORD,
     database:process.env.DATABASE_NAME
 });
 
 
+// mysql://b99f308be90920:37033141@us-cdbr-east-05.cleardb.net/heroku_05e4190ef19bc97?reconnect=true
 
 
-db.connect((err)=>{
-    if(err){
-        console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
+
+// db.connect((err)=>{
+//     if(err){
+//         console.log('Connection Failed!'+ JSON.stringify(err,undefined,2));
         
 
-    }
-    else{
-        console.log("mysql connected");    
-    }
-});
+//     }
+//     else{
+//         console.log("mysql connected");    
+//     }
+// });
 // app.get('/createtables',(req,res)=>{
 
 //        let sql = 'create table user_details(username VARCHAR(200) Not Null UNIQUE,city varchar(2000) Not Null,ph_num varchar(20) Not Null,country varchar(2000) Not Null,gender varchar(10),industry varchar(200) Not Null,userrole varchar(200) Not Null,picture varchar(200) Not Null,userid varchar(200) Primary KEY, email text Unique Not Null,password text Not Null,fullname text Not Null,resume_desc text Not Null)';
