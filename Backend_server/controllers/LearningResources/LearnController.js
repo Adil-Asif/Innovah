@@ -69,9 +69,10 @@ exports.addvideo = (req, res) => {
   if (session.getItem("signin") == true) {
     // var trainerid = session.getItem('useridinfo');
     var videoid = uuid.v1();
-    let sql1 = "select userid from user_details";
+    const userinfo = session.getItem("useridinfo");
+    let sql1 = "select playlistid, userid from learning where trainerid = ?";
     let allUserId = "";
-    model.query(sql1, (err, result) => {
+    model.query(sql1, userinfo, (err, result) => {
       if (err) {
         // console.log(user_id);
         console.log(JSON.stringify(err, undefined, 2));
@@ -79,18 +80,17 @@ exports.addvideo = (req, res) => {
       } else {
         console.log(result);
         allUserId = result;
-        var videoid = uuid.v1();
+
         console.log(allUserId[0].userid);
         for (let i = 0; i < allUserId.length; i++) {
           let videoinfo = {
             id: uuid.v1(),
-            playlistid: req.body.playlistid,
+            playlistid: allUserId[i].playlistid,
             description: req.body.description,
             userid: allUserId[i].userid,
             videotitle: req.body.videotitle,
             videoiframe: req.body.videoiframe,
           };
-
           let sql = "insert into playlist set ?";
           model.query(sql, videoinfo, (err, result) => {
             if (err) {
@@ -140,7 +140,7 @@ exports.changeenrollstatus = (req, res) => {
 exports.getallitems = (req, res) => {
   if (session.getItem("signin") == true) {
     const userinfo = session.getItem("useridinfo");
-    console.log(userinfo)
+    console.log(userinfo);
     // userinfo = "6dbb0ba0-999e-11ec-ba73-d9e1c22c2fb81";
     console.log(userinfo);
     // let sql = "select userid from user_details where userid="+mysql.escape(userinfo);
@@ -154,7 +154,7 @@ exports.getallitems = (req, res) => {
         // session.setItem('playlistname',result[0].title);
         // console.log(result)
         // var trainerid =
-        console.log(result)
+        console.log(result);
         res.send(result);
 
         // session.setItem("enrollstatus",enrolledstatus)
@@ -187,11 +187,10 @@ exports.getplaylist = (req, res) => {
 
     let sql = `select * from playlist where userid='${userinfo}' AND playlistid='${playlistid}'`;
     model.query(sql, (err, result) => {
-
       if (err) {
         console.log(JSON.stringify(err, undefined));
       } else {
-        console.log("query executed properly",err);
+        console.log("query executed properly", err);
 
         console.log(sql);
         console.log("query executed properly");
@@ -203,7 +202,7 @@ exports.getplaylist = (req, res) => {
               console.log(JSON.stringify(err, undefined, 2));
             } else {
               //  session.p title = result[0];
-              console.log(err)
+              console.log(err);
               res.send([result, result1[0]]);
             }
           });
